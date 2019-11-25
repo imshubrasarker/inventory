@@ -279,10 +279,10 @@ class CustomersController extends Controller
         $payments = Payment::where('customer_id',$id)->get();
         $total_payment_amount = $payments->sum('amount');
 
-        $results = array();  
+        $results = array();
         $paymentsl = Payment::where('customer_id',$id)->latest()->get();
-        
-        if($customer){  
+
+        if($customer){
             $rows['created_at'] = $customer->created_at;
             $rows['ivno'] = '';
             $rows['qty'] = $customer->quantity;
@@ -290,13 +290,13 @@ class CustomersController extends Controller
             $rows['ramount'] = 0;
             $rows['damount'] = $customer->due;
             $rows['lamount'] = $customer->due;
-            $rows['notebar'] = $customer->note; 
-            $rows['type'] = 'customer'; 
+            $rows['notebar'] = $customer->note;
+            $rows['type'] = 'customer';
             $rows['user_id'] = '';
-            $results[] = $rows; 
+            $results[] = $rows;
         }
         if($paymentsl){
-            foreach ($payments as $key => $row) {  
+            foreach ($payments as $key => $row) {
                 $rows['created_at'] = $row->manual_date;
                 $rows['ivno'] = '';
                 $rows['qty'] = '';
@@ -304,14 +304,14 @@ class CustomersController extends Controller
                 $rows['ramount'] = $row->amount;
                 $rows['damount'] = 0;
                 $rows['lamount'] = $row->amount;
-                $rows['notebar'] = $row->notebar; 
-                $rows['type'] = 'payments'; 
+                $rows['notebar'] = $row->notebar;
+                $rows['type'] = 'payments';
                 $rows['user_id'] = $row->user_id;
-                $results[] = $rows; 
+                $results[] = $rows;
             }
         }
         if($invoices){
-            foreach ($invoices as $key => $row) {  
+            foreach ($invoices as $key => $row) {
                 $rows['created_at'] = $row->manual_date;
                 $rows['ivno'] = $row->invoice_id;
                 $rows['qty'] = $row->total_quantity;
@@ -319,18 +319,18 @@ class CustomersController extends Controller
                 $rows['ramount'] = 0;
                 $rows['damount'] = $row->due_amount;
                 $rows['lamount'] = $row->due_amount;
-                $rows['notebar'] = ''; 
-                $rows['type'] = 'invoice'; 
+                $rows['notebar'] = '';
+                $rows['type'] = 'invoice';
                 $rows['user_id'] = $row->user_id;
-                $results[] = $rows; 
+                $results[] = $rows;
             }
         }
         if($results){
             foreach ($results as $key => $part) {
-               $sort[$key] = strtotime($part['created_at']);  
+               $sort[$key] = strtotime($part['created_at']);
             }
             array_multisort($sort, SORT_ASC, $results);
-        } 
+        }
 
         $company = Company::latest()->first();
         return view('customers.print', compact('customer','payments','invoices','total_payment_amount','company','results'));

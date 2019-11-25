@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use App\Invoice;
 use App\Customer;
@@ -10,6 +11,8 @@ use App\ProductCart;
 use App\Product;
 use Carbon\Carbon;
 use App\Stock;
+use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
 
 class HomeController extends Controller
 {
@@ -30,6 +33,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+//        $role = Role::create(['name' => 'Admin']);
+//        $user = User::where('id', Auth::id())->first();
+//        $user->assignRole('Admin');
         $today = Carbon::now()->format('Y-m-d');
         // dd($today);
 
