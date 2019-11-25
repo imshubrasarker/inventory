@@ -1,0 +1,231 @@
+@extends('layouts.app')
+@section('title')
+Customer {{ $customer->id }}
+@endsection
+@section('header-script')
+<link rel="stylesheet" type="text/css" href="{{ asset('back/css/customer.css') }}">
+@endsection
+@section('content')
+<div id="page-wrapper">
+    <div class="main-page">
+        @include('layouts.include.alert')
+        <div class="forms">
+            <div class="form-grids row widget-shadow" data-example-id="basic-forms">
+                <div class="form-title">
+                    <h4>Customer :- {{ $customer->name }}</h4>
+                </div>
+                <div class="form-body">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row" id="customer">
+                                <div class="col-md-4">
+                                    <div class="panel-group">
+                                        <div class="panel panel-default">
+                                            {{-- <div class="panel-heading">Customer Panel</div> --}}
+                                            <div class="panel-body">
+                                            @if($customer->image != null)
+                                                <img class="img-circle customer_img" src="{{ asset($customer->image) }}" alt="Card image">
+                                            @else
+                                                <img class="img-circle customer_img" src="{{ asset('customer_image/img_avatar3.png') }}" alt="Card image">
+                                            @endif
+                                                <h4 class="card-title text-center">{{ $customer->name }}</h4>
+                                                <div class="row customer_invoice_info">
+                                                    <div class="col-md-6 total_invoice">
+                                                        <h4 class="text-center">{{ $invoices->count() }}</h4>
+                                                        <h3 class="text-center">TOTAL INVOICE</h3>
+                                                    </div>
+                                                    <div class="col-md-6 total_buy">
+                                                        <h4 class="text-center">
+                                                            {{ $invoices->sum('grand_total_price') }}
+                                                        </h4>
+                                                        <h3 class="text-center">TOTAL BUY</h3>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4"></div>
+                                                    <div class="col-md-4">
+                                                        <a href="{{ url('/invoice-create/'.$customer->id) }}" class="btn btn-sm btn-success">Buy Now</a>
+                                                    </div>
+                                                    <div class="col-md-4"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="panel-group">
+                                        <div class="panel panel-primary">
+                                       
+                                            <div class="panel-heading">
+                                                <h4 class="text-center text-white">Contact Information</h4>
+                                            </div>
+                                            <div class="panel-body contact_info">
+                                                <h4 class="text-center"><b>Mobile:</b> 
+                                                    {{ $customer->primary_mobile }}
+                                                </h4>
+                                                <h4 class="text-center"><b>Email:</b> {{ $customer->email }}</h4>
+                                                        <h4 class="text-center" sty><b>Address:</b></h4>
+                                                        <p style="word-break: break-all; text-align: center;">{{ $customer->address }}</p>
+                                                        <h4 class="text-center" sty><b>Note:</b></h4>
+                                                        <p style="word-break: break-all; text-align: center;">{{ $customer->note }}</p>
+                                                    
+                                            </div>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="panel-group">
+                                        <div class="panel panel-success">
+                                            <div class="panel-heading">
+                                                <h4 style="float: left;">Balance Information</h4>
+                                                <a href="{{ url('payment/create/'.$customer->id) }}" class="btn btn-sm btn-primary pull-right">Payment</a>
+                                            </div>
+                                             @php
+                                                $grand_total_price = $invoices->sum('grand_total_price');
+                                                $paid_price = $invoices->sum('advanced')+$total_payment_amount;
+                                                $due_amount = $grand_total_price+$customer->due-$paid_price;
+                                            @endphp
+                                            <div class="panel-body balance_info">
+                                                <h4>Total Amount: {{ $invoices->sum('grand_total_price') }}TK</h4>
+                                                <h4>Recive Amount: {{ $paid_price }}TK</h4>
+                                                @if($grand_total_price > $paid_price)
+                                                    <h4>Due Amount: {{ $due_amount }}TK </h4>
+                                                @else
+                                                    <h4>Due Amount: {{ $due_amount }}TK </h4>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel-group">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        Customer Ledger
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        {!! Form::open(['method' => 'GET', 'url' => '/customer-ledger-search-data', 'role' => 'search'])  !!}
+                                                        <div class="row" style="margin-top: -8px;"> 
+                                                            <div class="col-md-5">
+                                                                <input type="date" class="form-control" name="from" required="">
+                                                            </div>
+                                                            <div class="col-md-5">
+                                                                <input type="date" class="form-control" name="to" required="">
+                                                            </div>
+                                                            <input type="hidden" name="customer_id" value="{{ $customer->id }}">
+                                                            <div class="col-md-2">
+                                                                <span class="input-group-append">
+                                                                    <button class="btn btn-secondary" type="submit">
+                                                                        <i class="fa fa-search"></i>
+                                                                    </button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        {!! Form::close() !!}
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>SL.</th>
+                                                                <th>Date</th>
+                                                                <th>Invoice</th>
+                                                                <th>Quantity</th>
+                                                                <th>Invoice Amount</th>
+                                                                <th>Recived Amount</th>
+                                                                <th>Due Amount</th>
+                                                                <th>Note</th>
+                                                                <th>Receipt By</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @php
+                                                                $i = 1;
+                                                            @endphp
+                                                            @if(isset($results)) 
+                                                                @foreach($results as $key2 => $item)
+                                                                <tr>
+                                                                    <td style="width: 1%;"> {{$key2+1}}
+                                                                    </td>
+                                                                    <td style="width: 11%;"> 
+                                                                        {{ Carbon\Carbon::parse($item['created_at'])->format('d-m-Y') }}
+                                                                    </td>
+                                                                    <td> 
+                                                                        @if($item['ivno'])
+                                                                            <a href="{{ url('/invoices-print/'.$item['ivno'] ) }}" style="cursor: pointer;"> {{ $item['ivno'] }}</a>
+                                                                        @endif </td>
+                                                                    <td style="width: 10%;">{{ $item['qty'] }}</td>
+                                                                    <td style="width: 14%;">{{ $item['amount'] }}</td>
+                                                                    <td style="width: 15%;">{{ $item['ramount'] }}</td>
+                                                                    <td style="width: 12%;">{{ $item['damount'] }}</td>
+                                                                    <td>{{ $item['notebar'] }}</td>
+                                                                    @php
+                                                                        $user = App\User::where('id',$item['user_id'])->first();
+                                                                    @endphp
+                                                                    @if($item['user_id'])
+                                                                    <td style="width: 10%;">{{$user->name}} </td>
+                                                                    @else 
+                                                                    <td style="width: 10%;"> </td>
+                                                                    @endif
+                                                                </tr>
+                                                                @php
+                                                                    $i++;
+                                                                @endphp
+                                                                @endforeach 
+                                                            @endif
+                                                            @if(isset($invoices))
+                                                                 
+                                                                <?php
+                                                                  $grand_total_price = $invoices->sum('grand_total_price');
+                                                                  $advanced_amount = $invoices->sum('advanced');
+                                                                  $total_advanced_amount = $advanced_amount+$total_payment_amount;
+                                                                  $due_amount = $grand_total_price+$customer->due-$total_advanced_amount;
+                                                                  $quantity = $invoices->sum('total_quantity');
+                                                                  if($customer->quantity != null){
+                                                                    $total_quantity = $quantity+$customer->quantity;
+                                                                  }else{
+                                                                    $total_quantity = $invoices->sum('total_quantity');
+                                                                  }
+                                                                  
+                                                                ?>
+                                                                <tr>
+                                                                    <td colspan="3" class="text-right">Total</td>
+                                                                    <td>{{ $total_quantity }}</td>
+                                                                    <td>{{ $grand_total_price }}</td>
+                                                                    <td>{{ $total_advanced_amount }}</td>
+                                                                    <td>{{ $due_amount }}</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </tr>
+                                                            @endif 
+                                                        </tbody>
+                                                    </table>
+                                                    @if(isset($customer->id))
+                                                        <div class="col-md-4 col-md-offset-4">
+                                                            <a href="{{ url('/customer-ledger-print/'.$customer->id) }}" class="btn btn-primary btn-block"><i class="fa fa-print"></i> Print</a>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
