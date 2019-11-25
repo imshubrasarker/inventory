@@ -1,0 +1,118 @@
+#invoice_print{
+	border: 1px solid black;
+	margin-bottom: 5px;
+}
+
+.logo{
+	background: none;
+}
+
+.logo img{
+  	display: block!important;
+  	margin-left: auto!important;
+  	margin-right: auto!important;
+  	width: 25%!important;
+}
+
+.company_info{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 95%;
+}
+
+#company_mobile_email{
+    width: 50%;
+    margin-left: 25%;
+}
+
+.company_info p{
+    text-align: center;
+}
+
+#company_name{
+	font-weight: bolder;
+}
+
+.customers_sign{
+	float: left;
+}
+
+.owners_sign{
+	float: right;
+}
+
+.quote{
+	padding-bottom: 40px;
+}
+
+.print_btn{
+  	margin-bottom: 10px;
+}
+
+.btn-section{
+  padding: 10px;
+}
+
+
+.customer_ledger_print_btn{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+}
+
+.product_ledger_print_btn{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+}
+
+body {
+  background: rgb(204,204,204); 
+}
+page {
+  background: white;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 0.5cm;
+  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+}
+page[size="A4"] {  
+  width: 21cm;
+  height: auto; 
+}
+.print-table {
+    border: 1px solid #000;
+}
+.print-table > tbody > tr > td, .print-table > tbody > tr > th, .print-table > tfoot > tr > td, .print-table > tfoot > tr > th, .print-table > thead > tr > td, .print-table > thead > tr > th {
+    border: 1px solid #000;
+}
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+    border: 1px solid #000 !important;
+}
+#footer{
+  visibility: hidden;
+}
+@media print {
+  body, page {
+    margin: 0;
+    font-size:10px;
+    box-shadow: 0;
+    overflow: hidden;
+  }
+
+    a[href]:after {
+    content: none !important;
+  }
+
+  #footer {
+    visibility: visible;
+    bottom: 0;
+    position: fixed;
+    right: 35%;
+   }
+
+}
+
