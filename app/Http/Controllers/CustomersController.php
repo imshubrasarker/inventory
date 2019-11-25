@@ -156,7 +156,7 @@ class CustomersController extends Controller
         }
         if($payments){
             foreach ($payments as $key => $row) {  
-                $rows['created_at'] = $row->created_at;
+                $rows['created_at'] = $row->manual_date;
                 $rows['ivno'] = '';
                 $rows['qty'] = '';
                 $rows['amount'] = 0;
@@ -171,11 +171,11 @@ class CustomersController extends Controller
         }
         if($invoices){
             foreach ($invoices as $key => $row) {  
-                $rows['created_at'] = $row->created_at;
+                $rows['created_at'] = $row->manual_date;
                 $rows['ivno'] = $row->invoice_id;
                 $rows['qty'] = $row->total_quantity;
                 $rows['amount'] = $row->grand_total_price;
-                $rows['ramount'] = $row->advanced;
+                $rows['ramount'] = 0;
                 $rows['damount'] = $row->due_amount;
                 $rows['lamount'] = $row->due_amount;
                 $rows['notebar'] = ''; 
@@ -278,62 +278,8 @@ class CustomersController extends Controller
         $invoices = Invoice::where('customer_id',$id)->latest()->get();
         $payments = Payment::where('customer_id',$id)->get();
         $total_payment_amount = $payments->sum('amount');
-
-        $results = array();  
-        $paymentsl = Payment::where('customer_id',$id)->latest()->get();
-        
-        if($customer){  
-            $rows['created_at'] = $customer->created_at;
-            $rows['ivno'] = '';
-            $rows['qty'] = $customer->quantity;
-            $rows['amount'] = 0;
-            $rows['ramount'] = 0;
-            $rows['damount'] = $customer->due;
-            $rows['lamount'] = $customer->due;
-            $rows['notebar'] = $customer->note; 
-            $rows['type'] = 'customer'; 
-            $rows['user_id'] = '';
-            $results[] = $rows; 
-        }
-        if($paymentsl){
-            foreach ($payments as $key => $row) {  
-                $rows['created_at'] = $row->manual_date;
-                $rows['ivno'] = '';
-                $rows['qty'] = '';
-                $rows['amount'] = 0;
-                $rows['ramount'] = $row->amount;
-                $rows['damount'] = 0;
-                $rows['lamount'] = $row->amount;
-                $rows['notebar'] = $row->notebar; 
-                $rows['type'] = 'payments'; 
-                $rows['user_id'] = $row->user_id;
-                $results[] = $rows; 
-            }
-        }
-        if($invoices){
-            foreach ($invoices as $key => $row) {  
-                $rows['created_at'] = $row->manual_date;
-                $rows['ivno'] = $row->invoice_id;
-                $rows['qty'] = $row->total_quantity;
-                $rows['amount'] = $row->grand_total_price;
-                $rows['ramount'] = 0;
-                $rows['damount'] = $row->due_amount;
-                $rows['lamount'] = $row->due_amount;
-                $rows['notebar'] = ''; 
-                $rows['type'] = 'invoice'; 
-                $rows['user_id'] = $row->user_id;
-                $results[] = $rows; 
-            }
-        }
-        if($results){
-            foreach ($results as $key => $part) {
-               $sort[$key] = strtotime($part['created_at']);  
-            }
-            array_multisort($sort, SORT_ASC, $results);
-        } 
-
         $company = Company::latest()->first();
-        return view('customers.print', compact('customer','payments','invoices','total_payment_amount','company','results'));
+        return view('customers.print', compact('customer','payments','invoices','total_payment_amount','company'));
     }
 
     public function customerLedgerSearchView()
