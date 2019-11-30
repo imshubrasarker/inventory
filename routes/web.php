@@ -88,9 +88,17 @@ Route::middleware(['auth'])->group(function () {
 	Route::resource('smses', 'SmsesController');
 	Route::resource('companies', 'CompaniesController');
 
+
+
 	Route::get('/autocomplete', 'SearchController@autocomplete');
 	Route::post('/get-product-detail', 'SearchController@getProductDetail')->name('get_product_detail');
 	Route::post('/get-customer-detail', 'SearchController@getCustomerDetail')->name('get_customer_detail');
+	Route::get('/expenses-head', 'ExpensesHeadController@index')->name('expenses-head');
+	Route::post('/expenses-head', 'ExpensesHeadController@store')->name('store-expenses-head');
+	Route::patch('/edit-expense-head/{id}', 'ExpensesHeadController@update')->name('edit-expense-head');
+	Route::delete('/delete-expense-head{id}', 'ExpensesHeadController@destroy')->name('delete-expense-head');
+    Route::resource('expenses', 'ExpenseController');
+    Route::get('/expenses-search', 'ExpenseController@search')->name('expenses-search');
 
 
 });

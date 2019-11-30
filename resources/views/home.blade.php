@@ -65,6 +65,13 @@ Home
         <span class="count-name-total">Total Stock Value: {{ $total_stock_value }}</span>
       </div>
     </div>
+ <div class="col-md-3">
+      <div class="card-counter danger">
+        <i class="fa fa-code-fork"></i>
+        <span class="count-name"></span>
+        <span class="count-name-total">Total Expenses Value: {{ $total_expenses }}</span>
+      </div>
+    </div>
 
   </div>
 

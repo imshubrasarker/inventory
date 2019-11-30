@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Expense;
 use App\User;
 use Illuminate\Http\Request;
 use App\Invoice;
@@ -64,7 +65,7 @@ class HomeController extends Controller
 
         $monthly_sale = Invoice::where('created_at',$month)->sum('grand_total_price');
 
-        
+        $total_expenses = Expense::sum('amount');
         $customers = Customer::pluck('name','id');
 
         $seven_days = Carbon::today()->subDays(7);
@@ -112,6 +113,6 @@ class HomeController extends Controller
         }
         $invoices = Invoice::latest()->paginate(10); 
         
-        return view('home',compact('total_due', 'today_invoice', 'total_invoice', 'today_customer', 'total_customer', 'today_product', 'total_product', 'today_sale_amount', 'total_sale_amount', 'monthly_sale', 'invoices', 'customers', 'seven_days_sale', 'thirty_days_sale', 'six_months_sale', 'one_year_sale', 'total_stock', 'total_due', 'total_profit', 'total_stock_value'));
+        return view('home',compact('total_due', 'today_invoice', 'total_invoice', 'today_customer', 'total_customer', 'today_product', 'total_product', 'today_sale_amount', 'total_sale_amount', 'monthly_sale', 'invoices', 'customers', 'seven_days_sale', 'thirty_days_sale', 'six_months_sale', 'one_year_sale', 'total_stock', 'total_due', 'total_profit', 'total_stock_value', 'total_expenses'));
     }
 }

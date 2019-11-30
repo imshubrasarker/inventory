@@ -106,6 +106,20 @@
           @hasrole('Admin')
           <li class="treeview">
             <a href="#">
+              <i class="fa fa-usd" aria-hidden="true"></i>
+              <span>Expenses</span>
+              <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="{{ route('expenses-head') }}"><i class="fa fa-angle-right"></i>Expenses Head</a></li>
+              <li><a href="{{ route('expenses.create') }}"><i class="fa fa-angle-right"></i>Expenses Create</a></li>
+              <li><a href="{{ route('expenses.index') }}"><i class="fa fa-angle-right"></i>Manage Expenses</a></li>
+            </ul>
+          </li>
+          @endhasrole
+          @hasrole('Admin')
+          <li class="treeview">
+            <a href="#">
             <i class="fa fa-anchor"></i>
             <span>Settings</span>
             <i class="fa fa-angle-left pull-right"></i>
