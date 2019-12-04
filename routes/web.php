@@ -99,6 +99,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::delete('/delete-expense-head{id}', 'ExpensesHeadController@destroy')->name('delete-expense-head');
     Route::resource('expenses', 'ExpenseController');
     Route::get('/expenses-search', 'ExpenseController@search')->name('expenses-search');
+    Route::resource('supplier', 'SupplierController');
 
 
 });
