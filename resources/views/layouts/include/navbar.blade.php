@@ -117,6 +117,20 @@
             </ul>
           </li>
           @endhasrole
+
+          @hasrole('Admin')
+          <li class="treeview">
+            <a href="#">
+              <i class="fa fa-truck" aria-hidden="true"></i>
+              <span>Supplier</span>
+              <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="{{ route('supplier.create') }}"><i class="fa fa-angle-right"></i>Create Supplier</a></li>
+              <li><a href="{{ route('supplier.index') }}"><i class="fa fa-angle-right"></i>Manage Supplier</a></li>
+            </ul>
+          </li>
+          @endhasrole
           @hasrole('Admin')
           <li class="treeview">
             <a href="#">
