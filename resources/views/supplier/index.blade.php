@@ -16,9 +16,33 @@
                     <div class="form-body">
                         <div class="card">
                             <div class="card-body">
-                                <a href="{{ url('/home') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+
+                                <div style="overflow: hidden">
+                                    <div class="float-left" style="float: left">
+                                        <a href="{{ url('/home') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                                    </div>
+                                    <div class="float-right" style="float: right">
+                                        <form class="navbar-form" role="search" action="{{ route('search.supplier') }}" method="get">
+                                            @csrf
+                                            <div class="input-group add-on">
+                                                <input class="form-control" placeholder="Search" name="key" id="srch-term" type="text">
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
                                 <br>
                                 <br>
+                                @if (isset($total))
+                                    <div style="overflow: hidden">
+                                        <div style="float: right; margin-bottom: 10px">
+                                            <h4>Total Balance: {{ $total }}</h4>
+                                        </div>
+                                    </div>
+                                @endif
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered">
                                         <thead class="thead-dark">

@@ -57,8 +57,8 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('/payment-list-print', 'PaymentsController@printPaymentView');
 	Route::get('/stock-list-print', 'StocksController@printStockView');
 	Route::get('/product-list-print', 'ProductsController@printProductView');
-	
-	
+
+
 
 	Route::get('/invoice-create/{id}', 'InvoicesController@invoiceCreateByCustomerId');
 
@@ -99,6 +99,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::delete('/delete-expense-head{id}', 'ExpensesHeadController@destroy')->name('delete-expense-head');
     Route::resource('expenses', 'ExpenseController');
     Route::get('/expenses-search', 'ExpenseController@search')->name('expenses-search');
+    Route::get('/supplier/search', 'SupplierController@search')->name('search.supplier');
     Route::resource('supplier', 'SupplierController');
 
 

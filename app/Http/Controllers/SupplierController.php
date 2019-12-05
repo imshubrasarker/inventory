@@ -16,8 +16,9 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        $suppliers =Supplier::paginate(10);
-        return view('supplier.index', compact('suppliers'));
+        $suppliers = Supplier::paginate(10);
+        $total = Supplier::sum('balance');
+        return view('supplier.index', compact('suppliers', 'total'));
     }
 
     /**
@@ -87,5 +88,15 @@ class SupplierController extends Controller
     {
         $supplier->delete();
         return back()->with('success', 'Supplier Deleted');
+    }
+
+    public function search(Request $request) {
+        $keyword = $request->key;
+        $suppliers = Supplier::where('name','LIKE', "%$keyword%")
+            ->orWhere('mobile', 'LIKE', "%$keyword%")
+            ->orWhere('created_at', 'LIKE', "%$keyword%")->paginate(10);
+
+        return view('supplier.index', compact('suppliers'));
+
     }
 }
