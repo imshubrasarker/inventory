@@ -32,7 +32,7 @@
               @endhasrole
             </ul>
           </li>
-          
+
           <li class="treeview">
             <a href="#">
             <i class="fa fa-product-hunt"></i>
@@ -47,7 +47,7 @@
               {{-- <li><a href="{{ url('customer-ledger') }}"><i class="fa fa-angle-right"></i> Customer Ledger</a></li> --}}
             </ul>
           </li>
-          
+
           <li class="treeview">
             <a href="#">
             <i class="fa fa-user"></i>
@@ -61,7 +61,7 @@
                  @endhasrole
             </ul>
           </li>
-      
+
 
           <li class="treeview">
             <a href="#">
@@ -72,12 +72,12 @@
             <ul class="treeview-menu">
               @hasrole('Admin|Rony')
               <li><a href="{{ url('stocks/create') }}"><i class="fa fa-angle-right"></i> Create New Stock</a></li>
-          
+
               <li><a href="{{ url('stocks') }}"><i class="fa fa-angle-right"></i> Manage Stock</a></li>
                @endhasrole
             </ul>
           </li>
-          
+
           <li class="treeview">
             <a href="#">
             <i class="fa fa-product-hunt"></i>
@@ -131,6 +131,20 @@
             </ul>
           </li>
           @endhasrole
+
+            @hasrole('Admin')
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-money" aria-hidden="true"></i>
+                    <span>Purchase</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{ route('purchase.create') }}"><i class="fa fa-angle-right"></i>Create Purchase</a></li>
+                    <li><a href="{{ route('purchase.index') }}"><i class="fa fa-angle-right"></i>Manage Purchase</a></li>
+                </ul>
+            </li>
+            @endhasrole
           @hasrole('Admin')
           <li class="treeview">
             <a href="#">

@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Expense;
+use App\Purchase;
 use App\Supplier;
-use App\User;
-use Illuminate\Http\Request;
 use App\Invoice;
 use App\Customer;
 use App\Payment;
@@ -13,8 +12,6 @@ use App\ProductCart;
 use App\Product;
 use Carbon\Carbon;
 use App\Stock;
-use Illuminate\Support\Facades\Auth;
-use Spatie\Permission\Models\Role;
 
 class HomeController extends Controller
 {
@@ -115,7 +112,9 @@ class HomeController extends Controller
             $due_amount = $grand_total_price+$customer_due->due-$paid_price;
             $total_due +=$due_amount;
         }
+		$total_purchase = Purchase::sum('amount');
+		$today_purchase = Purchase::whereDate('created_at', Carbon::today())->sum('amount');
         $invoices = Invoice::latest()->paginate(10);
-        return view('home',compact('total_due', 'today_invoice', 'total_invoice', 'today_customer', 'total_customer', 'today_product', 'total_product', 'today_sale_amount', 'total_sale_amount', 'monthly_sale', 'invoices', 'customers', 'seven_days_sale', 'thirty_days_sale', 'six_months_sale', 'one_year_sale', 'total_stock', 'total_due', 'total_profit', 'total_stock_value', 'total_expenses', 'total_spplier', 'total_expenses_today', 'today_supplier'));
+        return view('home',compact('total_due', 'today_invoice', 'total_invoice', 'today_customer', 'total_customer', 'today_product', 'total_product', 'today_sale_amount', 'total_sale_amount', 'monthly_sale', 'invoices', 'customers', 'seven_days_sale', 'thirty_days_sale', 'six_months_sale', 'one_year_sale', 'total_stock', 'total_due', 'total_profit', 'total_stock_value', 'total_expenses', 'total_spplier', 'total_expenses_today', 'today_supplier', 'today_purchase', 'total_purchase'));
     }
 }

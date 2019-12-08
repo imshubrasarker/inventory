@@ -101,7 +101,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/expenses-search', 'ExpenseController@search')->name('expenses-search');
     Route::get('/supplier/search', 'SupplierController@search')->name('search.supplier');
     Route::resource('supplier', 'SupplierController');
-
+    Route::resource('purchase', 'PurchaseController');
 
 });
 

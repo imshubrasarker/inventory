@@ -79,6 +79,13 @@ Home
               <span class="count-name-total">Total Supplier: {{ $total_spplier ? count($total_spplier) : 0 }}</span>
           </div>
       </div>
+      <div class="col-md-3">
+          <div class="card-counter danger">
+              <i class="fa fa-code-fork"></i>
+              <span class="count-name">Today Purchase: {{ $today_purchase  }}</span>
+              <span class="count-name-total">Total Purchase: {{ $total_purchase }}</span>
+          </div>
+      </div>
   </div>
 
 <div class="main-page">
