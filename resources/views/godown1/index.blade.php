@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    Manage Purchase
+    Raw Materials
 @endsection
 @section('header-script')
 @endsection
@@ -11,7 +11,7 @@
             <div class="forms">
                 <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                     <div class="form-title">
-                        <h4>Manage Purchase</h4>
+                        <h4>Raw Materials</h4>
                     </div>
                     <div class="form-body">
                         <div class="card">
@@ -42,8 +42,6 @@
                                             <th scope="col">Amount</th>
                                             <th scope="col">Note</th>
                                             <th scope="col">Invoice</th>
-                                            <th scope="col">Actions</th>
-
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -57,22 +55,6 @@
                                             <td>{{ $purchase->amount }}</td>
                                             <td>{{ $purchase->note }}</td>
                                             <td>{{ $purchase->invoice_num }}</td>
-                                            <td>
-                                               <div class="row">
-                                                   <div class="col-sm-4">
-                                                       <a href="{{ route('purchase.show', $purchase->id) }}" type="button" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i> </a>
-                                                   </div>
-                                                   <div class="col-md-4">
-                                                       <a href="{{ route('purchase.edit', $purchase->id) }}" type="button" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
-                                                   </div>
-                                                   <div class="col-sm-4">
-                                                       <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"
-                                                               onclick="deleteHead('{{ route('purchase.destroy', $purchase->id) }}')">
-                                                           <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                                       </button>
-                                                   </div>
-                                               </div>
-                                            </td>
                                         </tr>
                                             @endforeach
                                         </tbody>
@@ -81,8 +63,6 @@
                                         {{ $purchases->links() }}
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
                     </div>

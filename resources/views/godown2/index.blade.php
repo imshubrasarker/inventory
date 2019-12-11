@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    Manage Suppliers
+    Manage Production
 @endsection
 @section('header-script')
 @endsection
@@ -11,7 +11,7 @@
             <div class="forms">
                 <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                     <div class="form-title">
-                        <h4>Manage Suppliers</h4>
+                        <h4>Manage Production</h4>
                     </div>
                     <div class="form-body">
                         <div class="card">
@@ -20,6 +20,7 @@
                                 <div style="overflow: hidden">
                                     <div class="float-left" style="float: left">
                                         <a href="{{ url('/home') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                                        <a href="{{ route('godown2.create') }}" class="btn btn-info btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>Add New</a>
                                     </div>
                                     <div class="float-right" style="float: right">
                                         <form class="navbar-form" role="search" action="{{ route('search.supplier') }}" method="get">
@@ -36,65 +37,51 @@
 
                                 <br>
                                 <br>
-                                @if (isset($total))
-                                    <div style="overflow: hidden">
-                                        <div style="float: right; margin-bottom: 10px">
-                                            <h4>Total Balance: {{ $total }}</h4>
-                                        </div>
-                                    </div>
-                                @endif
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered">
                                         <thead class="thead-dark">
                                         <tr>
                                             <th scope="col">#</th>
                                             <th scope="col">Name</th>
-                                            <th scope="col">Mobile</th>
-                                            <th scope="col">Balance</th>
-                                            <th scope="col">Address</th>
+                                            <th scope="col">Size</th>
+{{--                                            <th scope="col">Color</th>--}}
+                                            <th scope="col">Quantity</th>
                                             <th scope="col">Note</th>
+                                            <th scope="col">Date</th>
                                             <th scope="col">Actions</th>
-
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($suppliers as $supplier)
+                                        @foreach($productions as $supplier)
                                         <tr>
                                             <th scope="row">{{ $loop->index + 1 }}</th>
                                             <td>{{ $supplier->name }}</td>
-                                            <td>{{ $supplier->mobile }}</td>
-                                            <td>{{ $supplier->balance }}</td>
-                                            <td width="15%">{{ $supplier->address }}</td>
-                                            <td width="15%">{{ $supplier->note }}</td>
+                                            <td>{{ $supplier->size }}</td>
+{{--                                            <td>{{ $supplier->godownUnits->unit_name }}</td>--}}
+                                            <td>{{ $supplier->qty }}</td>
+                                            <td>{{ $supplier->note }}</td>
+                                            <td>{{ $supplier->date }}</td>
                                             <td>
                                                <div class="row">
-                                                   <div class="col-sm-4">
-                                                       <a href="{{ route('supplier.show', $supplier->id) }}" type="button" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i> </a>
+                                                   <div class="col-md-6">
+                                                       <a href="{{ route('godown2.edit', $supplier->id) }}" type="button" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
                                                    </div>
-                                                   <div class="col-md-4">
-                                                       <a href="{{ route('supplier.edit', $supplier->id) }}" type="button" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
-                                                   </div>
-                                                   <div class="col-sm-4">
+                                                   <div class="col-sm-6">
                                                        <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"
-                                                               onclick="deleteHead('{{ route('supplier.destroy', $supplier->id) }}')">
+                                                               onclick="deleteHead('{{ route('godown2.destroy', $supplier->id) }}')">
                                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
                                                        </button>
                                                    </div>
                                                </div>
-
-
-
                                             </td>
                                         </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
                                     <div class="pagination">
-                                        {{ $suppliers->links() }}
+                                        {{ $productions->links() }}
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
                     </div>

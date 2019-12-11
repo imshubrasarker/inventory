@@ -90,14 +90,23 @@
                                     <div class="row mb-2">
                                         <div class=" col-sm-12 col-md-6">
                                             <div class="form-group">
-                                                <label class="control-label mb-2">Description <span class="text-danger">*</span></label>
-                                                <textarea placeholder="Description" class="form-control" name="description">{{ $purchase->description }}</textarea>
+                                                <label class="control-label mb-2">Amount</label>
+                                                <input type="number" class="form-control" name="amount" placeholder="Amount" value="{{ $purchase->amount }}">
                                             </div>
                                         </div>
                                         <div class=" col-sm-12 col-md-6">
                                             <div class="form-group">
-                                                <label class="control-label mb-2">Amount</label>
-                                                <input type="number" class="form-control" name="amount" placeholder="Amount" value="{{ $purchase->amount }}">
+                                                <label class="control-label mb-2">Invoice Number</label>
+                                                <input type="text" class="form-control" name="invoice" placeholder="Invoice Number" value="{{ $purchase->invoice_num }}">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class=" col-sm-12 col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label mb-2">Description <span class="text-danger">*</span></label>
+                                                <textarea placeholder="Description" class="form-control" name="description">{{ $purchase->description }}</textarea>
                                             </div>
                                         </div>
                                     </div>

@@ -48,8 +48,8 @@ class PurchaseController extends Controller
             'description' => 'required',
             'amount' => 'required',
             'note' => 'required',
+            'invoice' => 'required'
         ]);
-        $request['invoice_num'] = mt_rand(100000,999999);
         Purchase::create([
             'sl' => $request->sl,
             'date' => $request->date,
@@ -60,7 +60,7 @@ class PurchaseController extends Controller
             'description' => $request->description,
             'amount' => $request->amount,
             'note' => $request->note,
-            'invoice_num' => $request->invoice_num,
+            'invoice_num' => $request->invoice,
         ]);
         return redirect()->route('purchase.index')->with('success', 'Purchase Created !!');
     }
@@ -107,6 +107,8 @@ class PurchaseController extends Controller
             'description' => 'required',
             'amount' => 'required',
             'note' => 'required',
+            'invoice' => 'required'
+
         ]);
         Purchase::findOrFail($id)->update([
             'date' => $request->date,
@@ -116,7 +118,8 @@ class PurchaseController extends Controller
             'quantity' => $request->quantity,
             'description' => $request->description,
             'amount' => $request->amount,
-            'note' => $request->note
+            'note' => $request->note,
+            'invoice_num' => $request->invoice,
         ]);
         return redirect()->route('purchase.index')->with('success', 'Purchase Updated !!');
     }
@@ -132,5 +135,12 @@ class PurchaseController extends Controller
         $purchase = Purchase::findOrFail($id);
         $purchase->delete();
         return redirect()->route('purchase.index')->with('success', 'Purchase Deleted !!');
+    }
+
+    public function godown()
+    {
+        $purchases = Purchase::paginate(15);
+        $total = Purchase::sum('amount');
+        return view('godown1.index', compact('purchases', 'total'));
     }
 }

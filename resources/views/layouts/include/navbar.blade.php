@@ -145,6 +145,30 @@
                 </ul>
             </li>
             @endhasrole
+            @hasrole('Admin')
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-money" aria-hidden="true"></i>
+                    <span>Godown 1</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{ route('godown1.name') }}"><i class="fa fa-angle-right"></i>Raw Materials</a></li>
+                </ul>
+            </li>
+            @endhasrole
+            @hasrole('Admin')
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-money" aria-hidden="true"></i>
+                    <span>Godown 2</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{ route('godown2.index') }}"><i class="fa fa-angle-right"></i>Production</a></li>
+                </ul>
+            </li>
+            @endhasrole
           @hasrole('Admin')
           <li class="treeview">
             <a href="#">
@@ -153,6 +177,7 @@
             <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
+              <li><a href="{{ route('godown-unit.index') }}"><i class="fa fa-angle-right"></i> Manage Godown Unit</a></li>
               <li><a href="{{ url('units') }}"><i class="fa fa-angle-right"></i> Manage Unit</a></li>
               <li><a href="{{ url('categories') }}"><i class="fa fa-angle-right"></i> Manage Categories</a></li>
               <li><a href="{{ url('smses') }}"><i class="fa fa-angle-right"></i> Manage SMS</a></li>

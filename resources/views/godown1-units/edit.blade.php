@@ -1,0 +1,56 @@
+@extends('layouts.app')
+@section('title')
+    Unit New Unit
+@endsection
+@section('content')
+    <div id="page-wrapper">
+        <div class="main-page">
+            @include('layouts.include.alert')
+            <div class="forms">
+                <div class="form-grids row widget-shadow" data-example-id="basic-forms">
+                    <div class="form-title">
+                        <h4>Edit Unit</h4>
+                    </div>
+                    <div class="form-body">
+                        <div class="card">
+                            <div class="card-body">
+                                <a href="{{ url('/home') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                                <br />
+                                <br />
+                                @if ($errors->any())
+                                    <ul class="alert alert-danger">
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+
+                                <form action="{{ route('godown-unit.update', $dozen->id) }}" method="post">
+                                    @csrf
+                                    {{method_field('patch')}}
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="" class="mb-2">Unit Name</label>
+                                            <input type="text" class="form-control" name="unit_name" placeholder="Unit Name" value="{{ $dozen->unit_name }}" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="" class="mb-2">Number For Dozen</label>
+                                            <input type="number" class="form-control" name="unit_number" placeholder="Unit Name" value="{{ $dozen->unit_number }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <button class="btn btn-primary float-right" type="submit">Create</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

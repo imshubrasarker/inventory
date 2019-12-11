@@ -58,6 +58,7 @@ Home
         <span class="count-name-total">Total Due: {{ $total_due }}</span>
       </div>
     </div>
+
     <div class="col-md-3">
       <div class="card-counter danger">
         <i class="fa fa-code-fork"></i>
@@ -65,6 +66,7 @@ Home
         <span class="count-name-total">Total Stock Value: {{ $total_stock_value }}</span>
       </div>
     </div>
+
     <div class="col-md-3">
       <div class="card-counter danger">
         <i class="fa fa-code-fork"></i>
@@ -72,21 +74,24 @@ Home
         <span class="count-name-total">Total Expenses: {{ $total_expenses }}</span>
       </div>
     </div>
-      <div class="col-md-3">
-          <div class="card-counter danger">
-              <i class="fa fa-code-fork"></i>
-              <span class="count-name">Today Supplier: {{ $today_supplier ? count($today_supplier) : 0 }}</span>
-              <span class="count-name-total">Total Supplier: {{ $total_spplier ? count($total_spplier) : 0 }}</span>
-          </div>
-      </div>
-      <div class="col-md-3">
-          <div class="card-counter danger">
-              <i class="fa fa-code-fork"></i>
-              <span class="count-name">Today Purchase: {{ $today_purchase  }}</span>
-              <span class="count-name-total">Total Purchase: {{ $total_purchase }}</span>
-          </div>
-      </div>
   </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card-counter danger">
+                <i class="fa fa-code-fork"></i>
+                <span class="count-name">Today Supplier: {{ $today_supplier ? count($today_supplier) : 0 }}</span>
+                <span class="count-name-total">Total Supplier: {{ $total_spplier ? count($total_spplier) : 0 }}</span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card-counter danger">
+                <i class="fa fa-code-fork"></i>
+                <span class="count-name">Today Purchase: {{ $today_purchase  }}</span>
+                <span class="count-name-total">Total Purchase: {{ $total_purchase }}</span>
+            </div>
+        </div>
+    </div>
 
 <div class="main-page">
   <div class="row">
