@@ -138,7 +138,7 @@ class Godown2Controller extends Controller
     public function destroy($id)
     {
         $prod = Godown2::findOrFail($id);
-        $prod->delete();
+        $items = Godown2::where('product_id', $prod->product_id)->delete();
         return redirect()->route('godown2.index')->with('success', 'Deleted Successfully');
     }
 }
