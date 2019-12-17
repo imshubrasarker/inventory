@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Godown2;
 use App\GodownUnit;
+use App\Product;
 use Illuminate\Http\Request;
 
 class Godown2Controller extends Controller
@@ -15,7 +16,7 @@ class Godown2Controller extends Controller
      */
     public function index()
     {
-        $productions = Godown2::paginate(15);
+        $productions = Godown2::groupBy('product_id')->paginate(15);
         return view('godown2.index', compact('productions'));
     }
 
@@ -27,7 +28,8 @@ class Godown2Controller extends Controller
     public function create()
     {
         $units = GodownUnit::all();
-        return view('godown2.create', compact('units'));
+        $products = Product::all();
+        return view('godown2.create', compact('units', 'products'));
     }
 
     /**
@@ -39,23 +41,39 @@ class Godown2Controller extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'product_id' => 'required',
             'size' => 'required',
             'color_id' => 'required',
             'qty' => 'required',
             'note' => 'required',
             'date' => 'required',
         ]);
-        Godown2::create([
-            'name' => $request->name,
-            'size' => $request->size,
-            'godown_unit_id' => $request->color_id,
-            'qty' => $request->qty,
-            'date' => $request->date,
-            'note' => $request->note,
-        ]);
 
-        return redirect()->route('godown2.index')->with('success', 'Created Successfuly');
+        $godown = Godown2::where('product_id', $request->product_id)
+            ->where('godown_unit_id', $request->color_id)
+            ->first();
+        if ($godown)
+        {
+            $godown->product_id = $request->product_id;
+            $godown->size = $request->size;
+            $godown->godown_unit_id =$request->color_id;
+            $godown->qty = $godown->qty + $request->qty;
+            $godown->date = $request->date;
+            $godown->note = $request->note;
+            $godown->save();
+        }
+        else {
+            Godown2::create([
+                'product_id' => $request->product_id,
+                'size' => $request->size,
+                'godown_unit_id' => $request->color_id,
+                'qty' => $request->qty,
+                'date' => $request->date,
+                'note' => $request->note,
+            ]);
+        }
+
+        return redirect()->route('godown2.index')->with('success', 'Created Successfully');
     }
 
     /**
@@ -64,9 +82,10 @@ class Godown2Controller extends Controller
      * @param  \App\Godown2  $godown2
      * @return \Illuminate\Http\Response
      */
-    public function show(Godown2 $godown2)
+    public function show($id)
     {
-        //
+        $items = Godown2::where('product_id', $id)->get();
+        return view('godown2.show', compact('items'));
     }
 
     /**
@@ -79,7 +98,8 @@ class Godown2Controller extends Controller
     {
         $units = GodownUnit::all();
         $production = Godown2::findOrFail($id);
-        return view('godown2.edit', compact('production', 'units'));
+        $products = Product::all();
+        return view('godown2.edit', compact('production', 'units','products'));
     }
 
     /**
@@ -92,23 +112,21 @@ class Godown2Controller extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
+            'product_id' => 'required|numeric',
             'size' => 'required',
-            'color_id' => 'required',
             'qty' => 'required',
             'note' => 'required',
             'date' => 'required',
         ]);
         Godown2::findOrFail($id)->update([
-            'name' => $request->name,
+            'product_id' => $request->product_id,
             'size' => $request->size,
-            'godown_unit_id' => $request->color_id,
             'qty' => $request->qty,
             'date' => $request->date,
             'note' => $request->note,
         ]);
 
-        return redirect()->route('godown2.index')->with('success', 'Updated Successfuly');
+        return redirect()->route('godown2.index')->with('success', 'Updated Successfully');
     }
 
     /**
@@ -121,6 +139,6 @@ class Godown2Controller extends Controller
     {
         $prod = Godown2::findOrFail($id);
         $prod->delete();
-        return redirect()->route('godown2.index')->with('success', 'Deleted Successfuly');
+        return redirect()->route('godown2.index')->with('success', 'Deleted Successfully');
     }
 }

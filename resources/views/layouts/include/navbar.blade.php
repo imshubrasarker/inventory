@@ -1,6 +1,6 @@
 <div class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
     <!--left-fixed -navigation-->
-  <aside class="sidebar-left">
+  <aside class="sidebar-left " style="overflow: scroll">
   <nav class="navbar navbar-inverse">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".collapse" aria-expanded="false">
@@ -148,7 +148,7 @@
             @hasrole('Admin')
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-money" aria-hidden="true"></i>
+                  <i class="fa fa-building-o" aria-hidden="true"></i>
                     <span>Godown 1</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
@@ -160,7 +160,7 @@
             @hasrole('Admin')
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-money" aria-hidden="true"></i>
+                  <i class="fa fa-building-o" aria-hidden="true"></i>
                     <span>Godown 2</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>

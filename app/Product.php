@@ -27,5 +27,10 @@ class Product extends Model
      */
     protected $fillable = ['name', 'size', 'buy_price', 'sale_price', 'unit_id', 'category_id', 'discount', 'description', 'alert_quantity', 'final_price'];
 
+    public function godown2()
+    {
+        return $this->hasMany(Product::class, 'product_id');
+    }
+
     
 }

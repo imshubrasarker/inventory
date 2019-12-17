@@ -7,59 +7,43 @@
 @section('content')
     <div id="page-wrapper">
         <div class="main-page">
-            <a href="{{ url('/home') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
-            <a href="{{ route('supplier.edit', $supplier->id) }}" title="Edit"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+            <a href="{{ route('godown2.index') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+{{--            <a href="{{ route('godown2.index', $supplier->id) }}" title="Edit"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>--}}
             <br>
             <br>
             @include('layouts.include.alert')
             <div class="panel">
                 <div class="form-title bg-light ">
-                    <h4><strong>Supplier Details </strong></h4>
+                    <h4><strong>Item Details </strong></h4>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
-                            <thead>
+                        <table class="table table-striped table-bordered">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Size</th>
+                                <th scope="col">Color</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Note</th>
+                                <th scope="col">Date</th>
+                            </tr>
                             </thead>
                             <tbody>
-                            <tr>
-
-                                <th>Name: </th>
-                                <td>{{ $supplier->name }}</td>
-                            </tr>
-                            <tr>
-
-                                <th>Phone: </th>
-                                <td>{{ $supplier->mobile }}</td>
-                            </tr>
-                            <tr>
-
-                                <th>Opening Balance: </th>
-                                <td>{{ $supplier->balance }}</td>
-                            </tr>
-                            <tr>
-
-                                <th>Opening Quantity: </th>
-                                <td>{{ $supplier->quantity }}</td>
-                            </tr>
-                            <tr>
-
-                                <th>Address: </th>
-                                <td>{{ $supplier->address }}</td>
-                            </tr>
-                            <tr>
-
-                                <th>Note: </th>
-                                <td>{{ $supplier->note }}</td>
-                            </tr>
-                            <tr>
-                                <th>Created: </th>
-                                <td>{{ Carbon\Carbon::parse($supplier->created_at)->format('d-M-Y ') }}</td>
-                            </tr>
-
+                            @foreach($items as $item)
+                                <tr>
+                                    <td scope="row"> {{ $loop->index + 1  }}</td>
+                                    <td>{{ $item->products->name }}</td>
+                                    <td>{{ $item->size }}</td>
+                                    <td>{{ $item->godownUnits->unit_name }}</td>
+                                    <td>{{ $item->qty }}</td>
+                                    <td>{{ $item->note }}</td>
+                                    <td>{{ $item->date }}</td>
+                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
-                    </div>
                 </div>
                 <br>
                 <br>

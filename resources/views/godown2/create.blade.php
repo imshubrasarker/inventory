@@ -32,8 +32,13 @@
                                     <div class="row mb-2">
                                         <div class="col-md-6 col-sm-12">
                                             <div class="form-group">
-                                                <label class="control-label  mb-2">Name <span class="text-danger">*</span></label>
-                                                <input class="form-control" name="name" placeholder="Supplier Name">
+                                                <label class="control-label  mb-2">Select Product <span class="text-danger">*</span></label>
+                                                <select class="form-control" name="product_id" id="product_id">
+                                                    <option value="">Select Product</option>
+                                                    @foreach ($products as $product)
+                                                        <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                         <div class=" col-sm-12 col-md-6">
