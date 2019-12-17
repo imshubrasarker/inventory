@@ -34,7 +34,12 @@
                                         <div class="col-md-6 col-sm-12">
                                             <div class="form-group">
                                                 <label class="control-label  mb-2">Name <span class="text-danger">*</span></label>
-                                                <input class="form-control" name="name" placeholder="Supplier Name" value="{{ $production->name }}">
+                                                <select class="form-control" name="product_id" id="product_id">
+                                                    <option value="">Select Product</option>
+                                                    @foreach ($products as $product)
+                                                        <option value="{{ $product->id }}" {{ $product->id == $production->products->id ? 'selected' : '' }}>{{ $product->name }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                         <div class=" col-sm-12 col-md-6">
@@ -48,7 +53,7 @@
                                         <div class="col-md-6 col-sm-12">
                                             <div class="form-group">
                                                 <label class="control-label  mb-2">Color<span class="text-danger">*</span></label>
-                                                <select class="form-control" name="color_id" id="color_id">
+                                                <select disabled class="form-control" name="color_id" id="color_id">
                                                     <option value="">Select Color</option>
                                                     @foreach ($units as $unit)
                                                         @if ($unit->id == $production->godown_unit_id)
