@@ -105,6 +105,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/godown1', 'PurchaseController@godown')->name('godown1.name');
     Route::resource('godown-unit', 'GodownUnitController');
     Route::resource('godown2', 'Godown2Controller');
+    Route::post('move-to-stocks','Godown2Controller@moveToProduction' )->name('move-to-stocks');
 
 });
 
