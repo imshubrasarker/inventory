@@ -63,13 +63,18 @@
                                             <td>{{ $supplier->date }}</td>
                                             <td>
                                                <div class="row">
-                                                   <div class="col-md-4">
+                                                   <div class="col-md-3">
+                                                       <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
+                                                           <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                                       </button>
+                                                   </div>
+                                                   <div class="col-md-3">
                                                        <a href="{{ route('godown2.edit', $supplier->id) }}" type="button" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
                                                    </div>
-                                                   <div class="col-md-4">
+                                                   <div class="col-md-3">
                                                        <a href="{{ route('godown2.show', $supplier->products->id) }}" type="button" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i> </a>
                                                    </div>
-                                                   <div class="col-sm-4">
+                                                   <div class="col-sm-3">
                                                        <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"
                                                                onclick="deleteHead('{{ route('godown2.destroy', $supplier->id) }}')">
                                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
@@ -89,6 +94,46 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Move product to Stocks</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="form-group" action="{{ route('move-to-stocks') }}" method="post">
+                    @csrf
+                <div class="modal-body">
+                    <div class="row mb-2">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label  mb-2">Select Product <span class="text-danger">*</span></label>
+                                <select class="form-control" name="product_id" id="product_id">
+                                    <option value="">Select Product</option>
+                                    @foreach ($products as $product)
+                                        <option value="{{ $product->id }}">{{ $product->name }} ({{ $product->size }})</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class=" col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label class="control-label mb-2">Number of Dozens <span class="text-danger">*</span></label>
+                                <input type="text" placeholder="Number of Dozens" class="form-control" name="size" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+                </form>
             </div>
         </div>
     </div>

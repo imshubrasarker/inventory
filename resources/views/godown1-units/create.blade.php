@@ -34,7 +34,7 @@ Create New Unit
                                     </div>
                                     <div class="col-md-6">
                                         <label for="" class="mb-2">Number For Dozen</label>
-                                        <input type="number" class="form-control" name="unit_number" placeholder="Unit Name" required>
+                                        <input type="number" class="form-control" name="unit_number" placeholder="Number For Dozen" required>
                                     </div>
                                 </div>
                                 <div class="row">

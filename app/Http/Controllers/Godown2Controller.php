@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Godown2;
 use App\GodownUnit;
 use App\Product;
+use App\Stock;
+use App\StockData;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class Godown2Controller extends Controller
 {
@@ -16,8 +19,9 @@ class Godown2Controller extends Controller
      */
     public function index()
     {
+        $products = Product::all();
         $productions = Godown2::groupBy('product_id')->paginate(15);
-        return view('godown2.index', compact('productions'));
+        return view('godown2.index', compact('productions', 'products'));
     }
 
     /**
@@ -140,5 +144,49 @@ class Godown2Controller extends Controller
         $prod = Godown2::findOrFail($id);
         $items = Godown2::where('product_id', $prod->product_id)->delete();
         return redirect()->route('godown2.index')->with('success', 'Deleted Successfully');
+    }
+
+    public function moveToProduction(Request $request)
+    {
+        $request->validate([
+            'product_id' => 'required|numeric',
+            'size' => 'required|numeric'
+        ]);
+
+     $items = DB::table('godown_units')
+           ->join('godown2s','godown_units.id', '=', 'godown2s.godown_unit_id')
+           ->get();
+       foreach ($items as $item)
+       {
+           $value = $item->unit_number * $request->size;
+
+           $godown = Godown2::find($item->id);
+           $godown->qty = $godown->qty - $value;
+           if ($godown->qty <0 )
+           {
+               $unit = GodownUnit::find($godown->godown_unit_id);
+              return redirect()->back()->with('error', 'Inefficient quantity for '.$unit->unit_name);
+           }
+           $godown->save();
+
+       }
+
+       $product = Product::find($request->product_id);
+        $stock                       = new Stock();
+        $stock->product_id           = $request->product_id;
+        $stock->product_stock        = $request->size;
+        $stock->save();
+
+        $stockData              = new StockData();
+        $stockData->product_id  = $request->product_id;
+        $stockData->add_stock   = $request->size;
+        $stockData->balance     = $request->size;
+        $stockData->sale_stock  = $product->sale_price;
+        $stockData->note        = "Na";
+        $stockData->save();
+        return redirect()->back()->with('success', 'Item moved to stock');
+
+
+
     }
 }

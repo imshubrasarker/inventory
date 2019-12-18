@@ -38,8 +38,16 @@ class GodownUnitController extends Controller
     {
         $request->validate([
             'unit_name' => 'required',
-            'unit_number' => 'required',
+            'unit_number' => 'required|numeric',
         ]);
+         $totalUnit = GodownUnit::sum('unit_number');
+         if ($totalUnit + $request->unit_number > 12) {
+
+             $remaining = 12 - $totalUnit;
+             return redirect()
+                 ->route('godown-unit.index')
+                 ->with('error', 'The sum exceeds dozen you can add '.$remaining.' max value for this unit');
+         }
         GodownUnit::create([
             'unit_name' => $request->unit_name,
             'unit_number' => $request->unit_number
