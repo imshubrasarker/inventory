@@ -40,6 +40,13 @@ class GodownUnitController extends Controller
             'unit_name' => 'required',
             'unit_number' => 'required|numeric',
         ]);
+
+        if ($request->unit_number < 1)
+        {
+            return redirect()
+                ->route('godown-unit.index')
+                ->with('error', 'The number for dozen can\'t be less than 1');
+        }
          $totalUnit = GodownUnit::sum('unit_number');
          if ($totalUnit + $request->unit_number > 12) {
 
@@ -92,6 +99,7 @@ class GodownUnitController extends Controller
             'unit_name' => 'required',
             'unit_number' => 'required',
         ]);
+
         GodownUnit::findOrFail($id)->update([
             'unit_name' => $request->unit_name,
             'unit_number' => $request->unit_number

@@ -171,6 +171,13 @@
             @endhasrole
           @hasrole('Admin')
           <li class="treeview">
+            <a href="{{ route('godown-3.index') }}">
+              <i class="fa fa-building-o" aria-hidden="true"></i> <span>Godown 3</span>
+            </a>
+          </li>
+            @endhasrole
+          @hasrole('Admin')
+          <li class="treeview">
             <a href="#">
             <i class="fa fa-anchor"></i>
             <span>Settings</span>

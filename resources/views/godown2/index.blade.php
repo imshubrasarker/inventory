@@ -21,6 +21,9 @@
                                     <div class="float-left" style="float: left">
                                         <a href="{{ url('/home') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                                         <a href="{{ route('godown2.create') }}" class="btn btn-info btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>Add New</a>
+                                        <button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#exampleModal">
+                                            <i class="fa fa-paper-plane" aria-hidden="true"></i> Transfer
+                                        </button>
                                     </div>
 {{--                                    <div class="float-right" style="float: right">--}}
 {{--                                        <form class="navbar-form" role="search" action="{{ route('search.supplier') }}" method="get">--}}
@@ -63,14 +66,6 @@
                                             <td>{{ $supplier->date }}</td>
                                             <td>
                                                <div class="row">
-                                                   <div class="col-md-3">
-                                                       <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
-                                                           <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                                                       </button>
-                                                   </div>
-                                                   <div class="col-md-3">
-                                                       <a href="{{ route('godown2.edit', $supplier->id) }}" type="button" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
-                                                   </div>
                                                    <div class="col-md-3">
                                                        <a href="{{ route('godown2.show', $supplier->products->id) }}" type="button" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i> </a>
                                                    </div>
@@ -124,7 +119,7 @@
                         <div class=" col-sm-12 col-md-6">
                             <div class="form-group">
                                 <label class="control-label mb-2">Number of Dozens <span class="text-danger">*</span></label>
-                                <input type="text" placeholder="Number of Dozens" class="form-control" name="size" required>
+                                <input type="number" placeholder="Number of Dozens" class="form-control" name="size" required>
                             </div>
                         </div>
                     </div>
