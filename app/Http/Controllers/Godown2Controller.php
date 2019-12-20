@@ -153,9 +153,25 @@ class Godown2Controller extends Controller
             'size' => 'required|numeric'
         ]);
 
+        $units = GodownUnit::all();
+        if (count($units ) < 4)
+        {
+            return redirect()->back()->with('error', 'Add minimum 4 godown units');
+        }
+        $sum = 0;
+        foreach ( $units as $unit)
+        {
+            $sum = $sum + $unit->unit_number;
+        }
+        if ($sum != 12)
+        {
+            return redirect()->back()->with('error', 'Godown unit doesn\'t meet the dozen requirement please fix that first from Manage godown unit');
+        }
+
      $items = DB::table('godown_units')
            ->join('godown2s','godown_units.id', '=', 'godown2s.godown_unit_id')
            ->get();
+
        foreach ($items as $item)
        {
            $value = $item->unit_number * $request->size;
@@ -167,23 +183,59 @@ class Godown2Controller extends Controller
                $unit = GodownUnit::find($godown->godown_unit_id);
               return redirect()->back()->with('error', 'Inefficient quantity for '.$unit->unit_name);
            }
-           $godown->save();
 
        }
 
-       $product = Product::find($request->product_id);
-        $stock                       = new Stock();
-        $stock->product_id           = $request->product_id;
-        $stock->product_stock        = $request->size;
-        $stock->save();
+       $total = 0;
+        foreach ($items as $item)
+        {
+            $value = $item->unit_number * $request->size;
 
-        $stockData              = new StockData();
-        $stockData->product_id  = $request->product_id;
-        $stockData->add_stock   = $request->size;
-        $stockData->balance     = $request->size;
-        $stockData->sale_stock  = $product->sale_price;
-        $stockData->note        = "Na";
-        $stockData->save();
+            $godown = Godown2::find($item->id);
+            $godown->qty = $godown->qty - $value;
+            if ($godown->qty <0 )
+            {
+                $unit = GodownUnit::find($godown->godown_unit_id);
+                return redirect()->back()->with('error', 'Inefficient quantity for '.$unit->unit_name);
+            }
+            else {
+                $godown->save();
+                $total  = $total + $value;
+            }
+
+
+        }
+
+
+
+        $product_id = $request->product_id;
+        $stock      = Stock::where('product_id',$product_id)->first();
+        $product    = Product::where('id',$product_id)->first();
+        if($stock){
+            $after_add_stock            = $stock->product_stock + $request->size;
+            $stock->product_stock       = $after_add_stock;
+            $stock->save();
+
+            $stockData              = new StockData();
+            $stockData->product_id  = $request->product_id;
+            $stockData->add_stock   = $request->size;
+            $stockData->balance     = $after_add_stock;
+            $stockData->note        = "Godown 2 product";
+            $stockData->save();
+        }else{
+            $stock                       = new Stock();
+            $stock->product_id           = $request->product_id;
+            $stock->product_stock        = $request->size;
+            $stock->save();
+
+            $stockData              = new StockData();
+            $stockData->product_id  = $request->product_id;
+            $stockData->add_stock   = $request->size;
+            $stockData->balance     = $request->size;
+            $stockData->note        = "Godown 2 product";;
+            $stockData->save();
+        }
+
         return redirect()->back()->with('success', 'Item moved to stock');
 
 

@@ -28,6 +28,7 @@
                                 <th scope="col">Quantity</th>
                                 <th scope="col">Note</th>
                                 <th scope="col">Date</th>
+                                <th scope="col">Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -40,6 +41,10 @@
                                     <td>{{ $item->qty }}</td>
                                     <td>{{ $item->note }}</td>
                                     <td>{{ $item->date }}</td>
+                                    <td> <div class="col-md-3">
+                                            <a href="{{ route('godown2.edit', $item->id) }}" type="button" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
+                                        </div>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>

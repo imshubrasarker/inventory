@@ -54,7 +54,7 @@ class HomeController extends Controller
         $stocks_value = Stock::all();
 
         foreach($stocks_value as $stock) {
-            $total_stock_value += $stock->product->buy_price * $stock->product_stock;
+            $total_stock_value += $stock->product['buy_price'] * $stock->product_stock;
         }
 
         $today_sale_amount = Invoice::where('manual_date',$today)->sum('grand_total_price');
@@ -95,7 +95,7 @@ class HomeController extends Controller
         // dd($product_info);
         $total_profit = 0;
         foreach($product_info as $row){
-                $total_profit += ($row->final_price-$row->buy_price)*($row->quantity);
+                $total_profit += ($row->final_price - $row->buy_price)*($row->quantity);
         }
 
         $total_due = 0;
