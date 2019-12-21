@@ -17,7 +17,7 @@
                     <div class="form-body">
                         <div class="card">
                             <div class="card-body">
-                                {!! Form::open(['method' => 'GET', 'url' => '/stocks', 'role' => 'search'])  !!}
+                                {!! Form::open(['method' => 'GET', 'url' => '/godown-3', 'role' => 'search'])  !!}
                                 <div class="row">
                                     <div class="col-md-4">
                                         <select class="form-control" name="product_id" id="product_id">
