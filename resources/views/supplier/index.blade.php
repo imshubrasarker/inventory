@@ -68,27 +68,30 @@
                                             <td width="15%">{{ $supplier->note }}</td>
                                             <td>
                                                <div class="row">
-                                                   <div class="col-sm-4">
-                                                       <a href="{{ route('supplier.show', $supplier->id) }}" type="button" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i> </a>
+                                                   <div class="col-md-3 text-center">
+                                                       <a href="{{ route('supplier.leadger', $supplier->id) }}" class="btn-sm btn btn-info"><i class="fa fa-list-alt" aria-hidden="true"></i>Leader</a>
                                                    </div>
-                                                   <div class="col-md-4">
-                                                       <a href="{{ route('supplier.edit', $supplier->id) }}" type="button" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
+                                                   <div class="col-sm-3 text-center">
+                                                       <a href="{{ route('supplier.show', $supplier->id) }}" type="button" class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> </a>
                                                    </div>
-                                                   <div class="col-sm-4">
-                                                       <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"
+                                                   <div class="col-md-3 text-center">
+                                                       <a href="{{ route('supplier.edit', $supplier->id) }}" type="button" class="btn btn-primary btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
+                                                   </div>
+                                                   <div class="col-sm-3 text-center">
+                                                       <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal"
                                                                onclick="deleteHead('{{ route('supplier.destroy', $supplier->id) }}')">
                                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
                                                        </button>
                                                    </div>
                                                </div>
-
-
-
                                             </td>
                                         </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
+                                    <div>
+                                        <a href="{{ route('supplier.print') }}" target="_blank" class="btn btn-primary btn-sm btn-block">Print</a>
+                                    </div>
                                     <div class="pagination">
                                         {{ $suppliers->links() }}
                                     </div>

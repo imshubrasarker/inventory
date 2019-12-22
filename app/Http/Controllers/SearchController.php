@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Supplier;
 use Illuminate\Http\Request;
 use App\Product;
 use DB;
@@ -42,5 +43,12 @@ class SearchController extends Controller
         $customer_id = $request->get('customer_id');
         $customer = Customer::where('id',$customer_id)->first();
         return response()->json(['customer'=>$customer]);
+    }
+
+    public function getSupplierDetail(Request $request)
+    {
+        $supplier_id = $request->get('supplier_id');
+        $supplier = Supplier::where('id',$supplier_id)->first();
+        return response()->json(['supplier'=>$supplier]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Company;
 use App\Expense;
 use App\ExpensesHead;
 use App\Http\Requests\AddExpensesRequest;
@@ -102,5 +103,13 @@ class ExpenseController extends Controller
         }])->get();
 
         return view('expenses.manage-expenses', compact('heads'));
+    }
+
+    public function printShow()
+    {
+        $company = Company::latest()->first();
+        $heads = ExpensesHead::with(['expenses' => function ($q) {
+            $q->orderBy('date', 'desc');}])->get();
+        return view('expenses.print', compact('heads', 'company'));
     }
 }

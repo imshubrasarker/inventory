@@ -27,11 +27,11 @@ class CustomersController extends Controller
     {
         $customer_id = $request->get('customer_id');
         $customer_mobile = $request->get('customer_mobile');
-        
+
         $perPage = 25;
 
         if (!empty($customer_id) || !empty($customer_mobile)) {
-            
+
 
             $customers = Customer::whereNotNull('id');
 
@@ -44,22 +44,22 @@ class CustomersController extends Controller
             }
 
             $customers = $customers->with('invoices', 'payments')->latest()->paginate($perPage);
-            
+
         } else {
             $customers = Customer::with('invoices', 'payments')->latest()->paginate($perPage);
         }
-        
+
         //return $customers;
-        
+
         $page_due = 0;
         $total_due = 0;
-        
+
         foreach($customers as $customer) {
             $page_due += $customer->invoices->sum('grand_total_price') - ($customer->invoices->sum('advanced') + $customer->payments->sum('amount') + $customer->due);
         }
-        
+
         $all_customers = Customer::all();
-        
+
         foreach($all_customers as $customer) {
             $customer_due = Customer::findOrFail($customer->id);
             $invoices = Invoice::where('customer_id',$customer->id)->latest()->orderBy('id')->get();
@@ -68,16 +68,16 @@ class CustomersController extends Controller
 
             $grand_total_price = $invoices->sum('grand_total_price');
             $paid_price = $invoices->sum('advanced')+$total_payment_amount;
-            $due_amount = $grand_total_price+$customer_due->due-$paid_price; 
+            $due_amount = $grand_total_price+$customer_due->due-$paid_price;
             $total_due +=$due_amount;
-                                                
+
             //$total_due += $customer->invoices->sum('grand_total_price') - ($customer->invoices->sum('advanced') + $customer->payments->sum('amount') + $customer->due);
         }
-        
-        
+
+
         $customer = Customer::pluck('name','id');
         $customer_mobiles = Customer::pluck('primary_mobile','primary_mobile');
-		
+
         return view('customers.index', compact('customers','customer','customer_mobiles', 'page_due', 'total_due'));
     }
 
@@ -140,8 +140,8 @@ class CustomersController extends Controller
         $customer = Customer::findOrFail($id);
         $invoices = Invoice::where('customer_id',$id)->latest()->get();
         $payments = Payment::where('customer_id',$id)->latest()->get();
-        
-        if($customer){  
+
+        if($customer){
             $rows['created_at'] = $customer->created_at;
             $rows['ivno'] = '';
             $rows['qty'] = $customer->quantity;
@@ -149,13 +149,13 @@ class CustomersController extends Controller
             $rows['ramount'] = 0;
             $rows['damount'] = $customer->due;
             $rows['lamount'] = $customer->due;
-            $rows['notebar'] = $customer->note; 
-            $rows['type'] = 'customer'; 
+            $rows['notebar'] = $customer->note;
+            $rows['type'] = 'customer';
             $rows['user_id'] = '';
-            $results[] = $rows; 
+            $results[] = $rows;
         }
         if($payments){
-            foreach ($payments as $key => $row) {  
+            foreach ($payments as $key => $row) {
                 $rows['created_at'] = $row->created_at;
                 $rows['ivno'] = '';
                 $rows['qty'] = '';
@@ -163,14 +163,14 @@ class CustomersController extends Controller
                 $rows['ramount'] = $row->amount;
                 $rows['damount'] = 0;
                 $rows['lamount'] = $row->amount;
-                $rows['notebar'] = $row->notebar; 
-                $rows['type'] = 'payments'; 
+                $rows['notebar'] = $row->notebar;
+                $rows['type'] = 'payments';
                 $rows['user_id'] = $row->user_id;
-                $results[] = $rows; 
+                $results[] = $rows;
             }
         }
         if($invoices){
-            foreach ($invoices as $key => $row) {  
+            foreach ($invoices as $key => $row) {
                 $rows['created_at'] = $row->created_at;
                 $rows['ivno'] = $row->invoice_id;
                 $rows['qty'] = $row->total_quantity;
@@ -178,18 +178,18 @@ class CustomersController extends Controller
                 $rows['ramount'] = $row->advanced;
                 $rows['damount'] = $row->due_amount;
                 $rows['lamount'] = $row->due_amount;
-                $rows['notebar'] = ''; 
-                $rows['type'] = 'invoice'; 
+                $rows['notebar'] = '';
+                $rows['type'] = 'invoice';
                 $rows['user_id'] = $row->user_id;
-                $results[] = $rows; 
+                $results[] = $rows;
             }
         }
         if($results){
             foreach ($results as $key => $part) {
-               $sort[$key] = strtotime($part['created_at']);  
+               $sort[$key] = strtotime($part['created_at']);
             }
             array_multisort($sort, SORT_ASC, $results);
-        }  
+        }
         $total_payment_amount = $payments->sum('amount');
         $company = Company::latest()->first();
         $custom = Customer::pluck('name','id');
@@ -345,9 +345,9 @@ class CustomersController extends Controller
     public function customerLedgerSearchData(Request $request)
     {
         $from = $request->get('from')." 00:00:00";
-        $to = $request->get('to')." 23:59:59"; 
+        $to = $request->get('to')." 23:59:59";
         $id = $request->get('customer_id');
-        
+
         // dd($to);
         $customer = Customer::where('id',$id)->first();
         $customerId = $customer->id;
@@ -368,9 +368,9 @@ class CustomersController extends Controller
         $customers = Customer::whereBetween('id', [$request->query->get('first_id'), $request->query->get('last_id')])->latest()->paginate($perPage);
         $customer = Customer::pluck('name','id');
         $company = Company::latest()->first();
-        
+
         $page_due = 0;
-        
+
         foreach($customers as $customer) {
             $page_due += $customer->invoices->sum('grand_total_price') - ($customer->invoices->sum('advanced') + $customer->payments->sum('amount') + $customer->due);
         }

@@ -77,6 +77,9 @@
                                             @endforeach
                                         </tbody>
                                     </table>
+                                    <div>
+                                        <a href="{{ route('purchase.print') }}" target="_blank" class="btn btn-primary btn-sm btn-block">Print</a>
+                                    </div>
                                     <div class="pagination">
                                         {{ $purchases->links() }}
                                     </div>

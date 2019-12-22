@@ -32,7 +32,7 @@
                                    <div class="row mb-2">
                                      <div class="col-md-6 col-sm-12">
                                          <div class="form-group">
-                                             <label class="control-label  mb-2">Expense Head <span class="text-danger">*</span></label>
+                                             <label class="control-label  mb-2">Expense To <span class="text-danger">*</span></label>
                                              <select class="form-control" name="expenses_heads_id">
                                                  <option>Select Expense Head</option>
                                                  @foreach($heads as $head)
@@ -52,25 +52,22 @@
                                     <div class="row mb-2">
                                         <div class="col-md-6 col-sm-12">
                                             <div class="form-group">
-                                                <label class="control-label  mb-2">Title <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" name="title" placeholder="Expenses Head Title" required>
-
+                                                <label class="control-label  mb-2">Description <span class="text-danger">*</span></label>
+                                                <textarea name="title" class="form-control" placeholder="Expenses Head Title" required></textarea>
                                             </div>
                                         </div>
                                         <div class=" col-sm-12 col-md-6">
                                             <div class="form-group">
-                                                <label class="control-label mb-2">Amount <span class="text-danger">*</span></label>
-                                                <input type="number" placeholder="Amount" class="form-control" required name="amount">
-
+                                                <label class="control-label mb-2">Note</label>
+                                                <textarea aria-placeholder="Note" class="form-control" name="note"></textarea>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class=" col-sm-12 col-md-6">
                                             <div class="form-group">
-                                                <label class="control-label mb-2">Note</label>
-                                                <textarea aria-placeholder="Note" class="form-control" name="note"></textarea>
-
+                                                <label class="control-label mb-2">Amount <span class="text-danger">*</span></label>
+                                                <input type="number" placeholder="Amount" class="form-control" required name="amount">
                                             </div>
                                         </div>
                                     </div>

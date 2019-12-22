@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Company;
 use App\Http\Requests\AddSupplierRequest;
+use App\Payment;
+use App\Purchase;
 use App\Supplier;
 use http\Exception\BadConversionException;
 use Illuminate\Http\Request;
@@ -98,5 +101,22 @@ class SupplierController extends Controller
 
         return view('supplier.index', compact('suppliers'));
 
+    }
+
+    public function printView()
+    {
+        $company = Company::latest()->first();
+        $suppliers = Supplier::paginate(10);
+        $total = Supplier::sum('balance');
+        return view('supplier.print', compact('suppliers', 'total', 'company'));
+    }
+
+    public function leadgerView($id)
+    {
+        $supplier = Supplier::with(['payments', 'purchases'])->where('id', $id)->first();
+//        return $supplier;
+        $purchases = Purchase::where('supplier_id', $id)->get();
+        $payments = Payment::where('supplier_id', $id)->get();
+        return view('supplier.leadger', compact('supplier', 'purchases', 'payments'));
     }
 }

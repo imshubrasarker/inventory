@@ -55,22 +55,20 @@ Customer {{ $customer->id }}
                                 <div class="col-md-4">
                                     <div class="panel-group">
                                         <div class="panel panel-primary">
-                                       
                                             <div class="panel-heading">
                                                 <h4 class="text-center text-white">Contact Information</h4>
                                             </div>
                                             <div class="panel-body contact_info">
-                                                <h4 class="text-center"><b>Mobile:</b> 
+                                                <h4 class="text-center"><b>Mobile:</b>
                                                     {{ $customer->primary_mobile }}
                                                 </h4>
                                                 <h4 class="text-center"><b>Email:</b> {{ $customer->email }}</h4>
-                                                        <h4 class="text-center" sty><b>Address:</b></h4>
-                                                        <p style="word-break: break-all; text-align: center;">{{ $customer->address }}</p>
-                                                        <h4 class="text-center" sty><b>Note:</b></h4>
-                                                        <p style="word-break: break-all; text-align: center;">{{ $customer->note }}</p>
-                                                    
+                                                <h4 class="text-center" sty><b>Address:</b></h4>
+                                                <p style="word-break: break-all; text-align: center;">{{ $customer->address }}</p>
+                                                <h4 class="text-center" sty><b>Note:</b></h4>
+                                                <p style="word-break: break-all; text-align: center;">{{ $customer->note }}</p>
                                             </div>
-                                        
+
                                         </div>
                                     </div>
                                 </div>
@@ -110,7 +108,7 @@ Customer {{ $customer->id }}
                                                     </div>
                                                     <div class="col-md-8">
                                                         {!! Form::open(['method' => 'GET', 'url' => '/customer-ledger-search-data', 'role' => 'search'])  !!}
-                                                        <div class="row" style="margin-top: -8px;"> 
+                                                        <div class="row" style="margin-top: -8px;">
                                                             <div class="col-md-5">
                                                                 <input type="date" class="form-control" name="from" required="">
                                                             </div>
@@ -127,7 +125,7 @@ Customer {{ $customer->id }}
                                                             </div>
                                                         </div>
                                                         {!! Form::close() !!}
-                                                        
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -155,7 +153,7 @@ Customer {{ $customer->id }}
                                                                 $pgtotal = 0;
                                                                 $sgtotal = 0
                                                             @endphp
-                                                            @if(isset($results)) 
+                                                            @if(isset($results))
                                                                 @foreach($results as $key2 => $item)
                                                                 @php
                                                                 $gtotal = $gtotal;
@@ -163,19 +161,19 @@ Customer {{ $customer->id }}
                                                                 <tr>
                                                                     <td style="width: 1%;"> {{$key2+1}}
                                                                     </td>
-                                                                    <td style="width: 11%;"> 
+                                                                    <td style="width: 11%;">
                                                                         {{ Carbon\Carbon::parse($item['created_at'])->format('d-m-Y') }}
                                                                     </td>
-                                                                    <td> 
+                                                                    <td>
                                                                         @if($item['ivno'])
                                                                             <a href="{{ url('/invoices-print/'.$item['ivno'] ) }}" style="cursor: pointer;"> {{ $item['ivno'] }}</a>
                                                                         @endif </td>
                                                                     <td style="width: 10%;">{{ $item['qty'] }}</td>
                                                                     <td style="width: 14%;">{{ $item['amount'] }}</td>
                                                                     <td style="width: 15%;">{{ $item['ramount'] }}</td>
-                                                                  {{--  <td style="width: 12%;">{{ $item['damount'] }}</td> --}} 
+                                                                  {{--  <td style="width: 12%;">{{ $item['damount'] }}</td> --}}
                                                                     @php
-                                                                     
+
                                                                     if($item['type'] == 'payments'){
                                                                      $sgtotal = $sgtotal + $item['lamount'];
                                                                     }
@@ -191,17 +189,17 @@ Customer {{ $customer->id }}
                                                                     @endphp
                                                                     @if($item['user_id'])
                                                                     <td style="width: 10%;">{{$user->name}} </td>
-                                                                    @else 
+                                                                    @else
                                                                     <td style="width: 10%;"> </td>
                                                                     @endif
                                                                 </tr>
                                                                 @php
                                                                     $i++;
                                                                 @endphp
-                                                                @endforeach 
+                                                                @endforeach
                                                             @endif
                                                             @if(isset($invoices))
-                                                                 
+
                                                                 <?php
                                                                   $grand_total_price = $invoices->sum('grand_total_price');
                                                                   $advanced_amount = $invoices->sum('advanced');
@@ -213,7 +211,7 @@ Customer {{ $customer->id }}
                                                                   }else{
                                                                     $total_quantity = $invoices->sum('total_quantity');
                                                                   }
-                                                                  
+
                                                                 ?>
                                                                 <tr>
                                                                     <td colspan="3" class="text-right">Total</td>
@@ -224,7 +222,7 @@ Customer {{ $customer->id }}
                                                                     <td></td>
                                                                     <td></td>
                                                                 </tr>
-                                                            @endif 
+                                                            @endif
                                                         </tbody>
                                                     </table>
                                                     @if(isset($customer->id))
