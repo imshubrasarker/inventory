@@ -93,6 +93,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('/autocomplete', 'SearchController@autocomplete');
 	Route::post('/get-product-detail', 'SearchController@getProductDetail')->name('get_product_detail');
 	Route::post('/get-customer-detail', 'SearchController@getCustomerDetail')->name('get_customer_detail');
+	Route::post('/get-supplier-detail', 'SearchController@getSupplierDetail')->name('get_supplier_detail');
 	Route::get('/expenses-head', 'ExpensesHeadController@index')->name('expenses-head');
 	Route::post('/expenses-head', 'ExpensesHeadController@store')->name('store-expenses-head');
 	Route::patch('/edit-expense-head/{id}', 'ExpensesHeadController@update')->name('edit-expense-head');
@@ -107,7 +108,11 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('godown2', 'Godown2Controller');
     Route::resource('godown-3', 'Godown3Controller');
     Route::post('move-to-stocks','Godown2Controller@moveToProduction' )->name('move-to-stocks');
-
+    Route::get('print-purchase', 'PurchaseController@printView')->name('purchase.print');
+    Route::get('print-supllier', 'SupplierController@printView')->name('supplier.print');
+    Route::get('supllier/leadger/{id}', 'SupplierController@leadgerView')->name('supplier.leadger');
+    Route::get('print-expence', 'ExpenseController@printShow')->name('expence.print');
+    Route::get('payment/supplier', 'PaymentsController@supplierIndex')->name('supplier.payment.index');
 });
 
 

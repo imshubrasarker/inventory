@@ -19,7 +19,7 @@ Payments
                     <div class="card">
                         <div class="card-body">
                             {!! Form::open(['method' => 'GET', 'url' => '/payments', 'role' => 'search'])  !!}
-                            <div class="row"> 
+                            <div class="row">
                                 <div class="col-md-2">
                                     <select class="form-control" name="customer_id" id="customer_id">
                                         <option value="">Select Customer</option>
@@ -38,7 +38,7 @@ Payments
                                     </select>
                                 </div>
 
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="input-group date" data-date-format="yyyy.mm.dd">
                                       <input  type="text" name="from" class="form-control">
                                       <div class="input-group-addon" >
@@ -47,7 +47,7 @@ Payments
                                     </div>
                                 </div>
 
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="input-group date" data-date-format="yyyy.mm.dd">
                                       <input  type="text" name="to" class="form-control">
                                       <div class="input-group-addon" >
@@ -55,12 +55,17 @@ Payments
                                       </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-2">
                                     <span class="input-group-append">
                                         <button class="btn btn-secondary" type="submit">
                                             <i class="fa fa-search"></i>
                                         </button>
+                                    </span>
+                                </div>
+                                <div class="col-md-2">
+                                    <span class="input-group-append">
+                                        <a class="btn btn-info" href="{{ route('supplier.payment.index') }}">Supplier Payment</a>
                                     </span>
                                 </div>
                             </div>
@@ -82,51 +87,56 @@ Payments
                                     <tbody>
                                         @php
                                             $start_serial = 0;
+                                            $total = 0;
                                         @endphp
                                     @foreach($payments as $key=>$item)
-                                        @if($loop->first)
+                                        @if ($item->customer_id)
                                             @php
-                                                $start_serial = $key + $payments->firstItem();
+                                                $total = $total + $item->amount;
                                             @endphp
-                                        @endif
-                                        <tr>
-                                            <td style="width: 1%;">{{ $key + $payments->firstItem() }}</td>
-                                            <td style="width: 15%;">
-                                                @if(isset($customers[$item->customer_id]))
-                                                    {{ $customers[$item->customer_id] }}
-                                                @endif
-                                            </td>
-                                            <td style="width: 11%;">
-                                                {{ Carbon\Carbon::parse($item->manual_date)->format('d-m-Y') }}
-                                            </td>
-                                            <td>{{ "0".$item->mobile_no }}</td>
-                                            <td style="width: 12%;">{{ $item->amount }}</td>
-                                            <td style="width: 13%; word-break: break-all;">{{ $item->notebar }}</td>
-                                            @php
-                                                $user = App\User::where('id',$item->user_id)->first();
-                                            @endphp
-                                            <td style="width: 12%;">{{ $user->name }}</td>
-                                            <td>
-                                                <a href="{{ url('/payments/' . $item->id) }}" title="View Payment"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
-                                                <a href="{{ url('/payments/' . $item->id . '/edit') }}" title="Edit Payment"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                                            @if($loop->first)
+                                                @php
+                                                    $start_serial = $key + $payments->firstItem();
+                                                @endphp
+                                            @endif
+                                            <tr>
+                                                <td style="width: 1%;">{{ $key + $payments->firstItem() }}</td>
+                                                <td style="width: 15%;">
+                                                    @if(isset($customers[$item->customer_id]))
+                                                        {{ $customers[$item->customer_id] }}
+                                                    @endif
+                                                </td>
+                                                <td style="width: 11%;">
+                                                    {{ Carbon\Carbon::parse($item->manual_date)->format('d-m-Y') }}
+                                                </td>
+                                                <td>{{ "0".$item->mobile_no }}</td>
+                                                <td style="width: 12%;">{{ $item->amount }}</td>
+                                                <td style="width: 13%; word-break: break-all;">{{ $item->notebar }}</td>
+                                                @php
+                                                    $user = App\User::where('id',$item->user_id)->first();
+                                                @endphp
+                                                <td style="width: 12%;">{{ $user->name }}</td>
+                                                <td>
+                                                    <a href="{{ url('/payments/' . $item->id) }}" title="View Payment"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+                                                    <a href="{{ url('/payments/' . $item->id . '/edit') }}" title="Edit Payment"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
 
-                                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#paymentdelete-{{ $item->id }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Delete</button>
+                                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#paymentdelete-{{ $item->id }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Delete</button>
 
-                                                <div id="paymentdelete-{{ $item->id }}" class="modal fade" role="dialog">
-                                                    <div class="modal-dialog">
+                                                    <div id="paymentdelete-{{ $item->id }}" class="modal fade" role="dialog">
+                                                        <div class="modal-dialog">
 
-                                                        <!-- Modal content-->
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                                <h4 class="modal-title">Delete Payments</h4>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                {!! Form::open([
-                                                                    'method'=>'DELETE',
-                                                                    'url' => ['/payments', $item->id],
-                                                                    'class' => 'form-horizontal'
-                                                                ]) !!}
+                                                            <!-- Modal content-->
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                    <h4 class="modal-title">Delete Payments</h4>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    {!! Form::open([
+                                                                        'method'=>'DELETE',
+                                                                        'url' => ['/payments', $item->id],
+                                                                        'class' => 'form-horizontal'
+                                                                    ]) !!}
 
                                                                     <div class="form-group">
                                                                         <label for="Role" class="control-label col-md-2">Password</label>
@@ -140,41 +150,42 @@ Payments
                                                                             <button class="btn btn-primary" type="submit">Submit</button>
                                                                         </div>
                                                                     </div>
-                                                                    
-                                                                {!! Form::close() !!}
+
+                                                                    {!! Form::close() !!}
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                </div>
                                                             </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                            </div>
+
                                                         </div>
-
                                                     </div>
-                                                </div>
 
 
 
-                                                {{-- {!! Form::open([
-                                                    'method'=>'DELETE',
-                                                    'url' => ['/payments', $item->id],
-                                                    'style' => 'display:inline'
-                                                ]) !!}
-                                                    {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(
-                                                            'type' => 'submit',
-                                                            'class' => 'btn btn-danger btn-sm',
-                                                            'title' => 'Delete Payment',
-                                                            'onclick'=>'return confirm("Confirm delete?")'
-                                                    )) !!}
-                                                {!! Form::close() !!} --}}
+                                                    {{-- {!! Form::open([
+                                                        'method'=>'DELETE',
+                                                        'url' => ['/payments', $item->id],
+                                                        'style' => 'display:inline'
+                                                    ]) !!}
+                                                        {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(
+                                                                'type' => 'submit',
+                                                                'class' => 'btn btn-danger btn-sm',
+                                                                'title' => 'Delete Payment',
+                                                                'onclick'=>'return confirm("Confirm delete?")'
+                                                        )) !!}
+                                                    {!! Form::close() !!} --}}
 
-                                                <a href="{{ url('/payment-sms/'.$item->id) }}" class="btn btn-sm btn-dark">
-                                                    <i class="fa fa-paper-plane"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
+                                                    <a href="{{ url('/payment-sms/'.$item->id) }}" class="btn btn-sm btn-dark">
+                                                        <i class="fa fa-paper-plane"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endif
                                     @endforeach
                                     <tr>
                                         <td colspan="4" style="text-align: right;">Total Amount</td>
-                                        <td>{{ $payments->sum('amount') }}</td>
+                                        <td>{{ $total }}</td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -201,7 +212,7 @@ Payments
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js"></script>
 
 <script type="text/javascript">
-    $('.input-group.date').datepicker({format: "yyyy.mm.dd"}); 
+    $('.input-group.date').datepicker({format: "yyyy.mm.dd"});
     $('#customer_id').select2();
     $('#customer_mobile').select2();
 </script>

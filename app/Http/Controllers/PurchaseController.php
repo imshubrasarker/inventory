@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Company;
 use App\Purchase;
 use App\Supplier;
 use Illuminate\Http\Request;
@@ -142,5 +143,13 @@ class PurchaseController extends Controller
         $purchases = Purchase::paginate(15);
         $total = Purchase::sum('amount');
         return view('godown1.index', compact('purchases', 'total'));
+    }
+
+    public function printView()
+    {
+        $company = Company::latest()->first();
+        $purchases = Purchase::all();
+        $total = Purchase::sum('amount');
+        return view('purchase.print', compact('purchases', 'total', 'company'));
     }
 }

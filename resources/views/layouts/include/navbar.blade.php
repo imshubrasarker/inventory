@@ -166,6 +166,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{{ route('godown2.index') }}"><i class="fa fa-angle-right"></i>Production</a></li>
+                    <li><a href="{{ route('godown2.create') }}"><i class="fa fa-angle-right"></i>Create Production</a></li>
                 </ul>
             </li>
             @endhasrole

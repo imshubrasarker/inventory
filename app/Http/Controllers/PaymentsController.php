@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Payment;
+use App\Supplier;
 use Illuminate\Http\Request;
 use App\Customer;
 use App\Smse;
@@ -35,7 +36,7 @@ class PaymentsController extends Controller
         }
 
         if($request->get('to')){
-            $to = $request->get('to')." 23:59:59"; 
+            $to = $request->get('to')." 23:59:59";
         }else{
             $to = null;
         }
@@ -82,8 +83,59 @@ class PaymentsController extends Controller
 
     public function paymentsCreateByCustomer($id)
     {
-        $customers = Customer::pluck('name','id');
-        return view('payments.create_by_customer',compact('customers','id'));
+        $type = $_GET['type'] ?? '';
+        if (isset($type) && $type === 'supplier') {
+            $suppliers = Supplier::where('id', $id)->pluck('name','id');
+            return view('payments.create_by_supplier',compact('suppliers','id', 'type'));
+        } else {
+            $customers = Customer::pluck('name','id');
+            return view('payments.create_by_customer',compact('customers','id'));
+        }
+    }
+
+    public function supplierIndex(Request $request)
+    {
+        $customer_id = $request->get('customer_id');
+        $customer_mobile = ltrim($request->get('customer_mobile'));
+        if($request->get('from')){
+            $from = $request->get('from')." 00:00:00";
+        }else{
+            $from = null;
+        }
+
+        if($request->get('to')){
+            $to = $request->get('to')." 23:59:59";
+        }else{
+            $to = null;
+        }
+        $perPage = 25;
+
+        if(!empty($customer_id) || !empty($customer_mobile) || !empty($from) || !empty($to)){
+
+            $payments = Payment::whereNotNull('id');
+
+            if(!empty($customer_id)){
+                $payments = $payments->where('customer_id', $customer_id);
+            }
+
+            if(!empty($customer_mobile)){
+                $payments = $payments->where('mobile_no', $customer_mobile);
+            }
+
+            if(!empty($from || $to)){
+                $payments = $payments->whereBetween('created_at',[$from,$to]);
+            }
+
+            $payments = $payments->latest()->paginate($perPage);
+            // dd($payments);
+        }else {
+            $payments = Payment::latest()->paginate($perPage);
+        }
+
+        $customers = Supplier::pluck('name','id');
+        $customer_mobiles = Supplier::pluck('mobile','mobile');
+        $users = User::pluck('name','id');
+        return view('payments.supplier-index', compact('payments','customers','users', 'customer_mobiles'));
     }
 
     /**
@@ -96,7 +148,11 @@ class PaymentsController extends Controller
     public function store(Request $request)
     {
         $payment = new Payment();
-        $payment->customer_id       = $request->customer_id;
+        if ($request->customer_id) {
+            $payment->customer_id       = $request->customer_id;
+        } elseif ($request->supplier_id) {
+            $payment->supplier_id       = $request->supplier_id;
+        }
         $payment->manual_date       = $request->manual_date;
         $payment->mobile_no         = $request->mobile_no;
         $payment->amount            = $request->amount;
@@ -182,11 +238,11 @@ class PaymentsController extends Controller
         $total_amount = $invoices->sum('grand_total_price');
         $advanced = $invoices->sum('advanced');
         $total_advanced = $payment->amount;
-        
+
         $cid = $payment->customer_id;
 
-        $onnorokom_info = Smse::latest()->first(); 
-         
+        $onnorokom_info = Smse::latest()->first();
+
         $customer_due = Customer::findOrFail($cid);
         $invoices2 = Invoice::where('customer_id',$cid)->latest()->get();
         $payments = Payment::where('customer_id',$cid)->latest()->get();
@@ -194,9 +250,9 @@ class PaymentsController extends Controller
 
         $grand_total_price = $invoices2->sum('grand_total_price');
         $paid_price = $invoices2->sum('advanced')+$total_payment_amount;
-        $due_amount = $grand_total_price+$customer_due->due-$paid_price; 
-        //$total_due +=$due_amount; 
-        
+        $due_amount = $grand_total_price+$customer_due->due-$paid_price;
+        //$total_due +=$due_amount;
+
        /* $sms = "Dear, $customer->name
         Sub: Payment Confirmation
         Amount: Tk. $total_amount BDT
@@ -204,7 +260,7 @@ class PaymentsController extends Controller
         -CVHBD.
         ";*/
         $sms = "Dear, $customer->name
-        Sub: Payment Confirmation 
+        Sub: Payment Confirmation
         Due amount: Tk. $due_amount BDT
         Total Paid: Tk. $total_advanced BDT
         -CVHBD.

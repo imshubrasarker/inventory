@@ -7,7 +7,9 @@
 @section('content')
     <div id="page-wrapper">
         <div class="main-page">
-            <a href="{{ url('/home') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+            <a href="{{ url('/home') }}" title="Back">
+                <button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button>
+            </a>
             <br>
             <br>
             @include('layouts.include.alert')
@@ -19,8 +21,8 @@
                         </div>
                     </div>
                 </div>
-<br>
-<br>
+                <br>
+                <br>
                 <form action="{{ route('expenses-search') }}" method="get">
                     @csrf
                     <div class="row">
@@ -29,19 +31,21 @@
                         </div>
                         <div class="col-md-3">
                             <div class="input-group date" data-date-format="yyyy.mm.dd">
-                                <div class="input-group-addon" >
+                                <div class="input-group-addon">
                                     <span class="glyphicon glyphicon-th">  From</span>
                                 </div>
-                                <input value="{{ date("Y-m-d") }}" id="StartDate" type="text" name="from" class="form-control">
+                                <input value="{{ date("Y-m-d") }}" id="StartDate" type="text" name="from"
+                                       class="form-control">
                             </div>
                         </div>
 
                         <div class="col-md-3">
                             <div class="input-group date" data-date-format="yyyy.mm.dd">
-                                <div class="input-group-addon" >
+                                <div class="input-group-addon">
                                     <span class="glyphicon glyphicon-th">  To</span>
                                 </div>
-                                <input value="{{date("Y-m-d")}}" id="EndDate" type="text" name="to" class="form-control">
+                                <input value="{{date("Y-m-d")}}" id="EndDate" type="text" name="to"
+                                       class="form-control">
                             </div>
                         </div>
 
@@ -53,16 +57,17 @@
                         </span>
                         </div>
                 </form>
-                </div>
-                @foreach($heads as $head)
+            </div>
+            @foreach($heads as $head)
                 <div class="form-title ">
-                   <div class="row">
-                       <div class="col-sm-6">
-                           <h4> <strong>Expense Head: </strong>{{ $head->title }}</h4>
-                       </div><div class="col-sm-6">
-                           <h4 class="text-right"> <strong>Total: </strong>{{ $head->expenses->sum('amount') }}</h4>
-                       </div>
-                   </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h4><strong>Expense Head: </strong>{{ $head->title }}</h4>
+                        </div>
+                        <div class="col-sm-6">
+                            <h4 class="text-right"><strong>Total: </strong>{{ $head->expenses->sum('amount') }}</h4>
+                        </div>
+                    </div>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
@@ -80,18 +85,19 @@
                             </thead>
                             <tbody>
                             @php
-                            $total =0 ;
+                                $total =0 ;
                             @endphp
                             @foreach($head->expenses as $expense)
                                 <tr>
                                     <th scope="row">{{ $loop->index +1 }}</th>
                                     <td>{{ Carbon\Carbon::parse($expense->date)->format('d-M-Y ') }}</td>
-                                    <td><a href="{{ route('expenses.show', $expense->id) }}">{{ $expense->title }}</a></td>
+                                    <td><a href="{{ route('expenses.show', $expense->id) }}">{{ $expense->title }}</a>
+                                    </td>
                                     <td>{{ $expense->amount }}</td>
                                     <td>{{ $expense->note }}</td>
                                     <td>
                                         <a class="btn btn-primary"
-                                                href="{{ route('expenses.edit', $expense->id) }}">
+                                           href="{{ route('expenses.edit', $expense->id) }}">
                                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                         </a>
                                     </td>
@@ -105,10 +111,12 @@
                             @endforeach
                             </tbody>
                         </table>
+                        <div>
+                            <a href="{{ route('expence.print') }}" class="btn btn-primary print_btn btn-block btn-sm"><i class="fa fa-print"></i> Print</a>
+                        </div>
                     </div>
                 </div>
-                    @endforeach
-            </div>
+            @endforeach
         </div>
     </div>
     @include('shared.delete-modal')
@@ -141,7 +149,7 @@
 
     <script>
 
-        function deleteHead(route){
+        function deleteHead(route) {
             $('#deleteForm').attr("action", route);
         }
     </script>
