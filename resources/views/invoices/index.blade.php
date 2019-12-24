@@ -258,7 +258,9 @@ Invoices
                                 <div class="pagination-wrapper"> {!! $invoices->appends(['search' => Request::get('search')])->render() !!} </div>
                             </div>
                             <br/>
+                            @if($invoices[0])
                             <a href="{{ url('/list-print?first_id='. $invoices[count($invoices)-1]->id .'&last_id=' . $invoices[0]->id . '&start_serial=' . $start_serial) }}" class="btn btn-sm btn-primary btn-block"><i class="fa fa-file-pdf-o"></i> Print</a>
+                              @endif
                         </div>
                     </div>
                 </div>

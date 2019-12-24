@@ -382,7 +382,9 @@ Customers
                                 <div class="pagination-wrapper"> {!! $customers->appends(['search' => Request::get('search')])->render() !!} </div>
                             </div>
                             <br>
+                            @if($customers[0])
                             <a href="{{ url('/customer-list-print?first_id='. $customers[count($customers)-1]->id .'&last_id=' . $customers[0]->id . '&start_serial=' . $start_serial) }}" class="btn btn-sm btn-primary btn-block"><i class="fa fa-file-pdf-o"></i> Print</a>
+                            @endif
                         </div>
                     </div>
                 </div>
