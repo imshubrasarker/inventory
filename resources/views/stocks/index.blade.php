@@ -230,7 +230,9 @@ Stocks
                                 <div class="pagination-wrapper"> {!! $stocks->appends(['search' => Request::get('search')])->render() !!} </div>
                             </div>
                             <br/>
+                            @if($stocks[0])
                             <a href="{{ url('/stock-list-print?first_id='. $stocks[count($stocks)-1]->id .'&last_id=' . $stocks[0]->id . '&start_serial=' . $start_serial) }}" class="btn btn-sm btn-primary btn-block"><i class="fa fa-file-pdf-o"></i> Print</a>
+                            @endif
                         </div>
                     </div>
                 </div>

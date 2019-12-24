@@ -172,8 +172,9 @@ Products
                                 <div class="pagination-wrapper"> {!! $products->appends(['search' => Request::get('search')])->render() !!} </div>
                             </div>
                             <br>
+                            @if($products[0])
                             <a href="{{ url('/product-list-print/?first_id='. $products[count($products)-1]->id .'&last_id=' . $products[0]->id . '&start_serial=' . $start_serial) }}" class="btn btn-sm btn-primary btn-block"><i class="fa fa-file-pdf-o"></i> Print</a>
-                            
+                            @endif
                         </div>
                     </div>
                 </div>
