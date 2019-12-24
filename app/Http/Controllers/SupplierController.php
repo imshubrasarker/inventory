@@ -113,10 +113,120 @@ class SupplierController extends Controller
 
     public function leadgerView($id)
     {
+        $payments = Payment::where('supplier_id', $id)->latest()->get();
+        $purchases = Purchase::where('supplier_id', $id)->latest()->get();
         $supplier = Supplier::with(['payments', 'purchases'])->where('id', $id)->first();
-//        return $supplier;
+        $results = array();
+        if($supplier){
+            $rows['created_at'] = $supplier->created_at;
+            $rows['ivno'] = '';
+            $rows['qty'] = $supplier->quantity;
+            $rows['purAmount'] = '';
+            $rows['paidAmount'] = '';
+            $rows['amount'] = $supplier->balance;
+            $rows['type'] = 'supplier';
+            $rows['note'] = $supplier->note;
+            $rows['user_id'] = '';
+            $results[] = $rows;
+        }
+        if ($payments) {
+            foreach ($payments as $key => $row) {
+                $rows['created_at'] = $row->created_at;
+                $rows['ivno'] = '';
+                $rows['qty'] = '';
+                $rows['purAmount'] = '';
+                $rows['paidAmount'] = $row->amount;
+                $rows['amount'] = $row->amount;
+                $rows['type'] = 'payments';
+                $rows['note'] = $row->note;
+                $rows['user_id'] = $row->user_id;
+                $results[] = $rows;
+            }
+        }
+        if ($purchases) {
+            foreach ($purchases as $key => $row) {
+                $rows['created_at'] = $row->created_at;
+                $rows['ivno'] = $row->invoice_num;
+                $rows['qty'] = $row->quantity;
+                $rows['paidAmount'] = '';
+                $rows['amount'] = $row->amount;
+                $rows['purAmount'] = $row->amount;
+                $rows['type'] = 'purchase';
+                $rows['note'] = $row->note;
+                $rows['user_id'] = $row->user_id;
+                $results[] = $rows;
+            }
+        }
+        if($results){
+            foreach ($results as $key => $part) {
+                $sort[$key] = strtotime($part['created_at']);
+            }
+            array_multisort($sort, SORT_ASC, $results);
+        }
+//        return $results;
+        $total_payment_amount = $payments->sum('amount');
+//        $supplier = Supplier::with(['payments', 'purchases'])->where('id', $id)->first();
+////        return $supplier;
         $purchases = Purchase::where('supplier_id', $id)->get();
         $payments = Payment::where('supplier_id', $id)->get();
-        return view('supplier.leadger', compact('supplier', 'purchases', 'payments'));
+        return view('supplier.leadger', compact('supplier', 'results', 'payments', 'purchases'));
+    }
+
+    public function supplyLedgerView($id)
+    {
+        $payments = Payment::where('supplier_id', $id)->latest()->get();
+        $purchases = Purchase::where('supplier_id', $id)->latest()->get();
+        $supplier = Supplier::with(['payments', 'purchases'])->where('id', $id)->first();
+        $results = array();
+        if($supplier){
+            $rows['created_at'] = $supplier->created_at;
+            $rows['ivno'] = '';
+            $rows['qty'] = $supplier->quantity;
+            $rows['purAmount'] = '';
+            $rows['paidAmount'] = '';
+            $rows['amount'] = $supplier->balance;
+            $rows['type'] = 'supplier';
+            $rows['note'] = $supplier->note;
+            $rows['user_id'] = '';
+            $results[] = $rows;
+        }
+        if ($payments) {
+            foreach ($payments as $key => $row) {
+                $rows['created_at'] = $row->created_at;
+                $rows['ivno'] = '';
+                $rows['qty'] = '';
+                $rows['purAmount'] = '';
+                $rows['paidAmount'] = $row->amount;
+                $rows['amount'] = $row->amount;
+                $rows['type'] = 'payments';
+                $rows['note'] = $row->note;
+                $rows['user_id'] = $row->user_id;
+                $results[] = $rows;
+            }
+        }
+        if ($purchases) {
+            foreach ($purchases as $key => $row) {
+                $rows['created_at'] = $row->created_at;
+                $rows['ivno'] = $row->invoice_num;
+                $rows['qty'] = $row->quantity;
+                $rows['paidAmount'] = '';
+                $rows['amount'] = $row->amount;
+                $rows['purAmount'] = $row->amount;
+                $rows['type'] = 'purchase';
+                $rows['note'] = $row->note;
+                $rows['user_id'] = $row->user_id;
+                $results[] = $rows;
+            }
+        }
+        if($results){
+            foreach ($results as $key => $part) {
+                $sort[$key] = strtotime($part['created_at']);
+            }
+            array_multisort($sort, SORT_ASC, $results);
+        }
+        $purchases = Purchase::where('supplier_id', $id)->get();
+        $payments = Payment::where('supplier_id', $id)->get();
+        $company = Company::latest()->first();
+        return view('supplier.leadger-print', compact('supplier', 'results', 'payments', 'purchases', 'company'));
     }
 }

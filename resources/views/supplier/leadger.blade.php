@@ -97,7 +97,7 @@
                                                 <div class="panel-heading">
                                                     <div class="row">
                                                         <div class="col-md-4">
-                                                            Customer Ledger
+                                                            Supplier Ledger
                                                         </div>
                                                         <div class="col-md-8">
                                                             {!! Form::open(['method' => 'GET', 'url' => '/customer-ledger-search-data', 'role' => 'search'])  !!}
@@ -128,100 +128,92 @@
                                                             <tr>
                                                                 <th>SL.</th>
                                                                 <th>Date</th>
-                                                                <th>Purchase</th>
+                                                                <th>Invoice</th>
                                                                 <th>Quantity</th>
                                                                 <th>Purchase Amount</th>
                                                                 <th>Paid Amount</th>
-                                                                <th>Due Amount</th>
+                                                                {{--<th>Due Amount</th>--}}
                                                                 <th>Balance</th>
                                                                 <th>Note</th>
                                                                 <th>Receipt By</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-{{--                                                            @php--}}
-{{--                                                                $i = 1;--}}
-{{--                                                                $gtotal = 0;--}}
-{{--                                                                $pgtotal = 0;--}}
-{{--                                                                $sgtotal = 0--}}
-{{--                                                            @endphp--}}
-{{--                                                            @if(isset($suppler))--}}
-{{--                                                                @foreach($result as $key2 => $item)--}}
-{{--                                                                    @php--}}
-{{--                                                                        $gtotal = $gtotal;--}}
-{{--                                                                    @endphp--}}
-{{--                                                                    <tr>--}}
-{{--                                                                        <td style="width: 1%;"> {{$key2+1}}</td>--}}
-{{--                                                                        <td style="width: 11%;">--}}
-{{--                                                                            {{ Carbon\Carbon::parse($item['created_at'])->format('d-m-Y') }}--}}
-{{--                                                                        </td>--}}
-{{--                                                                        <td>--}}
-{{--                                                                            @if($item['ivno'])--}}
-{{--                                                                                <a href="{{ url('/invoices-print/'.$item['ivno'] ) }}" style="cursor: pointer;"> {{ $item['ivno'] }}</a>--}}
-{{--                                                                            @endif --}}
-{{--                                                                        </td>--}}
-{{--                                                                        <td style="width: 10%;">{{ $item['quantuty'] }}</td>--}}
-{{--                                                                        <td style="width: 14%;">{{ $item['balance'] }}</td>--}}
-{{--                                                                        <td style="width: 15%;">{{ $item['ramount'] }}</td>--}}
-{{--                                                                        <td style="width: 12%;">{{ $item['damount'] }}</td>--}}
-{{--                                                                        @php--}}
+                                                            @php
+                                                                $i = 1;
+                                                                $gtotal = 0;
+                                                                $pgtotal = 0;
+                                                                $sgtotal = 0;
+                                                                $qSum = 0;
+                                                                $purAmount = 0;
+                                                                $paidAmount = 0;
+                                                            @endphp
+                                                            @if(isset($results))
+                                                                @foreach($results as $key2 => $item)
+                                                                    @php
+                                                                        $gtotal = $gtotal;
+                                                                    @endphp
+                                                                    <tr>
+                                                                        <td style="width: 1%;"> {{$key2+1}}</td>
+                                                                        <td style="width: 11%;">
+                                                                            {{ Carbon\Carbon::parse($item['created_at'])->format('d-m-Y') }}
+                                                                        </td>
+                                                                        <td>
+                                                                            @if($item['ivno'])
+                                                                                <a href="{{ url('/invoices-print/'.$item['ivno'] ) }}" style="cursor: pointer;"> {{ $item['ivno'] }}</a>
+                                                                            @endif </td>
+                                                                        <td style="width: 10%;">{{ $item['qty'] }}</td>
+                                                                        <td style="width: 14%;">{{ $item['purAmount'] }}</td>
+                                                                        <td style="width: 15%;">{{ $item['paidAmount'] }}</td>
+                                                                        {{--  <td style="width: 12%;">{{ $item['damount'] }}</td> --}}
+                                                                        @php
 
-{{--                                                                            if($item['type'] == 'payments'){--}}
-{{--                                                                             $sgtotal = $sgtotal + $item['lamount'];--}}
-{{--                                                                            }--}}
-{{--                                                                            if(($item['type'] == 'customer') || ($item['type'] == 'invoice') ){--}}
-{{--                                                                             $pgtotal = $pgtotal + $item['lamount'];--}}
-{{--                                                                            }--}}
-{{--                                                                            $gtotal = $pgtotal - $sgtotal;--}}
-{{--                                                                        @endphp--}}
-{{--                                                                        <td style="width: 12%;">{{$gtotal}}</td>--}}
-{{--                                                                        <td>{{ $item['notebar'] }}</td>--}}
-{{--                                                                        @php--}}
-{{--                                                                            $user = App\User::where('id',$item['user_id'])->first();--}}
-{{--                                                                        @endphp--}}
-{{--                                                                        @if($item['user_id'])--}}
-{{--                                                                            <td style="width: 10%;">{{$user->name}} </td>--}}
-{{--                                                                        @else--}}
-{{--                                                                            <td style="width: 10%;"> </td>--}}
-{{--                                                                        @endif--}}
-{{--                                                                    </tr>--}}
-{{--                                                                    @php--}}
-{{--                                                                        $i++;--}}
-{{--                                                                    @endphp--}}
-{{--                                                                @endforeach--}}
-{{--                                                            @endif--}}
-{{--                                                            @if(isset($invoices))--}}
-
-{{--                                                                <?php--}}
-{{--                                                                $grand_total_price = $invoices->sum('grand_total_price');--}}
-{{--                                                                $advanced_amount = $invoices->sum('advanced');--}}
-{{--                                                                $total_advanced_amount = $advanced_amount+$total_payment_amount;--}}
-{{--                                                                $due_amount = $grand_total_price+$customer->due-$total_advanced_amount;--}}
-{{--                                                                $quantity = $invoices->sum('total_quantity');--}}
-{{--                                                                if($customer->quantity != null){--}}
-{{--                                                                    $total_quantity = $quantity+$customer->quantity;--}}
-{{--                                                                }else{--}}
-{{--                                                                    $total_quantity = $invoices->sum('total_quantity');--}}
-{{--                                                                }--}}
-
-{{--                                                                ?>--}}
-{{--                                                                <tr>--}}
-{{--                                                                    <td colspan="3" class="text-right">Total</td>--}}
-{{--                                                                    <td>{{ $total_quantity }}</td>--}}
-{{--                                                                    <td>{{ $grand_total_price }}</td>--}}
-{{--                                                                    <td>{{ $total_advanced_amount }}</td>--}}
-{{--                                                                    <td>{{ $due_amount }}</td>--}}
-{{--                                                                    <td></td>--}}
-{{--                                                                    <td></td>--}}
-{{--                                                                </tr>--}}
-{{--                                                            @endif--}}
+                                                                            if($item['type'] == 'payments'){
+                                                                            $paidAmount = $paidAmount + $item['paidAmount'];
+                                                                             $sgtotal = $sgtotal + $item['amount'];
+                                                                            }
+                                                                            if(($item['type'] == 'supplier') || ($item['type'] == 'purchase') ){
+                                                                                $qSum = $qSum + $item['qty'];
+                                                                             $pgtotal = $pgtotal + $item['amount'];
+                                                                            }
+                                                                            if ($item['type'] == 'purchase')
+                                                                                {
+                                                                                    $purAmount = $purAmount + $item['purAmount'];
+                                                                                }
+                                                                            $gtotal = $pgtotal - $sgtotal;
+                                                                        @endphp
+                                                                        <td style="width: 12%;">{{$gtotal}}</td>
+                                                                        <td>{{ $item['note'] }}</td>
+                                                                        @php
+                                                                            $user = App\User::where('id',$item['user_id'])->first();
+                                                                        @endphp
+                                                                        @if($item['user_id'])
+                                                                            <td style="width: 10%;">{{$user->name}} </td>
+                                                                        @else
+                                                                            <td style="width: 10%;"> </td>
+                                                                        @endif
+                                                                    </tr>
+                                                                    @php
+                                                                        $i++;
+                                                                    @endphp
+                                                                @endforeach
+                                                            @endif
+                                                            <tr>
+                                                                <td colspan="3" class="text-right">Total:</td>
+                                                                <td>{{ $qSum }}</td>
+                                                                <td>{{ $purAmount }}</td>
+                                                                <td>{{ $paidAmount }}</td>
+                                                                <td>{{ $gtotal }}</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
                                                             </tbody>
                                                         </table>
-{{--                                                        @if(isset($customer->id))--}}
-{{--                                                            <div class="col-md-4 col-md-offset-4">--}}
-{{--                                                                <a href="{{ url('/customer-ledger-print/'.$customer->id) }}" class="btn btn-primary btn-block"><i class="fa fa-print"></i> Print</a>--}}
-{{--                                                            </div>--}}
-{{--                                                        @endif--}}
+                                                        @if(isset($supplier->id))
+                                                            <div class="col-md-4 col-md-offset-4">
+                                                                <a href="{{ url('/supplier-ledger-print/'.$supplier->id) }}" class="btn btn-primary btn-block"><i class="fa fa-print"></i> Print</a>
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>

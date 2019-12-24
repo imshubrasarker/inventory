@@ -67,6 +67,8 @@ Route::middleware(['auth'])->group(function () {
 
 	Route::get('/customer-ledger-print/{id}', 'CustomersController@customerLedgerView');
 
+	Route::get('/supplier-ledger-print/{id}', 'SupplierController@supplyLedgerView');
+
 
 	Route::resource('invoices', 'InvoicesController');
 	Route::get('/list-print', 'InvoicesController@printInvoicedata');
