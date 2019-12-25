@@ -59,9 +59,9 @@
                                             <td>{{ $purchase->invoice_num }}</td>
                                             <td>
                                                <div class="row">
-                                                   <div class="col-sm-4">
-                                                       <a href="{{ route('purchase.show', $purchase->id) }}" type="button" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i> </a>
-                                                   </div>
+{{--                                                   <div class="col-sm-4">--}}
+{{--                                                       <a href="{{ route('purchase.show', $purchase->id) }}" type="button" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i> </a>--}}
+{{--                                                   </div>--}}
                                                    <div class="col-md-4">
                                                        <a href="{{ route('purchase.edit', $purchase->id) }}" type="button" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
                                                    </div>

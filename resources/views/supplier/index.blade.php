@@ -69,7 +69,7 @@
                                             <td>
                                                <div class="row">
                                                    <div class="col-md-3 text-center">
-                                                       <a href="{{ route('supplier.leadger', $supplier->id) }}" class="btn-sm btn btn-info"><i class="fa fa-list-alt" aria-hidden="true"></i>Leader</a>
+                                                       <a href="{{ route('supplier.leadger', $supplier->id) }}" class="btn-sm btn btn-info"><i class="fa fa-list-alt" aria-hidden="true"></i>Ledger</a>
                                                    </div>
                                                    <div class="col-sm-3 text-center">
                                                        <a href="{{ route('supplier.show', $supplier->id) }}" type="button" class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> </a>
