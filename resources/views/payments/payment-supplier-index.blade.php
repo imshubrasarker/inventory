@@ -279,7 +279,7 @@ Payment List
                                         $total = 0;
                                     @endphp
                                     @foreach($payments as $key => $item)
-                                        @if ($item->customer_id)
+                                        @if ($item->supplier_id)
                                             @php
                                                 $total = $total + $item['amount'];
                                             @endphp

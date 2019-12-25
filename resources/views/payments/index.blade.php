@@ -38,7 +38,7 @@ Payments
                                     </select>
                                 </div>
 
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <div class="input-group date" data-date-format="yyyy.mm.dd">
                                       <input  type="text" name="from" class="form-control">
                                       <div class="input-group-addon" >
@@ -47,7 +47,7 @@ Payments
                                     </div>
                                 </div>
 
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <div class="input-group date" data-date-format="yyyy.mm.dd">
                                       <input  type="text" name="to" class="form-control">
                                       <div class="input-group-addon" >
@@ -61,11 +61,6 @@ Payments
                                         <button class="btn btn-secondary" type="submit">
                                             <i class="fa fa-search"></i>
                                         </button>
-                                    </span>
-                                </div>
-                                <div class="col-md-2">
-                                    <span class="input-group-append">
-                                        <a class="btn btn-info" href="{{ route('supplier.payment.index') }}">Supplier Payment</a>
                                     </span>
                                 </div>
                             </div>

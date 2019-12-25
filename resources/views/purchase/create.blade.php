@@ -33,7 +33,7 @@
                                         <div class=" col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label mb-2">Supplier<span class="text-danger">*</span></label>
-                                                <select name="supplier_id" id="supplier" class="form-control">
+                                                <select name="supplier_id" id="supplier" class="form-control supplier">
                                                     <option value="">Select Supplier</option>
                                                     @foreach ($suplliers as $suppler )
                                                         <option value="{{ $suppler->id }}">{{ $suppler->name }}</option>
@@ -59,17 +59,23 @@
                                         </div>
                                         <div class=" col-sm-12 col-md-6">
                                             <div class="form-group">
-                                                <label class="control-label mb-2">Note</label>
-                                                <textarea placeholder="Note" class="form-control" name="note"></textarea>
+                                                <label class="control-label mb-2">Mobile Number <span class="text-danger">*</span></label>
+                                                <input type="text" placeholder="Mobile Number" class="form-control" id="mobile" name="mobile" required>
                                             </div>
                                         </div>
+
                                     </div>
 
                                     <div class="row mb-2">
                                         <div class=" col-sm-12 col-md-6">
                                             <div class="form-group">
-                                                <label class="control-label mb-2">Mobile Number <span class="text-danger">*</span></label>
-                                                <input type="text" placeholder="Mobile Number" class="form-control" name="mobile" required>
+                                                <label class="control-label mb-2">Category<span class="text-danger">*</span></label>
+                                                <select name="category_id" id="category" class="form-control category">
+                                                    <option value="">Select Category</option>
+                                                    @foreach ($categories as $category )
+                                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
 
@@ -95,16 +101,14 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="row mb-2">
                                         <div class=" col-sm-12 col-md-6">
                                             <div class="form-group">
-                                                <label class="control-label mb-2">Description <span class="text-danger">*</span></label>
-                                                <textarea placeholder="Description" class="form-control" name="description"></textarea>
+                                                <label class="control-label mb-2">Note</label>
+                                                <textarea placeholder="Note" class="form-control" name="note"></textarea>
                                             </div>
                                         </div>
                                     </div>
-
 
                                     <div class="row">
                                         <div class="col-sm-12">
@@ -125,6 +129,24 @@
 
 @section('footer-script')
     <script>
-
+        $(document).on('change','.supplier', function(){
+            var customer_id = $(this).val();
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type:"POST",
+                url:"{{ route('get_supplier_detail') }}",
+                data: {
+                    supplier_id : customer_id,
+                },
+                success : function(results) {
+                    console.log('data', results);
+                    $("#mobile").val(results.supplier.mobile);
+                    $("#address").val(results.supplier.address);
+                    console.log('data', results);
+                }
+            });
+        });
     </script>
 @endsection

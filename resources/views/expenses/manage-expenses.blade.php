@@ -56,18 +56,10 @@
                             </button>
                         </span>
                         </div>
-                </form>
-            </div>
-            @foreach($heads as $head)
-                <div class="form-title ">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <h4><strong>Expense Head: </strong>{{ $head->title }}</h4>
-                        </div>
-                        <div class="col-sm-6">
-                            <h4 class="text-right"><strong>Total: </strong>{{ $head->expenses->sum('amount') }}</h4>
-                        </div>
                     </div>
+                </form>
+                <div style="margin-top: 10px; margin-bottom: 10px; margin-left: 20px">
+                    <h3>Total Expense : {{ $total }}</h3>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
@@ -76,8 +68,9 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Date</th>
-                                <th scope="col">Title</th>
+                                <th scope="col" width="20%">Title</th>
                                 <th scope="col">Amount</th>
+                                <th scope="col">Expense Head</th>
                                 <th scope="col">Note</th>
                                 <th scope="col">Edit</th>
                                 <th scope="col">Delete</th>
@@ -87,13 +80,14 @@
                             @php
                                 $total =0 ;
                             @endphp
-                            @foreach($head->expenses as $expense)
+                            @foreach($expenses as $expense)
                                 <tr>
                                     <th scope="row">{{ $loop->index +1 }}</th>
                                     <td>{{ Carbon\Carbon::parse($expense->date)->format('d-M-Y ') }}</td>
                                     <td><a href="{{ route('expenses.show', $expense->id) }}">{{ $expense->title }}</a>
                                     </td>
                                     <td>{{ $expense->amount }}</td>
+                                    <td>{{ $expense->expenseHead->title }}</td>
                                     <td>{{ $expense->note }}</td>
                                     <td>
                                         <a class="btn btn-primary"
@@ -116,7 +110,9 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
+            </div>
+            <div class="panel">
+            </div>
         </div>
     </div>
     @include('shared.delete-modal')

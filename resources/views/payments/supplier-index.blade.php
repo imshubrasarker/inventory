@@ -19,7 +19,7 @@
                     <div class="form-body">
                         <div class="card">
                             <div class="card-body">
-                                {!! Form::open(['method' => 'GET', 'url' => '/payments', 'role' => 'search'])  !!}
+                                {!! Form::open(['method' => 'GET', 'url' => 'payment/supplier', 'role' => 'search'])  !!}
                                 <div class="row">
                                     <div class="col-md-2">
                                         <select class="form-control" name="customer_id" id="customer_id">
@@ -98,8 +98,8 @@
                                                 <tr>
                                                     <td style="width: 1%;">{{ $key + $payments->firstItem() }}</td>
                                                     <td style="width: 15%;">
-                                                        @if(isset($customers[$item->customer_id]))
-                                                            {{ $customers[$item->customer_id] }}
+                                                        @if(isset($customers[$item->supplier_id]))
+                                                            {{ $customers[$item->supplier_id] }}
                                                         @endif
                                                     </td>
                                                     <td style="width: 11%;">
@@ -206,7 +206,7 @@
                                         class="pagination-wrapper"> {!! $payments->appends(['search' => Request::get('search')])->render() !!} </div>
                                 </div>
                                 <br>
-                                <a href="{{ url('/payment-list-print?first_id='. $payments[count($payments)-1]['id'] .'&last_id=' . $payments[0]['id'] . '&start_serial=' . $start_serial) }}"
+                                <a href="{{ url('/payment-list-print/supplier?first_id='. $payments[count($payments)-1]['id'] .'&last_id=' . $payments[0]['id'] . '&start_serial=' . $start_serial) }}"
                                    class="btn btn-sm btn-primary btn-block"><i class="fa fa-file-pdf-o"></i> Print</a>
                             </div>
                         </div>

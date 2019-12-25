@@ -27,8 +27,7 @@ class AddExpensesRequest extends FormRequest
             'title' => 'required|string|max:100',
             'amount' => 'required|numeric',
             'expenses_heads_id' => 'required|numeric',
-            'date' => 'required',
-            'note' => 'string|max:250',
+            'date' => 'required'
         ];
     }
 }

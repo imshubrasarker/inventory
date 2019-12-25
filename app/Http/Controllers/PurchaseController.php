@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Company;
 use App\Purchase;
 use App\Supplier;
@@ -29,7 +30,8 @@ class PurchaseController extends Controller
     public function create()
     {
         $suplliers = Supplier::all();
-        return view('purchase.create', compact('suplliers'));
+        $categories = Category::all();
+        return view('purchase.create', compact('suplliers', 'categories'));
     }
 
     /**
@@ -46,11 +48,11 @@ class PurchaseController extends Controller
             'address' => 'required',
             'mobile' => 'required',
             'quantity' => 'required',
-            'description' => 'required',
             'amount' => 'required',
-            'note' => 'required',
-            'invoice' => 'required'
+            'invoice' => 'required',
+            'category_id' => 'required'
         ]);
+        $note = $request->note ?? '';
         Purchase::create([
             'sl' => $request->sl,
             'date' => $request->date,
@@ -60,8 +62,9 @@ class PurchaseController extends Controller
             'quantity' => $request->quantity,
             'description' => $request->description,
             'amount' => $request->amount,
-            'note' => $request->note,
+            'note' => $note,
             'invoice_num' => $request->invoice,
+            'category_id' => $request->category_id
         ]);
         return redirect()->route('purchase.index')->with('success', 'Purchase Created !!');
     }
@@ -85,9 +88,10 @@ class PurchaseController extends Controller
      */
     public function edit($id)
     {
+        $categories = Category::all();
         $purchase = Purchase::findOrFail($id);
         $suplliers = Supplier::all();
-        return view('purchase.edit', compact('purchase', 'suplliers'));
+        return view('purchase.edit', compact('purchase', 'suplliers', 'categories'));
     }
 
     /**
@@ -105,22 +109,22 @@ class PurchaseController extends Controller
             'address' => 'required',
             'mobile' => 'required',
             'quantity' => 'required',
-            'description' => 'required',
             'amount' => 'required',
-            'note' => 'required',
-            'invoice' => 'required'
+            'invoice' => 'required',
+            'category_id' => 'required'
 
         ]);
+        $note = $request->note ?? '';
         Purchase::findOrFail($id)->update([
             'date' => $request->date,
             'supplier_id' => $request->supplier_id,
             'address' => $request->address,
             'mobile' => $request->mobile,
             'quantity' => $request->quantity,
-            'description' => $request->description,
             'amount' => $request->amount,
-            'note' => $request->note,
+            'note' => $note,
             'invoice_num' => $request->invoice,
+            'category_id' => $request->category_id
         ]);
         return redirect()->route('purchase.index')->with('success', 'Purchase Updated !!');
     }

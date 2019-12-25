@@ -58,15 +58,14 @@
                                     <div class="row mb-2">
                                         <div class=" col-sm-12 col-md-6">
                                             <div class="form-group">
-                                                <label class="control-label mb-2">Note</label>
-                                                <textarea placeholder="Note" class="form-control" name="note">{{ $purchase->note }}</textarea>
-                                            </div>
-                                        </div>
-
-                                        <div class=" col-sm-12 col-md-6">
-                                            <div class="form-group">
                                                 <label class="control-label mb-2">Address <span class="text-danger">*</span></label>
                                                 <textarea name="address" id="address" class="form-control">{{ $purchase->address }}</textarea>
+                                            </div>
+                                        </div>
+                                        <div class=" col-sm-12 col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label mb-2">Mobile Number <span class="text-danger">*</span></label>
+                                                <input type="text" placeholder="Mobile Number" class="form-control" name="mobile" required value="{{ $purchase->mobile }}" >
                                             </div>
                                         </div>
                                     </div>
@@ -74,8 +73,17 @@
                                     <div class="row mb-2">
                                         <div class=" col-sm-12 col-md-6">
                                             <div class="form-group">
-                                                <label class="control-label mb-2">Mobile Number <span class="text-danger">*</span></label>
-                                                <input type="text" placeholder="Mobile Number" class="form-control" name="mobile" required value="{{ $purchase->mobile }}" >
+                                                <label class="control-label mb-2">Category<span class="text-danger">*</span></label>
+                                                <select name="category_id" id="category" class="form-control category">
+                                                    <option value="">Select Category</option>
+                                                    @foreach ($categories as $category )
+                                                        @if ($category->id == $purchase->category_id)
+                                                            <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+                                                            @continue
+                                                        @endif
+                                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
 
@@ -102,11 +110,11 @@
                                         </div>
                                     </div>
 
-                                    <div class="row mb-3">
+                                    <div class="row mb-2">
                                         <div class=" col-sm-12 col-md-6">
                                             <div class="form-group">
-                                                <label class="control-label mb-2">Description <span class="text-danger">*</span></label>
-                                                <textarea placeholder="Description" class="form-control" name="description">{{ $purchase->description }}</textarea>
+                                                <label class="control-label mb-2">Note</label>
+                                                <textarea placeholder="Note" class="form-control" name="note"></textarea>
                                             </div>
                                         </div>
                                     </div>

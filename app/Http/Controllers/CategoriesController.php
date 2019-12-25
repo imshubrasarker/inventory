@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Category;
+use App\Purchase;
 use Illuminate\Http\Request;
 use Auth;
 use Hash;
@@ -51,9 +52,9 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $requestData = $request->all();
-        
+
         Category::create($requestData);
 
         return redirect('categories/create')->with('success', 'Category added!');
@@ -69,8 +70,10 @@ class CategoriesController extends Controller
     public function show($id)
     {
         $category = Category::findOrFail($id);
+        $purchase_qty = Purchase::where('category_id', $id)->sum('quantity');
+        $purchase_amt = Purchase::where('category_id', $id)->sum('amount');
 
-        return view('categories.show', compact('category'));
+        return view('categories.show', compact('category', 'purchase_amt', 'purchase_qty'));
     }
 
     /**
@@ -97,9 +100,9 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         $requestData = $request->all();
-        
+
         $category = Category::findOrFail($id);
         $category->update($requestData);
 
@@ -125,6 +128,6 @@ class CategoriesController extends Controller
             return redirect('categories')->with('error','Password Not Matched!');
         }
 
-        
+
     }
 }

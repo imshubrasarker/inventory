@@ -27,5 +27,10 @@ class Category extends Model
      */
     protected $fillable = ['name'];
 
-    
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class, 'category_id');
+    }
+
+
 }
