@@ -18,9 +18,9 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        $heads = ExpensesHead::with(['expenses' => function ($q) {
-           $q->orderBy('date', 'desc');}])->get();
-        return view('expenses.manage-expenses', compact('heads'));
+        $total = Expense::sum('amount');
+        $expenses = Expense::all();
+        return view('expenses.manage-expenses', compact('expenses', 'total'));
     }
 
     /**
@@ -108,8 +108,8 @@ class ExpenseController extends Controller
     public function printShow()
     {
         $company = Company::latest()->first();
-        $heads = ExpensesHead::with(['expenses' => function ($q) {
-            $q->orderBy('date', 'desc');}])->get();
-        return view('expenses.print', compact('heads', 'company'));
+        $expenses = Expense::all();
+        $total = Expense::sum('amount');
+        return view('expenses.print', compact('expenses', 'company', 'total'));
     }
 }

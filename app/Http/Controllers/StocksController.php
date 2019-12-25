@@ -35,13 +35,13 @@ class StocksController extends Controller
             $stocks = Product::join('stocks','products.id','=','stocks.product_id')
             ->select('stocks.*','products.name','products.size','products.sale_price', 'products.alert_quantity')
             ->latest()->groupBy('product_id')->where('products.id',$product_id)->paginate($perPage);
-             
+
         } else {
             $stocks = Product::join('stocks','products.id','=','stocks.product_id')
             ->select('stocks.*','products.name', 'products.size','products.sale_price', 'products.alert_quantity')
             ->latest()->groupBy('product_id')->paginate($perPage);
         }
-        
+
         $products = Product::join('stocks','products.id','=','stocks.product_id')
             ->select('stocks.*','products.name', 'products.size','products.sale_price', 'products.alert_quantity')->latest()->groupBy('product_id')->get();
         /*
@@ -189,7 +189,7 @@ class StocksController extends Controller
             return redirect('stocks')->with('error', 'Password Not Matched!');
         }
 
-        
+
     }
 
     public function getInvoiceInfo($id)
@@ -231,7 +231,7 @@ class StocksController extends Controller
         $stocks = Product::join('stocks','products.id','=','stocks.product_id')
             ->select('stocks.*','products.name','products.size','products.sale_price', 'products.alert_quantity')
             ->latest()->groupBy('product_id')->paginate($perPage);
-        $company = Company::latest()->first();   
+        $company = Company::latest()->first();
         return view('stocks.stock-index', compact('stocks', 'company'));
     }
 }

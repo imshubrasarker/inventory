@@ -56,9 +56,11 @@
             </a>
             <ul class="treeview-menu">
               <li><a href="{{ url('payments/create') }}"><i class="fa fa-angle-right"></i> Receive Payment</a></li>
+              <li><a href="{{ url('payments/create/supplier') }}"><i class="fa fa-angle-right"></i> Paid Payment</a></li>
               @hasrole('Admin')
               <li><a href="{{ url('payments') }}"><i class="fa fa-angle-right"></i> Manage Payment</a></li>
-                 @endhasrole
+              <li><a href="{{ route('supplier.payment.index') }}"><i class="fa fa-angle-right"></i> Manage Supplier Payment</a></li>
+                @endhasrole
             </ul>
           </li>
 

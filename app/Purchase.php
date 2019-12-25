@@ -15,7 +15,7 @@ class Purchase extends Model
         'mobile',
         'invoice_num',
         'quantity',
-        'description',
+        'category_id',
         'amount',
         'note',
     ];
@@ -23,5 +23,10 @@ class Purchase extends Model
     public function supplier()
     {
         return $this->belongsTo(Supplier::class, 'supplier_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
     }
 }

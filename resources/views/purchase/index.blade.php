@@ -37,7 +37,7 @@
                                             <th scope="col">SL</th>
                                             <th scope="col">Date</th>
                                             <th scope="col">Supplier Name</th>
-                                            <th scope="col">Description</th>
+                                            <th scope="col">Type</th>
                                             <th scope="col">Quantity</th>
                                             <th scope="col">Amount</th>
                                             <th scope="col">Note</th>
@@ -52,7 +52,7 @@
                                             <th scope="row">{{ $loop->index + 1 }}</th>
                                             <td> {{ date('d-m-Y', strtotime($purchase->date)) }} </td>
                                             <td>{{ $purchase->supplier->name }}</td>
-                                            <td>{{ $purchase->description }}</td>
+                                            <td>{{ $purchase->category->name }}</td>
                                             <td>{{ $purchase->quantity }}</td>
                                             <td>{{ $purchase->amount }}</td>
                                             <td>{{ $purchase->note }}</td>

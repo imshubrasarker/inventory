@@ -17,7 +17,7 @@ Category {{ $category->id }}
 
                             <a href="{{ url('/categories') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                             <a href="{{ url('/categories/' . $category->id . '/edit') }}" title="Edit Category"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
-                            
+
                             <br/>
                             <br/>
 
@@ -31,6 +31,14 @@ Category {{ $category->id }}
                                         <tr>
                                             <th> Name </th>
                                             <td> {{ $category->name }} </td>
+                                        </tr>
+                                        <tr>
+                                            <th> Purchase Quantity </th>
+                                            <td> {{ $purchase_qty }} </td>
+                                        </tr>
+                                        <tr>
+                                            <th> Purchase Amount </th>
+                                            <td> {{ $purchase_amt }} </td>
                                         </tr>
                                     </tbody>
                                 </table>

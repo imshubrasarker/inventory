@@ -27,6 +27,7 @@
         #details {
             margin-bottom: 50px;
         }
+
         .column {
             float: left;
             width: 50%;
@@ -53,8 +54,9 @@
                                 <img src="{{ asset($company->logo) }}">
                             </div>
                             <div id="company">
-                                <h3 class="name"><b>{{ $company->name }}</b> </h3>
-                                <div ><font size="3">Didar Nibash . 83 / 2 Muradpur High School Road . <br>Jurain . Kadomtoli . Dhaka - 1204 . E - BIN :001437901-0308</font></div>
+                                <h3 class="name"><b>{{ $company->name }}</b></h3>
+                                <div><font size="3">Didar Nibash . 83 / 2 Muradpur High School Road . <br>Jurain .
+                                        Kadomtoli . Dhaka - 1204 . E - BIN :001437901-0308</font></div>
                                 <div><font size="3">{{ $company->mobile}}</font></div>
                                 <div><a href="#"><font size="3">{{$company->email }}</font></a></div>
                             </div>
@@ -66,7 +68,8 @@
                                 <div class="input-group-addon">
                                     <span class="glyphicon glyphicon-th">  From</span>
                                 </div>
-                                <input value="{{ date("Y-m-d") }}" id="StartDate" type="text" name="from" class="form-control">
+                                <input value="{{ date("Y-m-d") }}" id="StartDate" type="text" name="from"
+                                       class="form-control">
                             </div>
                         </div>
                         <div class="column">
@@ -74,58 +77,53 @@
                                 <div class="input-group-addon">
                                     <span class="glyphicon glyphicon-th">  To</span>
                                 </div>
-                                <input value="{{date("Y-m-d")}}" id="EndDate" type="text" name="to" class="form-control">
+                                <input value="{{date("Y-m-d")}}" id="EndDate" type="text" name="to"
+                                       class="form-control">
                             </div>
                         </div>
                     </div>
-                    @foreach($heads as $head)
-                        <div class="form-title ">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <h4><strong>Expense Head: </strong>{{ $head->title }}</h4>
-                                </div>
-                                <div class="col-sm-6">
-                                    <h4 class="text-right"><strong>Total: </strong>{{ $head->expenses->sum('amount') }}</h4>
-                                </div>
-                            </div>
+
+                    <div class="panel-body">
+                        <div style="margin-bottom: 40px">
+                            <h3>Total Expense : {{ $total }}</h3>
                         </div>
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Amount</th>
+                                    <th scope="col">Expense Head</th>
+                                    <th scope="col">Note</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @php
+                                    $total =0 ;
+                                @endphp
+                                @foreach($expenses as $expense)
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Date</th>
-                                        <th scope="col">Title</th>
-                                        <th scope="col">Amount</th>
-                                        <th scope="col">Note</th>
+                                        <th scope="row">{{ $loop->index +1 }}</th>
+                                        <td>{{ Carbon\Carbon::parse($expense->date)->format('d-M-Y ') }}</td>
+                                        <td>
+                                            <a>{{ $expense->title }}</a>
+                                        </td>
+                                        <td>{{ $expense->amount }}</td>
+                                        <td>{{ $expense->expenseHead->title }}</td>
+                                        <td>{{ $expense->note }}</td>
                                     </tr>
-                                    </thead>
-                                    <tbody>
-                                    @php
-                                        $total =0 ;
-                                    @endphp
-                                    @foreach($head->expenses as $expense)
-                                        <tr>
-                                            <th scope="row">{{ $loop->index +1 }}</th>
-                                            <td>{{ Carbon\Carbon::parse($expense->date)->format('d-M-Y ') }}</td>
-                                            <td>{{ $expense->title }}</td>
-                                            <td>{{ $expense->amount }}</td>
-                                            <td>{{ $expense->note }}</td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                                <div class="owners_sign text-center" style="margin-top: 80px; margin-bottom: 30px; float: right">
-                                    <hr style="border: 1px solid black;"/>
-                                    <h4>Oweners Signature</h4>
-                                </div>
-                                <div>
-                                    <button type="button" class="btn btn-primary print_btn btn-block btn-sm" onclick="printDiv('printcontent');"><i class="fa fa-print"></i> Print</button>
-                                </div>
-                            </div>
+                                @endforeach
+                                </tbody>
+                            </table>
                         </div>
-                    @endforeach
+                        <div>
+                            <button type="button" class="btn btn-primary print_btn btn-block btn-sm"
+                                    onclick="printDiv('printcontent');"><i class="fa fa-print"></i> Print
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

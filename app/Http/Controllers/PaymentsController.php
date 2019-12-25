@@ -115,7 +115,7 @@ class PaymentsController extends Controller
             $payments = Payment::whereNotNull('id');
 
             if(!empty($customer_id)){
-                $payments = $payments->where('customer_id', $customer_id);
+                $payments = $payments->where('supplier_id', $customer_id);
             }
 
             if(!empty($customer_mobile)){
@@ -160,6 +160,12 @@ class PaymentsController extends Controller
         $payment->notebar           = $request->notebar;
         $payment->user_id           = Auth::user()->id;
         $payment->save();
+
+//        if ($request->customer_id) {
+//            return redirect('payments')->with('success', 'Payment added!');
+//        } elseif ($request->supplier_id) {
+//            return view('payments.supplier-index')->with('success', 'Payment added!');
+//        }
 
         return redirect('payments')->with('success', 'Payment added!');
     }
@@ -298,5 +304,23 @@ class PaymentsController extends Controller
         $users = User::pluck('name','id');
         $company = Company::latest()->first();
         return view('payments.payment-index', compact('payments','customers','users', 'customer_mobiles', 'company', 'start_serial'));
+    }
+
+    public function printPaymentViewSupplier(Request $request)
+    {
+        $perPage = 25;
+        $start_serial = $request->query->get('start_serial');
+        $payments = Payment::whereBetween('id', [$request->query->get('first_id'), $request->query->get('last_id')])->latest()->get();
+        $customers = Customer::pluck('name','id');
+        $customer_mobiles = Customer::pluck('primary_mobile','primary_mobile');
+        $users = User::pluck('name','id');
+        $company = Company::latest()->first();
+        return view('payments.payment-supplier-index', compact('payments','customers','users', 'customer_mobiles', 'company', 'start_serial'));
+    }
+
+    public function paymentsCreateSupplier()
+    {
+        $suppliers = Supplier::pluck('name','id');
+        return view('payments.supplier-create', compact('suppliers'));
     }
 }

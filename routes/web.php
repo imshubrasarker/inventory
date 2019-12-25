@@ -55,6 +55,7 @@ Route::middleware(['auth'])->group(function () {
 
 	Route::get('/customer-list-print', 'CustomersController@printCustomerView');
 	Route::get('/payment-list-print', 'PaymentsController@printPaymentView');
+	Route::get('/payment-list-print/supplier', 'PaymentsController@printPaymentViewSupplier');
 	Route::get('/stock-list-print', 'StocksController@printStockView');
 	Route::get('/product-list-print', 'ProductsController@printProductView');
 
@@ -77,6 +78,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('/invoices-print/{invoice_no}', 'InvoicesController@printInvoice');
 	Route::resource('payments', 'PaymentsController');
 	Route::get('/payment/create/{id}', 'PaymentsController@paymentsCreateByCustomer');
+	Route::get('/payments/create/supplier', 'PaymentsController@paymentsCreateSupplier');
 
 	Route::get('/payment-sms/{id}', 'PaymentsController@sentSmsByPayment');
 	Route::get('/invoice-sms/{id}', 'InvoicesController@sentSmsByInvoice');
