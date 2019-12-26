@@ -24,15 +24,21 @@ class ProductsController extends Controller
     public function index(Request $request)
     {
         $product_id = $request->get('product_id');
+        $size = $request->get('size');
         $perPage = 25;
 
-        if (!empty($product_id)) {
-            $products = Product::whereNotNull('id');
-            if($product_id){
-                $products = $products->where('id',$product_id);
-            }
-            $products = $products->latest()->paginate($perPage);
-        } else {
+        if (!empty($product_id) && empty($size)) {
+            $products = Product::where('id', $product_id)->paginate(10);
+        }
+        elseif (!empty($product_id) && !empty($size))
+        {
+            $products = Product::where('id', $product_id)->where('size', 'like', '%'.$size.'%')->paginate(10);
+        }
+        elseif (empty($product_id) && !empty($size))
+        {
+            $products = Product::where('size', 'like', '%'.$size.'%')->paginate(10);
+        }
+        else {
             $products = Product::latest()->paginate($perPage);
         }
         $product = [];

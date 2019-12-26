@@ -117,6 +117,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('supllier/leadger/{id}', 'SupplierController@leadgerView')->name('supplier.leadger');
     Route::get('print-expence', 'ExpenseController@printShow')->name('expence.print');
     Route::get('payment/supplier', 'PaymentsController@supplierIndex')->name('supplier.payment.index');
+    Route::get('expense-head-details/{id}', 'ExpensesHeadController@show')->name('view-head');
 });
 
 

@@ -27,6 +27,9 @@ Products
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="col-md-4 form-group">
+                                    <input class="form-control-sm " style="border-radius: 5px" type="text" name="size" placeholder="Product size">
+                                </div>
                                 <div class="col-md-4">
                                     <span class="input-group-append">
                                         <button class="btn btn-secondary" type="submit">

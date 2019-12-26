@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use App\Customer;
 use App\Http\Requests\AddSupplierRequest;
 use App\Payment;
 use App\Purchase;
@@ -17,11 +18,31 @@ class SupplierController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $suppliers = Supplier::paginate(10);
-        $total = Supplier::sum('balance');
-        return view('supplier.index', compact('suppliers', 'total'));
+        $supplier_id = $request->get('supplier_id');
+        $supplier_mobile = $request->get('supplier_mobile');
+        $sup = Supplier::all();
+        $perPage = 25;
+
+        if (!empty($supplier_id) || !empty($supplier_mobile)) {
+
+            if($supplier_id){
+                $suppliers = Supplier::where('id', $supplier_id)->paginate(10);
+                $total = $suppliers->sum('balance');
+            }
+
+            elseif($supplier_mobile){
+                $suppliers = Supplier::where('mobile', $supplier_mobile)->paginate(10);
+                $total = $suppliers->sum('balance');
+            }
+
+        }
+        else {
+            $suppliers = Supplier::paginate(10);
+            $total = Supplier::sum('balance');
+        }
+        return view('supplier.index', compact('suppliers', 'total', 'sup'));
     }
 
     /**

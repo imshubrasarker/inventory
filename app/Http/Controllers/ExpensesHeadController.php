@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Expense;
 use App\ExpensesHead;
 use Illuminate\Http\Request;
 
@@ -12,10 +13,19 @@ class ExpensesHeadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index( Request $request)
     {
-        $expenses_heads = ExpensesHead::paginate(10);
-        return view('expenses.index', compact('expenses_heads'));
+        if ($request->get('head'))
+        {
+            $expenses_heads = ExpensesHead::where('id', $request->get('head'))->get();
+        }
+        else{
+            $expenses_heads = ExpensesHead::paginate(10);
+        }
+        $heads = ExpensesHead::all();
+
+        $total = Expense::sum('amount');
+        return view('expenses.index', compact('expenses_heads', 'total', 'heads'));
     }
 
     /**
@@ -49,9 +59,10 @@ class ExpensesHeadController extends Controller
      * @param  \App\ExpensesHead  $expensesHead
      * @return \Illuminate\Http\Response
      */
-    public function show(ExpensesHead $expensesHead)
+    public function show($id)
     {
-        //
+        $head = ExpensesHead::with('expenses')->where('id', $id)->firstOrFail();
+        return view('expenses.head-details', compact('head'));
     }
 
     /**

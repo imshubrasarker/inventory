@@ -21,21 +21,47 @@
                                     <div class="float-left" style="float: left">
                                         <a href="{{ url('/home') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                                     </div>
-                                    <div class="float-right" style="float: right">
-                                        <form class="navbar-form" role="search" action="{{ route('search.supplier') }}" method="get">
-                                            @csrf
-                                            <div class="input-group add-on">
-                                                <input class="form-control" placeholder="Search" name="key" id="srch-term" type="text">
-                                                <div class="input-group-btn">
-                                                    <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <form action="{{ route('supplier.index') }}" method="get">
+                                            {{ method_field('get') }}
+                                            {{ csrf_field() }}
+                                            <div class="row">
+                                                <div class="col-md-3">
+
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <select class="form-control" name="supplier_id" id="customer_id">
+                                                        <option value="">Select Supplier</option>
+                                                        @foreach($sup as $key=> $value)
+                                                            <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <select class="form-control" name="supplier_mobile" id="customer_mobile">
+                                                        <option value="">Select Mobile</option>
+                                                        @foreach($sup as $key=>$value)
+                                                            <option value="{{ $value->mobile }}">{{ $value->mobile }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-1">
+                                    <span class="input-group-append">
+                                        <button class="btn btn-secondary" type="submit">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </span>
                                                 </div>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
 
-                                <br>
-                                <br>
+
                                 @if (isset($total))
                                     <div style="overflow: hidden">
                                         <div style="float: right; margin-bottom: 10px">

@@ -41,10 +41,12 @@ Product {{ $product->id }}
                                             <th> Buy Price </th>
                                             <td> {{ $product->buy_price }} </td>
                                         </tr>
+                                        @if(count($units))
                                         <tr>
                                             <th> Unit </th>
                                             <td> {{ $units[$product->unit_id] }} </td>
                                         </tr>
+                                        @endif
                                         <tr>
                                             <th> Category </th>
                                             <td> {{ $categories[$product->category_id] }} </td>

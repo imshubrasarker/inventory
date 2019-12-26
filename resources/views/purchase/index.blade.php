@@ -47,7 +47,13 @@
                                         </tr>
                                         </thead>
                                         <tbody>
+                                        @php
+                                        $total = 0;
+                                        @endphp
                                         @foreach($purchases as $purchase)
+                                            @php
+                                            $total = $total + $purchase->amount;
+                                            @endphp
                                         <tr>
                                             <th scope="row">{{ $loop->index + 1 }}</th>
                                             <td> {{ date('d-m-Y', strtotime($purchase->date)) }} </td>
@@ -57,6 +63,7 @@
                                             <td>{{ $purchase->amount }}</td>
                                             <td>{{ $purchase->note }}</td>
                                             <td>{{ $purchase->invoice_num }}</td>
+
                                             <td>
                                                <div class="row">
 {{--                                                   <div class="col-sm-4">--}}
@@ -75,6 +82,12 @@
                                             </td>
                                         </tr>
                                             @endforeach
+                                       <tr>
+                                           <td class="text-right mr-4" colspan="6"><strong style="margin-right: 6%">Total amount:</strong> {{ $total }}</td>
+                                           <td></td>
+                                           <td></td>
+                                           <td></td>
+                                       </tr>
                                         </tbody>
                                     </table>
                                     <div>

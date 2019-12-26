@@ -47,9 +47,45 @@
             </div>
             <div class="panel">
                 <div class="form-title ">
-                    <h4>Expense Heads</h4>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h4>Expense Heads</h4>
+                        </div>
+                        <div class="col-md-3">
+                            <h4><strong class="text-primary">Total Expenses: </strong>{{ $total }}</h4>
+                        </div>
+                    </div>
                 </div>
                 <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <form action="{{ route('expenses-head') }}" method="get">
+                                {{ method_field('get') }}
+                                {{ csrf_field() }}
+                                <div class="row">
+                                    <div class="col-md-7">
+
+                                    </div>
+
+                                    <div class="col-md-4 ">
+                                        <select class="form-control" name="head" id="head">
+                                            <option value="">Select Head</option>
+                                            @foreach($heads as $key=>$head)
+                                                <option value="{{ $head->id }}">{{ $head->title }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-1">
+                                    <span class="input-group-append">
+                                        <button class="btn btn-secondary" type="submit">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
@@ -57,6 +93,8 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Title</th>
                                 <th scope="col">Created</th>
+                                <th scope="col">Total Expenses</th>
+                                <th scope="col">View</th>
                                 <th scope="col">Edit</th>
                                 <th scope="col">Delete</th>
                             </tr>
@@ -67,6 +105,12 @@
                                 <th scope="row">{{ $loop->index +1 }}</th>
                                 <td>{{ $head->title }}</td>
                                 <td>{{ Carbon\Carbon::parse($head->created_at)->format('d-M-Y ') }}</td>
+                                <td>{{ $head->expenses->sum('amount') }}</td>
+                                <td>
+                                    <a href="{{ route('view-head', $head->id) }}" class="btn btn-info">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
+                                </td>
                                 <td>
                                     <button class="btn btn-primary" data-toggle="modal"
                                             data-target="#editModal"
@@ -74,6 +118,7 @@
                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                     </button>
                                 </td>
+
                                 <td>
                                     <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"
                                     onclick="deleteHead('{{ route('delete-expense-head', $head->id) }}')">
