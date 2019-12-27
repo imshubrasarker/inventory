@@ -19,4 +19,8 @@ class Godown2 extends Model
     {
         return $this->belongsTo(Product::class, 'product_id');
     }
+    public  function productTrasaction()
+    {
+        return $this->hasMany(ProductTransaction::class, 'godown2s_id');
+    }
 }

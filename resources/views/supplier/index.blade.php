@@ -3,6 +3,7 @@
     Manage Suppliers
 @endsection
 @section('header-script')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
 @section('content')
     <div id="page-wrapper">
@@ -34,7 +35,7 @@
 
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <select class="form-control" name="supplier_id" id="customer_id">
+                                                    <select class="form-control select2" name="supplier_id" id="customer_id">
                                                         <option value="">Select Supplier</option>
                                                         @foreach($sup as $key=> $value)
                                                             <option value="{{ $value->id }}">{{ $value->name }}</option>
@@ -42,7 +43,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <select class="form-control" name="supplier_mobile" id="customer_mobile">
+                                                    <select class="form-control select2" name="supplier_mobile" id="customer_mobile">
                                                         <option value="">Select Mobile</option>
                                                         @foreach($sup as $key=>$value)
                                                             <option value="{{ $value->mobile }}">{{ $value->mobile }}</option>
@@ -51,7 +52,7 @@
                                                 </div>
                                                 <div class="col-md-1">
                                     <span class="input-group-append">
-                                        <button class="btn btn-secondary" type="submit">
+                                        <button class="btn btn-secondary btn-sm" type="submit">
                                             <i class="fa fa-search"></i>
                                         </button>
                                     </span>
@@ -80,7 +81,6 @@
                                             <th scope="col">Address</th>
                                             <th scope="col">Note</th>
                                             <th scope="col">Actions</th>
-
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -135,7 +135,11 @@
 @endsection
 
 @section('footer-script')
-    <script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
         function deleteHead(route){
             $('#deleteForm').attr("action", route);
         }

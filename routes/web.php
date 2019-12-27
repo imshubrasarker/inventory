@@ -118,6 +118,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('print-expence', 'ExpenseController@printShow')->name('expence.print');
     Route::get('payment/supplier', 'PaymentsController@supplierIndex')->name('supplier.payment.index');
     Route::get('expense-head-details/{id}', 'ExpensesHeadController@show')->name('view-head');
+    Route::get('/search/production','Godown2Controller@search')->name('production.search');
+    Route::get('production/ledger/{id}', 'Godown2Controller@ledger')->name('godown2.ledger');
+    Route::get('production-ledger/{id}', 'Godown2Controller@ledgerPrint')->name('godown2.ledger-print');
+    Route::get('production-ledger/search/{id}', 'Godown2Controller@ledgerSearch')->name('ledger.search');
 });
 
 

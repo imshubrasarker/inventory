@@ -3,6 +3,7 @@
     Manage Production
 @endsection
 @section('header-script')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
 @section('content')
     <div id="page-wrapper">
@@ -40,6 +41,44 @@
 
                                 <br>
                                 <br>
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <form action="{{ route('production.search') }}" method="get">
+                                            {{ method_field('get') }}
+                                            {{ csrf_field() }}
+                                            <div class="row">
+                                                <div class="col-md-3">
+
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <select class="form-control select2" name="product_id" id="product_id">
+                                                        <option value="">Select Product</option>
+                                                        @foreach($products as $key=> $value)
+                                                            <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <select class="form-control select2" name="product_size" id="product_size">
+                                                        <option value="">Select Size</option>
+                                                        @foreach($products as $key=>$value)
+                                                            <option value="{{ $value->size }}">{{ $value->size }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-1">
+                                    <span class="input-group-append">
+                                        <button class="btn btn-secondary btn-sm" type="submit">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </span>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered">
                                         <thead class="thead-dark">
@@ -136,7 +175,11 @@
 @endsection
 
 @section('footer-script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
         function deleteHead(route){
             $('#deleteForm').attr("action", route);
         }

@@ -3,7 +3,8 @@
     Expenses HEad
 @endsection
 @section('header-script')
-    @endsection
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+@endsection
 @section('content')
     <div id="page-wrapper">
         <div class="main-page">
@@ -68,7 +69,7 @@
                                     </div>
 
                                     <div class="col-md-4 ">
-                                        <select class="form-control" name="head" id="head">
+                                        <select class="form-control select2" name="head" id="head">
                                             <option value="">Select Head</option>
                                             @foreach($heads as $key=>$head)
                                                 <option value="{{ $head->id }}">{{ $head->title }}</option>
@@ -77,7 +78,7 @@
                                     </div>
                                     <div class="col-md-1">
                                     <span class="input-group-append">
-                                        <button class="btn btn-secondary" type="submit">
+                                        <button class="btn btn-secondary btn-sm" type="submit">
                                             <i class="fa fa-search"></i>
                                         </button>
                                     </span>
@@ -141,7 +142,11 @@
 @endsection
 
 @section('footer-script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
         function editHead(title, route){
             $('#editHeadForm').attr("action", route);
             $("#head_title").val( title );
