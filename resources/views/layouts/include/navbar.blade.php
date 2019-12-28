@@ -179,6 +179,20 @@
             </a>
           </li>
             @endhasrole
+            @hasrole('Admin')
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-building-o" aria-hidden="true"></i>
+                    <span>Employees</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{ route('employees.index') }}"><i class="fa fa-angle-right"></i>Manage Employee</a></li>
+                    <li><a href="{{ route('employees.create') }}"><i class="fa fa-angle-right"></i>Create Employee</a></li>
+                    <li><a href="{{ route('salary.create') }}"><i class="fa fa-angle-right"></i>Pay Salary</a></li>
+                </ul>
+            </li>
+            @endhasrole
           @hasrole('Admin')
           <li class="treeview">
             <a href="#">

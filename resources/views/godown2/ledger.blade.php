@@ -58,6 +58,7 @@
                                 <th scope="col">Color</th>
                                 <th scope="col">Add Quantity</th>
                                 <th scope="col">Leave Quantity</th>
+                                <th scope="col">Lost Quantity</th>
                                 <th scope="col">Balance</th>
                             </tr>
                             </thead>
@@ -66,32 +67,38 @@
                                 $total = 0;
                                 $add_sum = 0;
                                 $leave_sum = 0;
+                                $lost_sum = 0;
                             @endphp
-                            @foreach($items as $item)
+                            @if ($items)
+                                @foreach($items as $item)
+                                    <tr>
+                                        <td scope="row"> {{ $loop->index + 1  }}</td>
+                                        <td>{{ date('d-m-Y', strtotime($item->created_at)) }}</td>
+                                        <td>{{ $item->godown2s->products->name }}</td>
+                                        <td>{{ $item->godown2s->size }}</td>
+                                        <td>{{ $item->godown2s->godownUnits->unit_name }}</td>
+                                        <td>{{ $item->add_qty }}</td>
+                                        <td>{{ $item->leave_qty }}</td>
+                                        <td>{{ $item->lost_qty }}</td>
+                                        <td>
+                                            @php
+                                                $total = $total + $item->add_qty - $item->leave_qty;
+                                                $add_sum = $add_sum + $item->add_qty;
+                                                $leave_sum = $leave_sum + $item->leave_qty;
+                                                $lost_sum = $lost_sum + $item->lost_qty;
+                                            @endphp
+                                            {{ $total }}
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 <tr>
-                                    <td scope="row"> {{ $loop->index + 1  }}</td>
-                                    <td>{{ date('d-m-Y', strtotime($item->created_at)) }}</td>
-                                    <td>{{ $item->godown2s->products->name }}</td>
-                                    <td>{{ $item->godown2s->size }}</td>
-                                    <td>{{ $item->godown2s->godownUnits->unit_name }}</td>
-                                    <td>{{ $item->add_qty }}</td>
-                                    <td>{{ $item->leave_qty }}</td>
-                                    <td>
-                                        @php
-                                            $total = $total + $item->add_qty - $item->leave_qty;
-                                            $add_sum = $add_sum + $item->add_qty;
-                                            $leave_sum = $leave_sum + + $item->leave_qty;
-                                        @endphp
-                                        {{ $total }}
-                                    </td>
+                                    <td colspan="5" class="text-right">Total</td>
+                                    <td>{{ $add_sum }}</td>
+                                    <td>{{ $leave_sum }}</td>
+                                    <td>{{ $lost_sum }}</td>
+                                    <td>{{ $total }}</td>
                                 </tr>
-                            @endforeach
-                            <tr>
-                                <td colspan="5" class="text-right">Total</td>
-                                <td>{{ $add_sum }}</td>
-                                <td>{{ $leave_sum }}</td>
-                                <td>{{ $total }}</td>
-                            </tr>
+                            @endif
                             </tbody>
                         </table>
                     </div>

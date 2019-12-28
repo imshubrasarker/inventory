@@ -47,7 +47,7 @@ class ExpensesHeadController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|max:120',
+            'title' => 'required|max:120|unique:expenses_heads',
         ]);
         ExpensesHead::create($request->all());
         return back()->with('success', 'New expense head added');

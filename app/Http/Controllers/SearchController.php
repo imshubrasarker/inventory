@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Employee;
 use App\Supplier;
 use Illuminate\Http\Request;
 use App\Product;
@@ -50,5 +51,12 @@ class SearchController extends Controller
         $supplier_id = $request->get('supplier_id');
         $supplier = Supplier::where('id',$supplier_id)->first();
         return response()->json(['supplier'=>$supplier]);
+    }
+
+    public function getEmployeeDetails(Request $request)
+    {
+        $employee_id = $request->get('employee_id');
+        $employee = Employee::where('id',$employee_id)->first();
+        return response()->json(['employee'=>$employee]);
     }
 }

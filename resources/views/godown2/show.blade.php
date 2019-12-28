@@ -43,7 +43,8 @@
                                     <td>{{ $item->date }}</td>
                                     <td> <div class="col-md-3">
                                             <a href="{{ route('godown2.edit', $item->id) }}" type="button" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
-                                            <a href="{{ route('godown2.ledger', $item->id) }}" type="button" class="btn-sm btn-info btn">Ledger</a>
+                                            <a href="{{ route('godown2.ledger', $item->id) }}">
+                                                <button class="btn-sm btn-info btn">Ledger</button></a>
                                         </div>
                                     </td>
                                 </tr>

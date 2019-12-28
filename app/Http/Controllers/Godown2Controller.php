@@ -83,6 +83,7 @@ class Godown2Controller extends Controller
         ProductTransaction::create([
             'add_qty' => $request->qty,
             'leave_qty' => 0,
+            'lost_qty' => 0,
             'godown2s_id' => $godown->id
         ]);
 
@@ -131,12 +132,21 @@ class Godown2Controller extends Controller
             'date' => 'required',
         ]);
         $note = $request->note?? '';
+        $godown2 = Godown2::findOrFail($id);
+        $after_edit_stock = $godown2->qty-$request->qty;
         Godown2::findOrFail($id)->update([
             'product_id' => $request->product_id,
             'size' => $request->size,
             'qty' => $request->qty,
             'date' => $request->date,
             'note' => $note
+        ]);
+
+        ProductTransaction::create([
+            'add_qty' => 0,
+            'leave_qty' => 0,
+            'lost_qty' => $after_edit_stock,
+            'godown2s_id' => $godown2->id
         ]);
 
         return redirect()->route('godown2.index')->with('success', 'Updated Successfully');
@@ -294,11 +304,9 @@ class Godown2Controller extends Controller
     {
         $from = $request->from;
         $to = $request->to;
-
-        $items = ProductTransaction::where('godown2s_id', $id)->get();
-
+        $items = '';
         if(!empty($from || $to)) {
-            $items = $items->whereBetween('created_at',[$from,$to]);
+            $items = ProductTransaction::where('godown2s_id', $id)->whereBetween('created_at',[$from,$to])->get();
         }
         return view('godown2.ledger', compact('items', 'id'));
     }

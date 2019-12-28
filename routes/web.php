@@ -122,6 +122,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('production/ledger/{id}', 'Godown2Controller@ledger')->name('godown2.ledger');
     Route::get('production-ledger/{id}', 'Godown2Controller@ledgerPrint')->name('godown2.ledger-print');
     Route::get('production-ledger/search/{id}', 'Godown2Controller@ledgerSearch')->name('ledger.search');
+    Route::resource('employees', 'EmployeeController');
+    Route::resource('salary', 'SalaryController');
+    Route::get('search/employee', 'SearchController@getEmployeeDetails')->name('get_employee_detail');
 });
 
 

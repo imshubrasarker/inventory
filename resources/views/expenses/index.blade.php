@@ -113,18 +113,22 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <button class="btn btn-primary" data-toggle="modal"
-                                            data-target="#editModal"
-                                            onclick="editHead('{{ $head->title }}','{{ route('edit-expense-head', $head->id) }}')">
-                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                    </button>
+                                    @if($head->title != 'Salary Purpose')
+                                        <button class="btn btn-primary" data-toggle="modal"
+                                                data-target="#editModal"
+                                                onclick="editHead('{{ $head->title }}','{{ route('edit-expense-head', $head->id) }}')">
+                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                        </button>
+                                    @endif
                                 </td>
 
                                 <td>
-                                    <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"
-                                    onclick="deleteHead('{{ route('delete-expense-head', $head->id) }}')">
-                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                    </button>
+                                    @if($head->title != 'Salary Purpose')
+                                        <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"
+                                                onclick="deleteHead('{{ route('delete-expense-head', $head->id) }}')">
+                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                        </button>
+                                    @endif
                                 </td>
                             </tr>
                                 @endforeach
@@ -156,4 +160,4 @@
             $('#deleteForm').attr("action", route);
         }
     </script>
-    @endsection
+@endsection
