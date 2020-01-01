@@ -58,7 +58,7 @@
                                             <th scope="row">{{ $loop->index + 1 }}</th>
                                             <td> {{ date('d-m-Y', strtotime($purchase->date)) }} </td>
                                             <td>{{ $purchase->supplier->name }}</td>
-                                            <td>{{ $purchase->category->name }}</td>
+                                            <td>{{ $purchase->category['name'] }}</td>
                                             <td>{{ $purchase->quantity }}</td>
                                             <td>{{ $purchase->amount }}</td>
                                             <td>{{ $purchase->note }}</td>

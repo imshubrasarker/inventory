@@ -18,7 +18,7 @@ Products
                     <div class="card">
                         <div class="card-body">
                             {!! Form::open(['method' => 'GET', 'url' => '/products', 'role' => 'search'])  !!}
-                            <div class="row"> 
+                            <div class="row">
                                 <div class="col-md-4">
                                     <select class="form-control" name="product_id" id="product_id">
                                         <option value="">Select Product</option>
@@ -27,12 +27,9 @@ Products
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-md-4 form-group">
-                                    <input class="form-control-sm " style="border-radius: 5px" type="text" name="size" placeholder="Product size">
-                                </div>
                                 <div class="col-md-4">
                                     <span class="input-group-append">
-                                        <button class="btn btn-secondary" type="submit">
+                                        <button class="btn btn-secondary btn-sm" type="submit">
                                             <i class="fa fa-search"></i> Search
                                         </button>
                                     </span>
@@ -70,7 +67,7 @@ Products
                                             <td>{{ $item->sale_price }}</td>
                                             <td>{{ $item->discount }}</td>
                                             <td>
-                                               
+
                                                 <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#addStock-{{ $item->id }}"><i class="fa fa-plus" aria-hidden="true"></i> Add Stock</button>
 
                                                 <!-- The Modal -->
@@ -108,7 +105,7 @@ Products
                                                     </div>
                                                   </div>
                                                 </div>
-                                               
+
                                                 <a href="{{ url('/products/' . $item->id) }}" title="View Product"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                                 @hasrole('Admin')
                                                 <a href="{{ url('/products/' . $item->id . '/edit') }}" title="Edit Product"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
@@ -143,7 +140,7 @@ Products
                                                                             <button class="btn btn-primary" type="submit">Submit</button>
                                                                         </div>
                                                                     </div>
-                                                                    
+
                                                                 {!! Form::close() !!}
                                                             </div>
                                                             <div class="modal-footer">
@@ -194,7 +191,7 @@ Products
 <script type="text/javascript">
     $('#stocks_id').select2();
     $('#product_id').select2();
-    
+
 </script>
 
 @endsection

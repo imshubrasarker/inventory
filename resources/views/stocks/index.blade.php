@@ -15,10 +15,17 @@ Stocks
                     <h4>Manage Stock</h4>
                 </div>
                 <div class="form-body">
-                    <div class="card"> 
+                    <div class="card">
                         <div class="card-body">
                             {!! Form::open(['method' => 'GET', 'url' => '/stocks', 'role' => 'search'])  !!}
-                            <div class="row"> 
+                            <div class="row">
+                                <div class="col-md-4">
+                                    @hasrole('Admin')
+                                    <a href="{{ url('/stocks/create') }}" class="btn btn-success btn-sm" title="Add New Stock">
+                                        <i class="fa fa-plus" aria-hidden="true"></i> New Stock
+                                    </a>
+                                    @endhasrole
+                                </div>
                                 <div class="col-md-4">
                                     <select class="form-control" name="product_id" id="product_id">
                                         <option value="">Select Product</option>
@@ -29,19 +36,13 @@ Stocks
                                 </div>
                                 <div class="col-md-4">
                                     <span class="input-group-append">
-                                        <button class="btn btn-secondary" type="submit">
+                                        <button class="btn btn-secondary btn-sm" type="submit">
                                             <i class="fa fa-search"></i> Search
                                         </button>
                                     </span>
                                 </div>
                             </div>
                             {!! Form::close() !!}
-                            @hasrole('Admin')
-                            <a href="{{ url('/stocks/create') }}" class="btn btn-success btn-sm" title="Add New Stock">
-                                <i class="fa fa-plus" aria-hidden="true"></i> Add New
-                            </a>
-                            @endhasrole
-                            <br/>
                             <br/>
                             <div class="table-responsive">
                                 <table class="table table-bordered">
@@ -63,7 +64,7 @@ Stocks
                                         @endif
                                         @if($item->product_stock <= $item->alert_quantity)
                                         <tr style="background-color: #7a0909;">
-                                            
+
                                                 <td style="width: 1%; color: white;">
                                                     {{ $key + $stocks->firstItem()  }}
                                                 </td>
@@ -74,9 +75,9 @@ Stocks
                                                 </td>
                                                 <td style="width: 10%; color: white;">{{ $item->size }}</td>
                                                 <td style="color: white;">{{ $item->product_stock }}</td>
-                                            
 
-                                            
+
+
                                             <td>
                                                 <a href="{{ url('/product-ledger/'.$item->product_id) }}" title="Product {{ $item->name }} Ledger"><button class="btn btn-success btn-sm"><i class="fa fa-list-alt" aria-hidden="true"></i> Ledger</button></a>
 
@@ -115,7 +116,7 @@ Stocks
                                                                             <button class="btn btn-primary" type="submit">Submit</button>
                                                                         </div>
                                                                     </div>
-                                                                    
+
                                                                 {!! Form::close() !!}
                                                             </div>
                                                             <div class="modal-footer">
@@ -143,7 +144,7 @@ Stocks
                                         @else
 
                                             <tr>
-                                            
+
                                                 <td style="width: 1%;"> {{ $key + $stocks->firstItem()  }} </td>
                                                 <td>
                                                     <a href="{{ url('/product-ledger/'.$item->product_id) }}" class="btn btn-sm btn-success">
@@ -152,9 +153,9 @@ Stocks
                                                 </td>
                                                 <td style="width: 1%;">{{ $item->size }}</td>
                                                 <td>{{ $item->product_stock }}</td>
-                                            
 
-                                            
+
+
                                             <td>
                                                 <a href="{{ url('/product-ledger/'.$item->product_id) }}" title="Product {{ $item->name }} Ledger"><button class="btn btn-success btn-sm"><i class="fa fa-list-alt" aria-hidden="true"></i> Ledger</button></a>
 
@@ -192,7 +193,7 @@ Stocks
                                                                             <button class="btn btn-primary" type="submit">Submit</button>
                                                                         </div>
                                                                     </div>
-                                                                    
+
                                                                 {!! Form::close() !!}
                                                             </div>
                                                             <div class="modal-footer">
@@ -250,7 +251,7 @@ Stocks
 <script type="text/javascript">
     $('#stocks_id').select2();
     $('#product_id').select2();
-    
+
 </script>
 
 @endsection

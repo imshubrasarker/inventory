@@ -44,7 +44,7 @@
                                       <div class=" col-sm-12 col-md-6">
                                           <div class="form-group">
                                               <label class="control-label mb-2">Expense Date <span class="text-danger">*</span></label>
-                                              <input type="date" class="form-control" name="date" required>
+                                              <input type="date" class="form-control" name="date" required value="{{ date('Y-m-d') }}">
 
                                           </div>
                                       </div>

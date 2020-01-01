@@ -17,7 +17,7 @@
                 @csrf
                 <div class="col-md-3">
                     <div class="input-group date" data-date-format="yyyy.mm.dd">
-                        <input type="text" name="from" class="form-control">
+                        <input type="text" name="from" class="form-control" value="{{ date('Y-m-d') }}">
                         <div class="input-group-addon">
                             <span class="glyphicon glyphicon-th"></span>
                         </div>
@@ -26,7 +26,7 @@
 
                 <div class="col-md-3">
                     <div class="input-group date" data-date-format="yyyy.mm.dd">
-                        <input type="text" name="to" class="form-control">
+                        <input type="text" name="to" class="form-control" value="{{ date('Y-m-d') }}">
                         <div class="input-group-addon">
                             <span class="glyphicon glyphicon-th"></span>
                         </div>
@@ -52,7 +52,6 @@
                             <thead class="thead-dark">
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Date</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Size</th>
                                 <th scope="col">Color</th>
@@ -73,7 +72,6 @@
                                 @foreach($items as $item)
                                     <tr>
                                         <td scope="row"> {{ $loop->index + 1  }}</td>
-                                        <td>{{ date('d-m-Y', strtotime($item->created_at)) }}</td>
                                         <td>{{ $item->godown2s->products->name }}</td>
                                         <td>{{ $item->godown2s->size }}</td>
                                         <td>{{ $item->godown2s->godownUnits->unit_name }}</td>
