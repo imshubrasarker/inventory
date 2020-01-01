@@ -167,7 +167,13 @@ class PaymentsController extends Controller
 //            return view('payments.supplier-index')->with('success', 'Payment added!');
 //        }
 
-        return redirect('payments')->with('success', 'Payment added!');
+        $route = 'payments';
+        if ($request->get('supplier_id'))
+        {
+            $route = 'payment/supplier';
+        }
+
+        return redirect($route)->with('success', 'Payment added!');
     }
 
     /**

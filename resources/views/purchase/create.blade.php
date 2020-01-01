@@ -45,7 +45,7 @@
                                         <div class=" col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label mb-2">Date <span class="text-danger">*</span></label>
-                                                <input type="date" placeholder="Date" class="form-control" name="date" required>
+                                                <input type="date" placeholder="Date" class="form-control" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}" name="date" required>
                                             </div>
                                         </div>
                                     </div>
@@ -82,7 +82,7 @@
                                         <div class=" col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label mb-2">Quantity <span class="text-danger">*</span></label>
-                                                <input type="number" placeholder="Opening Balance" class="form-control" required name="quantity">
+                                                <input type="number" placeholder="Quantity" class="form-control" required name="quantity">
 
                                             </div>
                                         </div>
