@@ -58,9 +58,6 @@
                         </div>
                     </div>
                 </form>
-                <div style="margin-top: 10px; margin-bottom: 10px; margin-left: 20px">
-                    <h3>Total Expense : {{ $total }}</h3>
-                </div>
                 <div class="panel-body">
                     <div class="table-responsive">
                         <table class="table">
@@ -78,9 +75,12 @@
                             </thead>
                             <tbody>
                             @php
-                                $total =0 ;
+                                $total_exp = 0 ;
                             @endphp
                             @foreach($expenses as $expense)
+                                @php
+                                    $total_exp = $total_exp + $expense->amount;
+                                @endphp
                                 <tr>
                                     <th scope="row">{{ $loop->index +1 }}</th>
                                     <td>{{ Carbon\Carbon::parse($expense->date)->format('d-M-Y ') }}</td>
@@ -103,6 +103,14 @@
                                     </td>
                                 </tr>
                             @endforeach
+                            <tr>
+                                <td colspan="3" class="text-right">Total</td>
+                                <td>{{ $total_exp }}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
                             </tbody>
                         </table>
                         <div>

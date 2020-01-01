@@ -3,6 +3,7 @@
     Create Production
 @endsection
 @section('header-script')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
 @section('content')
     <div id="page-wrapper">
@@ -33,7 +34,7 @@
                                         <div class="col-md-6 col-sm-12">
                                             <div class="form-group">
                                                 <label class="control-label  mb-2">Select Product <span class="text-danger">*</span></label>
-                                                <select class="form-control" name="product_id" id="product_id">
+                                                <select class="form-control select2" name="product_id" id="product_id">
                                                     <option value="">Select Product</option>
                                                     @foreach ($products as $product)
                                                         <option value="{{ $product->id }}">{{ $product->name }} ({{ $product->size }})</option>
@@ -44,7 +45,7 @@
                                         <div class=" col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label mb-2">Size <span class="text-danger">*</span></label>
-                                                <input type="text" placeholder="Size" class="form-control" name="size" required>
+                                                <input type="text" placeholder="Size" class="form-control" name="size" id="size" required readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -99,7 +100,29 @@
 @endsection
 
 @section('footer-script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script>
+
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+
+        $(document).on('change','#product_id', function(){
+            var product_id = $("#product_id").val();
+            $.ajax({
+                headers:{
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type:"POST",
+                url:"{{ route('get_product_detail') }}",
+                data: {
+                    product_id : product_id
+                },
+                success : function(results) {
+                    $("#size").val(results.product.size);
+                }
+            });
+        });
 
     </script>
 @endsection

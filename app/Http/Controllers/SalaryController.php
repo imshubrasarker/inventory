@@ -56,7 +56,7 @@ class SalaryController extends Controller
         $eh = ExpensesHead::where('title', 'Salary Purpose')->first();
 
         Expense::create([
-            'title' => 'Salary',
+            'title' => $salary->employee->name,
             'amount' => $salary->balance,
             'expenses_heads_id' => $eh->id,
             'date'=> Carbon::now(),

@@ -63,13 +63,13 @@
                                 </div>
 
 
-                                @if (isset($total))
-                                    <div style="overflow: hidden">
-                                        <div style="float: right; margin-bottom: 10px">
-                                            <h4>Total Balance: {{ $total }}</h4>
-                                        </div>
-                                    </div>
-                                @endif
+{{--                                @if (isset($total))--}}
+{{--                                    <div style="overflow: hidden">--}}
+{{--                                        <div style="float: right; margin-bottom: 10px">--}}
+{{--                                            <h4>Total Balance: {{ $total }}</h4>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                @endif--}}
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered">
                                         <thead class="thead-dark">
@@ -84,7 +84,13 @@
                                         </tr>
                                         </thead>
                                         <tbody>
+                                        @php
+                                          $total_balance = 0;
+                                        @endphp
                                         @foreach($suppliers as $supplier)
+                                            @php
+                                                $total_balance = $total_balance + $supplier->balance;
+                                            @endphp
                                         <tr>
                                             <th scope="row">{{ $loop->index + 1 }}</th>
                                             <td>{{ $supplier->name }}</td>
@@ -113,6 +119,13 @@
                                             </td>
                                         </tr>
                                             @endforeach
+                                        <tr>
+                                            <td colspan="3" class="text-right">Total</td>
+                                            <td>{{ $total_balance }}</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                     <div>
