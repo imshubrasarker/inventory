@@ -62,7 +62,7 @@
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered table-hover">
                             <thead>
-                            <tr style="color: #00a78e" ">
+                            <tr style="color: #00a78e">
                                 <th scope="col"><i class="fa fa-list-ol" aria-hidden="true"></i></th>
                                 <th scope="col"><i class="fa fa-gg" aria-hidden="true"></i> Expense Head</th>
                                 <th scope="col" width="20%"><i class="fa fa-gg" aria-hidden="true"></i> Title</th>
@@ -82,8 +82,12 @@
                                     $total_exp = $total_exp + $expense->amount;
                                 @endphp
                                 <tr>
-                                    <th scope="row">{{ $loop->index +1 }}</th>
+                                    <th scope="row">{{ $loop->index + 1 }}</th>
+                                    @if($expense->expenses_heads_id == 0)
+                                        <td class="text-success">Flash</td>
+                                    @else
                                     <td>{{ $expense->expenseHead['title'] }}</td>
+                                    @endif
                                     <td><a href="{{ route('expenses.show', $expense->id) }}">{{ $expense->title }}</a></td>
                                     <td>{{ $expense->note }}</td>
                                     <td>{{ $expense->amount }}</td>

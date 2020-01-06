@@ -97,12 +97,10 @@ class ExpenseController extends Controller
 
     public function search(Request $request)
     {
-        $heads = ExpensesHead::with(['expenses' => function ($q) use($request) {
-            $q->whereBetween('date', [$request->get('from'), $request->get('to')]);
-            $q->orderBy('date', 'desc');
-        }])->get();
+        $total = Expense::whereBetween('created_at', [$request->from, $request->to])->sum('amount');
+        $expenses = Expense::whereBetween('created_at', [$request->from, $request->to])->get();
 
-        return view('expenses.manage-expenses', compact('heads'));
+        return view('expenses.manage-expenses', compact('total', 'expenses'));
     }
 
     public function printShow()
