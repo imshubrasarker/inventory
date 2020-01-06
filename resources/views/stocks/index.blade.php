@@ -22,7 +22,7 @@ Stocks
                                 <div class="col-md-4">
                                     @hasrole('Admin')
                                     <a href="{{ url('/stocks/create') }}" class="btn btn-success btn-sm" title="Add New Stock">
-                                        <i class="fa fa-plus" aria-hidden="true"></i> New Stock
+                                        <i class="fa fa-plus" aria-hidden="true"></i> New Stockt
                                     </a>
                                     @endhasrole
                                 </div>
