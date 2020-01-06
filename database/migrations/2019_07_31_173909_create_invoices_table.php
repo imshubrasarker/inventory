@@ -21,6 +21,8 @@ class CreateInvoicesTable extends Migration
             $table->string('grand_total_price')->nullable();
             $table->string('advanced')->nullable();
             $table->text('due_amount')->nullable();
+            $table->double('discount')->nullable();
+            $table->double('transport')->nullable();
             $table->timestamps();
             });
     }

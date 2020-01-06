@@ -159,15 +159,15 @@ Customer {{ $customer->id }}
                                                                 $gtotal = $gtotal;
                                                                 @endphp
                                                                 <tr>
-                                                                    <td style="width: 1%;"> {{$key2+1}}
-                                                                    </td>
+                                                                    <td style="width: 1%;"> {{$key2+1}}</td>
                                                                     <td style="width: 11%;">
                                                                         {{ Carbon\Carbon::parse($item['created_at'])->format('d-m-Y') }}
                                                                     </td>
                                                                     <td>
                                                                         @if($item['ivno'])
                                                                             <a href="{{ url('/invoices-print/'.$item['ivno'] ) }}" style="cursor: pointer;"> {{ $item['ivno'] }}</a>
-                                                                        @endif </td>
+                                                                        @endif
+                                                                    </td>
                                                                     <td style="width: 10%;">{{ $item['qty'] }}</td>
                                                                     <td style="width: 14%;">{{ $item['amount'] }}</td>
                                                                     <td style="width: 15%;">{{ $item['ramount'] }}</td>

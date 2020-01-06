@@ -8,12 +8,12 @@
         display: table;
         clear: both;
     }
-    
+
     a {
         color: #0087C3;
         text-decoration: none;
     }
-    
+
     body {
         position: relative;
         margin: 0 auto;
@@ -23,53 +23,53 @@
         font-size: 12px;
         font-family: SourceSansPro;
     }
-    
+
     header {
         padding: 10px 0;
         margin-bottom: 15px;
         border-bottom: 1px solid #AAAAAA;
     }
-    
+
     #logo {
         float: left;
         margin-top: 6px;
     }
-    
+
     #logo img {
         height: 150px;
     }
-    
+
     #company {
         float: right;
         text-align: right;
     }
-    
+
     #details {
         margin-bottom: 50px;
     }
-    
+
     #client {
         padding-left: 6px;
         border-left: 6px solid #0087C3;
         float: left;
     }
-    
+
     #client .to {
         color: #777777;
     }
-    
+
     h2.name {
         font-size: 15px;
         font-weight: normal;
         margin: 0;
         font-weight: bold;
     }
-    
+
     #invoice {
         float: right;
         text-align: right;
     }
-    
+
     #invoice h1 {
         color: #0087C3;
         font-size: 13px;
@@ -77,12 +77,12 @@
         font-weight: normal;
         margin: 0 0 10px 0;
     }
-    
+
     #invoice .date {
         font-size: 12px;
         color: #777777;
     }
-    
+
     table {
         width: 100%;
         border-collapse: collapse;
@@ -91,7 +91,7 @@
         ;
         margin-bottom: 20px;
     }
-    
+
     table th,
     table td {
         border: 1px solid black;
@@ -101,20 +101,20 @@
         text-align: center;
         border-bottom: 1px solid #FFFFFF;
     }
-    
+
     table th {
         border: 1px solid black;
         border-collapse: collapse;
         white-space: nowrap;
         font-weight: normal;
     }
-    
+
     table td {
         border: 1px solid black;
         border-collapse: collapse;
         text-align: right;
     }
-    
+
     table td h3 {
         border: 1px solid black;
         border-collapse: collapse;
@@ -123,42 +123,42 @@
         font-weight: normal;
         margin: 0 0 0.2em 0;
     }
-    
+
     table .no {
         color: #FFFFFF;
         font-size: 12px;
         background: #57B223 !important;
         -webkit-print-color-adjust: exact;
     }
-    
+
     table .desc {
         text-align: left;
-        
+
     }
-    
+
     table .unit {
         background: #DDDDDD !important;
         -webkit-print-color-adjust: exact;
     }
-    
+
     table .qty {}
-    
+
     table .total {
         background: #57B223 !important;
         -webkit-print-color-adjust: exact;
         color: #FFFFFF;
     }
-    
+
     table td.unit,
     table td.qty,
     table td.total {
         font-size: 1.2em;
     }
-    
+
     table tbody tr:last-child td {
         border: none;
     }
-    
+
     table tfoot td {
         padding: 10px 20px;
         background: #FFFFFF;
@@ -167,35 +167,35 @@
         white-space: nowrap;
         border-top: 1px solid #AAAAAA;
     }
-    
+
     table tfoot tr:first-child td {
         border-top: none;
     }
-    
+
     table tfoot tr:last-child td {
         color: #57B223;
         font-size: 1.4em;
         border-top: 1px solid #57B223;
     }
-    
+
     table tfoot tr td:first-child {
         border: none;
     }
-    
+
     #thanks {
         font-size: 2em;
         margin-bottom: 50px;
     }
-    
+
     #notices {
         padding-left: 6px;
         border-left: 6px solid #0087C3;
     }
-    
+
     #notices .notice {
         font-size: 1.2em;
     }
-    
+
     footer {
         color: #777777;
         width: 100%;
@@ -252,9 +252,9 @@
                                                 <th class="no">SL.</th>
                                                 <th class="unit"><b>Description</b></th>
                                                 <th class="total">Size</th>
-                                                <th>Price</th>
-                                                <th class="total" >Unit</th>
                                                 <th>Quantity</th>
+                                                <th class="total" >Unit</th>
+                                                <th>Price</th>
                                                 <th class="total"><b>Total Price</b></th>
                                             </tr>
                                         </thead>
@@ -264,18 +264,20 @@
                                                 <td style="width: 1%;" class="no">{{ $loop->iteration }}</td>
                                                 <td style="width: 40%;" class="unit" >{{ $item->name }}</td>
                                                 <td class="total" style="width: 10%;">{{ $item->size }}</td>
-                                                <td style="width: 8%;">{{ $item->sale_price }}</td>
+                                                <td class="qty" style="width: 7%;">{{ $item->quantity }}</td>
                                                 <td style="width: 8%;" class="total" >
                                                     @if(isset($units[$item->unit_id])) {{ $units[$item->unit_id] }} @endif
                                                 </td>
-                                                <td class="qty" style="width: 7%;">{{ $item->quantity }}</td>
+                                                <td style="width: 8%;">{{ $item->sale_price }}</td>
                                                 <td class="total" style="width: 11%;" ><b>{{ $item->sale_price*$item->quantity }}</b></td>
                                             </tr>
                                             @endforeach
                                             <tr>
-                                                <td colspan="5" style="text-align: right;">Total </td>
+                                                <td colspan="3" style="text-align: right;">Total </td>
                                                 <td>{{ $product_info->sum('quantity') }}</td>
-                                                <td ><b>{{ $total_price }}</b></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td><b>{{ $total_price }}</b></td>
                                             </tr>
                                             <tr>
                                                 <td colspan="6" style="text-align: right;"><b>Discount Amount</b></td>
@@ -404,7 +406,7 @@
                                 </div>
                                 <div class="col-md-3 col-xs-3">
                                      <label class="control-label col-sm-3" for="email">Date:</label>
-                                    <div class="col-sm-9"> 
+                                    <div class="col-sm-9">
                                         {{ Carbon\Carbon::parse($invoice_info->manual_date)->format('d-m-Y') }}
                                     </div>
 

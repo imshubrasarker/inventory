@@ -35,7 +35,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group {{ $errors->has('supplier_id') ? 'has-error' : ''}}">
                                                 {!! Form::label('supplier_id', 'Supplier', ['class' => 'control-label']) !!}
-                                                {!! Form::select('supplier_id', $suppliers, null, ('' == 'required') ? ['class' => 'form-control supplier', 'required' => 'required','placeholder'=>'Select Supplier'] : ['class' => 'form-control supplier','placeholder'=>'Select Supplier']) !!}
+                                                {!! Form::select('supplier_id', $suppliers, null, ('' == 'required') ? ['class' => 'form-control supplier select2', 'required' => 'required','placeholder'=>'Select Supplier'] : ['class' => 'form-control supplier select2','placeholder'=>'Select Supplier']) !!}
                                                 {!! $errors->first('customer_id', '<p class="help-block">:message</p>') !!}
                                             </div>
                                         </div>
@@ -124,6 +124,7 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('.customer').select2();
+            $('.select2').select2();
         });
 
         $(document).on('change','.supplier', function(){

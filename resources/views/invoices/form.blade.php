@@ -41,6 +41,21 @@
 
 <div class="row">
     <div class="col-md-6">
+        <div class="form-group {{ $errors->has('due_amount') ? 'has-error' : ''}}">
+            <label for="due_amount" class="form-label">Due Amount</label>
+            <input type="text" name="due_amount" class="form-control due_amount_customer" readonly>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group {{ $errors->has('transport') ? 'has-error' : ''}}">
+            <label for="transport" class="form-label">Transport</label>
+            <input type="text" name="transport" class="form-control transport">
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
         <div class="form-group {{ $errors->has('address') ? 'has-error' : ''}}">
             {!! Form::label('address', 'Address', ['class' => 'control-label']) !!}
             {!! Form::textarea('address', null, ('' == 'required') ? ['class' => 'form-control address', 'required' => 'required','rows'=>'2','cols'=>'5', 'readonly'=>'readonly'] : ['class' => 'form-control address','rows'=>'2','cols'=>'5', 'readonly'=>'readonly']) !!}
@@ -84,14 +99,6 @@
         </div>
     </div>
 
-    <div class="col-md-1">
-        <div class="form-group {{ $errors->has('quantity[]') ? 'has-error' : ''}}">
-            {!! Form::label('quantity[]', 'Quantity', ['class' => 'control-label']) !!}
-            {!! Form::text('quantity[]', null, ('' == 'required') ? ['class' => 'form-control quantity', 'serial'=>'1', 'required' => 'required', 'id' => 'quantity_1'] : ['class' => 'form-control quantity', 'serial'=>'1', 'id' => 'quantity_1']) !!}
-            {!! $errors->first('quantity[]', '<p class="help-block">:message</p>') !!}
-        </div>
-    </div>
-
     <div class="col-md-2">
         <div class="form-group {{ $errors->has('total_price[]') ? 'has-error' : ''}}">
             {!! Form::label('total_price[]', 'Total Price', ['class' => 'control-label']) !!}
@@ -100,8 +107,16 @@
         </div>
     </div>
 
+    <div class="col-md-1">
+        <div class="form-group {{ $errors->has('quantity[]') ? 'has-error' : ''}}">
+            {!! Form::label('quantity[]', 'Quantity', ['class' => 'control-label']) !!}
+            {!! Form::text('quantity[]', null, ('' == 'required') ? ['class' => 'form-control quantity', 'serial'=>'1', 'required' => 'required', 'id' => 'quantity_1'] : ['class' => 'form-control quantity', 'serial'=>'1', 'id' => 'quantity_1']) !!}
+            {!! $errors->first('quantity[]', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+
     <div class="col-md-1"> <br>
-        <button type="button" class="removeButton" serial="1" style="float:left;"> <i  class="fa fa-trash btn btn-danger"></i></button>    
+        <button type="button" class="removeButton" serial="1" style="float:left;"> <i  class="fa fa-trash btn btn-danger"></i></button>
     </div>
 
 </div>
@@ -113,7 +128,7 @@
         <div class="form-group">
             <button class="btn pull-right add-product-btn" onclick="addMoreRows(this.form);" type="button">
                 <i  class="fa fa-plus btn btn-success"></i>
-            </button>    
+            </button>
         </div>
     </div>
 </div>
@@ -121,11 +136,11 @@
 
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="form-group {{ $errors->has('grand_total_price') ? 'has-error' : ''}}">
             {!! Form::label('grand_total_price', 'Grand Total Price', ['class' => 'control-label']) !!}
             {!! Form::text('grand_total_price', null, ('' == 'required') ? ['class' => 'form-control grand_total_price', 'required' => 'required', 'readonly'=>'readonly'] : ['class' => 'form-control grand_total_price', 'readonly'=>'readonly']) !!}
-            {!! $errors->first('grand_total_price', '<p class="help-block">:message</p>') !!}  
+            {!! $errors->first('grand_total_price', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
     <div class="col-md-3">
@@ -136,7 +151,12 @@
         </div>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-2">
+        <label for="" class="control-label">Discount</label>
+        <input type="text" class="form-control" name="discount" id="discount" value="0">
+    </div>
+
+    <div class="col-md-2">
         <div class="form-group {{ $errors->has('due_amount') ? 'has-error' : ''}}">
             {!! Form::label('due_amount', 'Due Amount', ['class' => 'control-label']) !!}
             {!! Form::text('due_amount', null, ('' == 'required') ? ['class' => 'form-control', 'id'=>'due_amount', 'required' => 'required', 'readonly'=>'readonly'] : ['class' => 'form-control', 'readonly'=>'readonly', 'id'=>'due_amount']) !!}
@@ -150,7 +170,7 @@
             {!! $errors->first('total_qty', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-    
+
 </div>
 <div class="form-group">
     {!! Form::submit($formMode === 'edit' ? 'Update' : 'Create', ['class' => 'btn btn-primary']) !!}

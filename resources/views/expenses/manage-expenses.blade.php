@@ -103,7 +103,7 @@
                                 </tr>
                             @endforeach
                             <tr>
-                                <td colspan="3" class="text-right font-weight-bold"><i class="fa fa-money" aria-hidden="true"></i> Total Amount: </td>
+                                <td colspan="4" class="text-right font-weight-bold"><i class="fa fa-money" aria-hidden="true"></i> Total Amount: </td>
                                 <td>{{ $total_exp }}</td>
                                 <td></td>
                                 <td></td>

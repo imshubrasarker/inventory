@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Employee;
+use App\Invoice;
+use App\Payment;
 use App\Supplier;
 use Illuminate\Http\Request;
 use App\Product;
@@ -42,8 +44,21 @@ class SearchController extends Controller
     public function getCustomerDetail(Request $request)
     {
         $customer_id = $request->get('customer_id');
+
+        $customer_due = Customer::findOrFail($customer_id);
+        $invoices = Invoice::where('customer_id',$customer_id)->latest()->orderBy('id')->get();
+        $payments = Payment::where('customer_id',$customer_id)->latest()->get();
+        $total_payment_amount = $payments->sum('amount');
+
+        $grand_total_price = $invoices->sum('grand_total_price');
+        $paid_price = $invoices->sum('advanced')+$total_payment_amount;
+        $due_amount = $grand_total_price+$customer_due->due-$paid_price;
+
         $customer = Customer::where('id',$customer_id)->first();
-        return response()->json(['customer'=>$customer]);
+        return response()->json([
+            'customer'=> $customer,
+            'due_amount' => $due_amount
+        ]);
     }
 
     public function getSupplierDetail(Request $request)
