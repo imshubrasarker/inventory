@@ -39,12 +39,12 @@ class InvoicesController extends Controller
         }
 
         if($request->get('to')){
-            $to = $request->get('to')." 23:59:59"; 
+            $to = $request->get('to')." 23:59:59";
         }else{
             $to = null;
         }
-        
-        
+
+
         // dd($from);
         $customer_id = $request->get('customer_id');
         $perPage = 25;
@@ -128,7 +128,7 @@ class InvoicesController extends Controller
         foreach($request->quantity as $key=>$value)
         {
             $total_quantity += $value;
-            
+
         }
 
         $invoice                    = new Invoice();
@@ -141,8 +141,10 @@ class InvoicesController extends Controller
         $invoice->total_quantity    = $total_quantity;
         $invoice->notebar           = $request->notebar;
         $invoice->user_id           = Auth::user()->id;
+        $invoice->discount          = $request->discount;
+        $invoice->transport         = $request->transport;
         $invoice->save();
-        
+
         foreach($request->product_id as $key=>$value){
             $product_cart               = new ProductCart();
             $product_cart->invoice_id   = $request->invoice_no;
@@ -152,7 +154,7 @@ class InvoicesController extends Controller
             $product_cart->total_price  = $request->total_price[$key];
             $product_cart->save();
 
-            
+
 
             $stock                      = Stock::where('product_id',$value)->first();
             $after_sale_stock           = $stock->product_stock-$request->quantity[$key];
@@ -195,23 +197,23 @@ class InvoicesController extends Controller
         }
         // dd($total_price);
         $invoices = Invoice::where('customer_id', $customer_info->id)->get();
-        
+
         $previous_due = Invoice::where('customer_id', $customer_info->id)->sum('due_amount');
         $total_previous_due = $previous_due-$invoice_info->due_amount;
         $units = Unit::pluck('name', 'id');
-        
+
          $payments = Payment::where('customer_id',$customer_info->id)->latest()->get();
          $total_payment_amount = $payments->sum('amount');
-         
+
         $paid_price = $invoices->sum('advanced')+$total_payment_amount;
-        
+
         $total_due = 0;
-        
+
         $total_due = $total_due + $invoices->sum('grand_total_price') + $customer_info->due - $paid_price;
-        
+
         //return $invoices->sum('grand_total_price');
-        
-        
+
+
         return view('invoices.print',compact('total_discount', 'invoice_info','customer_info','product_info','company', 'total_previous_due', 'total_price', 'units', 'total_due'));
     }
 
@@ -240,9 +242,9 @@ class InvoicesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         $requestData = $request->all();
-        
+
         $invoice = Invoice::findOrFail($id);
         $invoice->update($requestData);
 
@@ -268,7 +270,7 @@ class InvoicesController extends Controller
             return redirect('invoices')->with('error', 'Password Not Matched!');
         }
 
-        
+
     }
 
 
@@ -291,16 +293,16 @@ class InvoicesController extends Controller
         $total_previous_due = $previous_due-$invoice_info->due_amount;
         $units = Unit::pluck('name', 'id');
         // dd($total_previous_due
-        
+
         $invoices = Invoice::where('customer_id', $customer_info->id)->get();
-        
+
         $payments = Payment::where('customer_id',$customer_info->id)->latest()->get();
          $total_payment_amount = $payments->sum('amount');
-         
+
         $paid_price = $invoices->sum('advanced')+$total_payment_amount;
-        
+
         $total_due = 0;
-        
+
         $total_due = $total_due + $invoices->sum('grand_total_price') + $customer_info->due - $paid_price;
         return view('invoices.print',compact('total_discount', 'invoice_info','customer_info','product_info','company', 'total_previous_due', 'total_price', 'units', 'total_due'));
     }
@@ -327,7 +329,7 @@ class InvoicesController extends Controller
     {
         $invoice = Invoice::where('id',$id)->first();
         $customer = Customer::where('id',$invoice->customer_id)->first();
-        
+
         $invoices = Invoice::where('customer_id',$customer->id)->get();
 
         $payments = Payment::where('customer_id',$customer->id)->latest()->get();
@@ -338,12 +340,12 @@ class InvoicesController extends Controller
         $due_amount = $grand_total_price+$customer->due-$paid_price;
 
         $onnorokom_info = Smse::latest()->first();
-        
-        $sms = "Dear, $customer->name 
-            Sub: Invoice Confirmation 
-            Invoice No: $invoice->invoice_id 
+
+        $sms = "Dear, $customer->name
+            Sub: Invoice Confirmation
+            Invoice No: $invoice->invoice_id
             Invoice Amount: Tk. $invoice->grand_total_price BDT
-            Paid Amount: Tk. $invoice->advanced BDT 
+            Paid Amount: Tk. $invoice->advanced BDT
             Total Due Amount: Tk. $due_amount BDT
             -CVHBD
             ";

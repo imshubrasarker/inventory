@@ -64,8 +64,9 @@ Create New Payment
             success : function(results) {
                 $("#customer_mobile").val(results.customer.primary_mobile);
                 $("#address").val(results.customer.address);
+                $("#due_amount").val(results.due_amount);
                 console.log('data', results);
-            }  
+            }
         });
       });
 </script>

@@ -24,9 +24,9 @@
             {!! $errors->first('mobile_no', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-    
-    
-    
+
+
+
 @endif
     <div class="col-md-6">
         <div class="form-group {{ $errors->has('address') ? 'has-error' : ''}}">
@@ -34,20 +34,17 @@
             {!! Form::textarea('address', null, ('' == 'required') ? ['class' => 'form-control address', 'required' => 'required','rows'=>'2','cols'=>'5', 'readonly'=>'readonly'] : ['class' => 'form-control address','rows'=>'2','cols'=>'5', 'readonly'=>'readonly']) !!}
             {!! $errors->first('address', '<p class="help-block">:message</p>') !!}
         </div>
-        
+
     </div>
 </div>
 @if($formMode == 'create')
 <div class="row">
     <div class="col-md-6">
-        <div class="form-group {{ $errors->has('payment_method') ? 'has-error' : ''}}">
-            {!! Form::label('payment_method', 'Payment Method', ['class' => 'control-label']) !!}
-            {!! Form::select('payment_method', (['Advanced'=>'Advanced','Cash'=>'Cash', 'Credit'=>'Credit','Bkash'=>'Bkash','Rocket'=>'Rocket']), null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
-            {!! $errors->first('payment_method', '<p class="help-block">:message</p>') !!}
-        </div>
+        <label for="" class="control-label">Due Amount</label>
+        <input type="text" name="due_amount" id="due_amount" class="form-control" readonly>
     </div>
     <div class="col-md-6">
-        
+
         <div class="form-group {{ $errors->has('amount') ? 'has-error' : ''}}">
             {!! Form::label('amount', 'Amount', ['class' => 'control-label']) !!}
             {!! Form::number('amount', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}

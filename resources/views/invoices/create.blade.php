@@ -89,14 +89,14 @@ Create New Invoice
 <script type="text/javascript">
   // $('.date').datepicker({format: "dd.mm.yyyy"});
   $('.product_id').select2();
-    
-        
-    
+
+
+
     // $(".product_id").change(function(){
     $(document).on('change','.product_id',function(){
 
       var product_id = $(this).val();
-      
+
       var serial = $(this).attr('serial');
         $.ajax({
             headers:{
@@ -115,38 +115,44 @@ Create New Invoice
    });
 
   var sum = 0;
-    $(document).on('keyup', ".quantity", function(){
+    $(document).on('keyup', ".quantity", function() {
       var serial = $(this).attr('serial');
       var sale_price =  $('#sale_price_'+serial).val();
       var available_quantity =  Number($('#available_quantity_'+serial).val());
       var quantity = Number($(this).val());
       var total_amount = sale_price*quantity;
       $("#total_price_"+serial).val(total_amount);
-      if(quantity > available_quantity){ 
+      if(quantity > available_quantity){
         alert('Not Available in Stock.');
         $("#quantity_"+serial).val(0);
         $("#total_price_"+serial).val(0);
       }
       total_cal();
       cal_tital_qty();
-    }); 
+    });
    function total_cal(){
-    sum = 0; 
+    sum = 0;
       $(".product_total_price").each(function() {
           sum += Number($(this).val());
       });
-      
-      $('.grand_total_price').val(sum);       
-      cal_due_amount(); 
+
+      $('.grand_total_price').val(sum);
+      cal_due_amount();
    }
+
+   $('#discount').on('focusout', function () {
+       let due = $('#due_amount').val();
+       let due_up = $(this).val();
+       $('#due_amount').val(due - due_up)
+   })
 
     var rowCount = 1;
     function addMoreRows(frm) {
-        
+
         var cures = <?php echo json_encode($products) ?>;
         rowCount ++;
         var html = '<div class="row" id="registration'+rowCount+'"><div class="col-md-4"><div class="form-group "><label for="product_id[]" class="control-label">Product</label><select class="form-control product_id product_id_'+rowCount+'" serial="'+rowCount+'" id="product_id[]" name="product_id[]"><option value="">Select Product</option><?php foreach($products as $key=>$value){ ?><option value="<?php echo $key; ?>"><?php echo  stripslashes($value); ?></option> <?php } ?></select></div></div><div class="col-md-2"><div class="form-group "><label for="sale_price[]" class="control-label">Sale Price</label><input class="form-control" readonly="readonly" id="sale_price_'+rowCount+'" name="sale_price[]" type="text"></div></div><div class="col-md-2"><div class="form-group "><label for="available_quantity[]" class="control-label">Available Quantity</label><input class="form-control" readonly="readonly" id="available_quantity_'+rowCount+'" name="available_quantity[]" type="text"></div></div><div class="col-md-1"><div class="form-group "><label for="quantity[]" class="control-label">Quantity</label><input class="form-control quantity" serial="'+rowCount+'" name="quantity[]" type="text" id="quantity_'+rowCount+'"></div></div><div class="col-md-2"><div class="form-group "><label for="total_price[]" class="control-label">Total Price</label><input class="form-control product_total_price" readonly name="total_price[]" type="text" id="total_price_'+rowCount+'"></div></div><div class="col-md-1"> <br><button type="button"  class="removeButton" serial="'+rowCount+'" style="float:left;" title="'+rowCount+'"> <i class="fa fa-trash btn btn-danger"></i></button></div></div>';
-        
+
         $('#addedRows').append(html);
         $(".product_id_" + rowCount).select2();
     }
@@ -166,9 +172,10 @@ Create New Invoice
             success : function(results) {
                 $(".mobile_no").val(results.customer.primary_mobile);
                 $(".address").val(results.customer.address);
-            }  
+                $(".due_amount_customer").val(results.due_amount);
+            }
         });
-            
+
     });
 
      $(document).on('keyup', '#advanced', function(){
@@ -188,7 +195,7 @@ Create New Invoice
         $(".quantity").each(function() {
           qsum += Number($(this).val());
         });
-        $('#total_qty').val(qsum); 
+        $('#total_qty').val(qsum);
      }
 
      $(document).on('click','.removeButton',function(){

@@ -3,6 +3,7 @@
     Create Purchase
 @endsection
 @section('header-script')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
 @section('content')
     <div id="page-wrapper">
@@ -33,7 +34,7 @@
                                         <div class=" col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label mb-2">Supplier<span class="text-danger">*</span></label>
-                                                <select name="supplier_id" id="supplier" class="form-control supplier">
+                                                <select name="supplier_id" id="supplier" class="form-control supplier select2">
                                                     <option value="">Select Supplier</option>
                                                     @foreach ($suplliers as $suppler )
                                                         <option value="{{ $suppler->id }}">{{ $suppler->name }}</option>
@@ -70,7 +71,7 @@
                                         <div class=" col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label mb-2">Category<span class="text-danger">*</span></label>
-                                                <select name="category_id" id="category" class="form-control category">
+                                                <select name="category_id" id="category" class="form-control category select2">
                                                     <option value="">Select Category</option>
                                                     @foreach ($categories as $category )
                                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -128,7 +129,11 @@
 @endsection
 
 @section('footer-script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
         $(document).on('change','.supplier', function(){
             var customer_id = $(this).val();
             $.ajax({
