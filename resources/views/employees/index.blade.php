@@ -68,22 +68,28 @@ Categories
                                             <th>Name</th>
                                             <th>Address</th>
                                             <th>Mobile</th>
-                                            <th>Emergency Contact</th>
+                                            <th>Salary</th>
                                             <th>Salary Type</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    @php
+                                    $total = 0;
+                                    @endphp
                                     @foreach($employees as $item)
                                         <tr>
+                                            @php
+                                            $total = $total + $item->balance;
+                                            @endphp
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->name }}</td>
                                             <td>{{ $item->address }}</td>
                                             <td>{{ $item->mobile }}</td>
-                                            <td>{{ $item->e_contact }}</td>
+                                            <td>{{ $item->balance }}</td>
                                             <td>{{ $item->salary_type }}</td>
                                             <td>
-                                                <a href="{{ url('/employees/' . $item->id) }}" title="View Category"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+                                                <a href="{{ url('/employees/' . $item->id) }}" title="View Category"><button class="btn btn-info btn-sm"><i class="fa fa-book" aria-hidden="true"></i> Ledger</button></a>
                                                 <a href="{{ url('/employees/' . $item->id . '/edit') }}" title="Edit Category"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
 
                                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#categoriesdelete-{{ $item->id }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Delete</button>
@@ -129,6 +135,12 @@ Categories
                                             </td>
                                         </tr>
                                     @endforeach
+                                    <tr>
+                                        <td colspan="4" class="text-right">Total</td>
+                                        <td>{{ $total }}</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>

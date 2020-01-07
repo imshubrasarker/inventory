@@ -16,7 +16,8 @@ class Employee extends Model
        'previous_salary',
        'previous_quantity',
        'balance',
-       'salary'
+       'salary',
+        'designation'
     ];
 
     public function expenses()

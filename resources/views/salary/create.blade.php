@@ -77,6 +77,36 @@ Create New Salary
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="name" class="">Designation</label>
+                                        <input type="text" class="form-control" id="designation" name="designation" readonly>
+                                    </div>
+                                    <div class="col-md-6" id="month">
+                                        <label for="name" class="">Month</label>
+                                        <select name="month" class="form-control">
+                                            <option value="">Select Month</option>
+                                            <option value="january">January</option>
+                                            <option value="february">February</option>
+                                            <option value="march">March</option>
+                                            <option value="april">April</option>
+                                            <option value="may">May</option>
+                                            <option value="june">June</option>
+                                            <option value="july">July</option>
+                                            <option value="august">August</option>
+                                            <option value="september">September</option>
+                                            <option value="october">October</option>
+                                            <option value="november">November</option>
+                                            <option value="december">December</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row" id="working-day">
+                                    <div class="col-md-6">
+                                        <label for="name" class="">Working Day</label>
+                                        <input type="text" class="form-control" id="working day" name="working day">
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-md-6"></div>
                                     <div class="col-md-6">
                                         <button class="text-right btn-primary btn" type="submit">Create</button>
@@ -114,13 +144,19 @@ Create New Salary
                         $('#address').val(results.employee.address);
                         $('#mobile').val(results.employee.mobile);
                         $('#salary_type').val(results.employee.salary_type);
+                        $('#designation').val(results.employee.designation);
+                        console.log(results);
                         if (results.employee.salary_type == 'monthly') {
                             $('#hiderow').css('display', 'none');
                             $('#salary').val(results.employee.balance);
+                            $('#working-day').css('display', 'none');
+                            $('#month').css('display', 'block');
                         }
                         if (results.employee.salary_type == 'production') {
                             $('#hiderow').css('display', 'block');
                             $('#salary').val(0);
+                            $('#working-day').css('display', 'block');
+                            $('#month').css('display', 'none');
                         }
                     }
                 });
