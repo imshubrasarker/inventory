@@ -12,7 +12,9 @@ class Salary extends Model
         'qty_desc',
         'rate',
         'salary_type',
-        'note'
+        'note',
+        'month',
+        'working_day'
     ];
 
     public function employee()

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Company;
 use App\Employee;
 use Illuminate\Http\Request;
 
@@ -57,10 +58,7 @@ class EmployeeController extends Controller
             'mobile' => 'required',
             'nid_no' => 'required',
             'e_contact' => 'required',
-            'salary_type' => 'required',
-            'previous_salary' => 'required',
-            'previous_quantity' => 'required',
-            'salary' => 'required',
+            'salary_type' => 'required'
         ]);
         $employee = Employee::create([
             'name' => $request->name,
@@ -71,6 +69,8 @@ class EmployeeController extends Controller
             'salary_type' => $request->salary_type,
             'previous_salary' => $request->previous_salary,
             'previous_quantity' => $request->previous_quantity,
+            'balance' => $request->salary,
+            'designation' => $request->designation
         ]);
 
         return redirect()->route('employees.index')->with('success', 'Employee added Successfully !!');
@@ -84,8 +84,9 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
+        $company = Company::latest()->first();
         $employee = Employee::where('id', $id)->with('salaries')->first();
-        return view('employees.show', compact('employee'));
+        return view('employees.show', compact('employee', 'company'));
     }
 
     /**
@@ -115,9 +116,7 @@ class EmployeeController extends Controller
             'mobile' => 'required',
             'nid_no' => 'required',
             'e_contact' => 'required',
-            'salary_type' => 'required',
-            'previous_salary' => 'required',
-            'previous_quantity' => 'required',
+            'salary_type' => 'required'
         ]);
         $employee = Employee::findOrFail($id)->update([
             'name' => $request->name,
@@ -129,6 +128,7 @@ class EmployeeController extends Controller
             'previous_salary' => $request->previous_salary,
             'previous_quantity' => $request->previous_quantity,
             'balance' => $request->salary,
+            'designation' => $request->designation
         ]);
         return redirect()->back()->with('success', 'Employee Updated Successfuly !!');
     }
