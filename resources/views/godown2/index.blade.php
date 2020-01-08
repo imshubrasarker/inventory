@@ -97,16 +97,16 @@
                                         @foreach($productions as $supplier)
                                         <tr>
                                             <th scope="row">{{ $loop->index + 1 }}</th>
-                                            <td>{{ $supplier->products->name }}</td>
+                                            <td>{{ $supplier->products['name'] }}</td>
                                             <td>{{ $supplier->size }}</td>
-                                            <td>{{ $supplier->godownUnits->unit_name }}</td>
+                                            <td>{{ $supplier->godownUnits['unit_name'] }}</td>
                                             <td>{{ $supplier->qty }}</td>
                                             <td>{{ $supplier->note }}</td>
                                             <td>{{ $supplier->date }}</td>
                                             <td>
                                                <div class="row">
                                                    <div class="col-md-3">
-                                                       <a href="{{ route('godown2.show', $supplier->products->id) }}" type="button" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i> </a>
+                                                       <a href="{{ route('godown2.show', $supplier->products['id']) }}" type="button" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i> </a>
                                                    </div>
                                                    <div class="col-sm-3">
                                                        <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"
