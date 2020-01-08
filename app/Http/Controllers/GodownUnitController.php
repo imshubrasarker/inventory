@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\GodownUnit;
+use App\Product;
 use Illuminate\Http\Request;
 
 class GodownUnitController extends Controller
@@ -14,7 +15,7 @@ class GodownUnitController extends Controller
      */
     public function index()
     {
-        $dozens = GodownUnit::paginate(15);
+        $dozens = GodownUnit::all();
         return view('godown1-units.index', compact('dozens'));
     }
 
@@ -25,7 +26,8 @@ class GodownUnitController extends Controller
      */
     public function create()
     {
-        return view('godown1-units.create');
+        $products = Product::all();
+        return view('godown1-units.create', compact('products'));
     }
 
     /**
@@ -37,6 +39,7 @@ class GodownUnitController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'product_id' => 'required|numeric',
             'unit_name' => 'required',
             'unit_number' => 'required|numeric',
         ]);
@@ -47,7 +50,7 @@ class GodownUnitController extends Controller
                 ->route('godown-unit.index')
                 ->with('error', 'The number for dozen can\'t be less than 1');
         }
-         $totalUnit = GodownUnit::sum('unit_number');
+         $totalUnit = GodownUnit::where('product_id', $request->get('product_id'))->sum('unit_number');
          if ($totalUnit + $request->unit_number > 12) {
 
              $remaining = 12 - $totalUnit;
@@ -56,6 +59,7 @@ class GodownUnitController extends Controller
                  ->with('error', 'The sum exceeds dozen you can add '.$remaining.' max value for this unit');
          }
         GodownUnit::create([
+            'product_id' => $request->product_id,
             'unit_name' => $request->unit_name,
             'unit_number' => $request->unit_number
         ]);
@@ -118,5 +122,10 @@ class GodownUnitController extends Controller
         $godown = GodownUnit::findOrFail($id);
         $godown->delete();
         return redirect()->route('godown-unit.index')->with('success', 'Unit Deleted !!');
+    }
+
+    public function getColors()
+    {
+
     }
 }

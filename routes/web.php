@@ -98,6 +98,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::post('/get-product-detail', 'SearchController@getProductDetail')->name('get_product_detail');
 	Route::post('/get-customer-detail', 'SearchController@getCustomerDetail')->name('get_customer_detail');
 	Route::post('/get-supplier-detail', 'SearchController@getSupplierDetail')->name('get_supplier_detail');
+	Route::post('/get-product-colors', 'SearchController@getColors')->name('get_product_colors');
 	Route::get('/expenses-head', 'ExpensesHeadController@index')->name('expenses-head');
 	Route::post('/expenses-head', 'ExpensesHeadController@store')->name('store-expenses-head');
 	Route::patch('/edit-expense-head/{id}', 'ExpensesHeadController@update')->name('edit-expense-head');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Employee;
+use App\GodownUnit;
 use App\Invoice;
 use App\Payment;
 use App\Supplier;
@@ -73,5 +74,11 @@ class SearchController extends Controller
         $employee_id = $request->get('employee_id');
         $employee = Employee::where('id',$employee_id)->first();
         return response()->json(['employee'=>$employee]);
+    }
+    public function getColors(Request $request)
+    {
+        $product_id = $request->get('product_id');
+        $colors = GodownUnit::where('product_id', $product_id)->get();
+        return response()->json(['colors' => $colors]);
     }
 }

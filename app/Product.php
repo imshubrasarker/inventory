@@ -31,6 +31,10 @@ class Product extends Model
     {
         return $this->hasMany(Product::class, 'product_id');
     }
+    public function godownUnits()
+    {
+        return $this->hasMany(GodownUnit::class, 'product_id');
+    }
 
     
 }

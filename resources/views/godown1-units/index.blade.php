@@ -20,10 +20,11 @@ Units
                             <br/>
                             <br/>
                             <div class="table-responsive">
-                                <table class="table table-bordered table-hover">
+                                <table class="table data-table table-bordered table-hover" style="width: 100%">
                                     <thead>
                                         <tr>
                                             <th>#</th>
+                                            <th>Product</th>
                                             <th>Name</th>
                                             <th>Dozen Unit</th>
                                             <th>Actions</th>
@@ -33,6 +34,7 @@ Units
                                     @foreach($dozens as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->product['name']}}</td>
                                             <td>{{ $item->unit_name }}</td>
                                             <td>{{ $item->unit_number }}</td>
                                             <td>
@@ -84,9 +86,7 @@ Units
                                     @endforeach
                                     </tbody>
                                 </table>
-                                <div class="pagination-wrapper"> {!! $dozens->appends(['search' => Request::get('search')])->render() !!} </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -95,3 +95,10 @@ Units
     </div>
 </div>
 @endsection
+@section('footer-script')
+    <script>
+        $(document).ready(function() {
+            $('.data-table').DataTable();
+        } );
+    </script>
+    @endsection
