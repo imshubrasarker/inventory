@@ -35,14 +35,22 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <!-- Metis Menu -->
 <script src="{{ asset('back/js/metisMenu.min.js') }}"></script>
 <script src="{{ asset('back/js/custom.js') }}"></script>
-<link href="{{ asset('back/css/custom.css') }}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css"/>
 <!--//Metis Menu -->
 <style>
 #chartdiv {
   width: 100%;
   height: 295px;
 }
+.data-table {
+    margin-top: 10px!important;
+}
+.dataTables_filter {
+    margin-bottom: 20px!important;
+}
 </style>
+
+<link href="{{ asset('back/css/custom.css') }}" rel="stylesheet">
 <!--pie-chart --><!-- index page sales reviews visitors pie chart -->
 <script src="{{ asset('back/js/pie-chart.js') }}" type="text/javascript"></script>
  <script type="text/javascript">

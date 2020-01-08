@@ -51,11 +51,11 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-md-1">
-                                    <span class="input-group-append">
-                                        <button class="btn btn-secondary btn-sm" type="submit">
-                                            <i class="fa fa-search"></i>
-                                        </button>
-                                    </span>
+                                                <span class="input-group-append">
+                                                    <button class="btn btn-secondary btn-sm" type="submit">
+                                                        <i class="fa fa-search"></i>
+                                                    </button>
+                                                </span>
                                                 </div>
                                             </div>
                                         </form>

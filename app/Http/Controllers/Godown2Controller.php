@@ -172,7 +172,7 @@ class Godown2Controller extends Controller
             'size' => 'required|numeric'
         ]);
 
-        $units = GodownUnit::all();
+        $units = GodownUnit::where('product_id', $request->get('product_id'))->get();
         if (count($units ) < 4)
         {
             return redirect()->back()->with('error', 'Add minimum 4 godown units');

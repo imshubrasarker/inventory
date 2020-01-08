@@ -414,4 +414,6 @@
     
     <!-- Bootstrap Core JavaScript -->
    <script src="{{ asset('back/js/bootstrap.js') }}"> </script>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <!-- //Bootstrap Core JavaScript -->
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>

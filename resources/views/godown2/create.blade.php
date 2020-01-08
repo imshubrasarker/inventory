@@ -53,11 +53,8 @@
                                         <div class="col-md-6 col-sm-12">
                                             <div class="form-group">
                                                 <label class="control-label  mb-2">Color<span class="text-danger">*</span></label>
-                                                <select class="form-control" name="color_id" id="color_id">
+                                                <select class="form-control" name="color_id" id="colors">
                                                     <option value="">Select Color</option>
-                                                    @foreach ($units as $unit)
-                                                        <option value="{{ $unit->id }}">{{ $unit->unit_name }}</option>
-                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -78,7 +75,7 @@
                                         <div class=" col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label mb-2">Date</label>
-                                                <input type="date" class="form-control" name="date" required placeholder="Date">
+                                                <input value="{{date("Y-m-d")}}" type="date" class="form-control" name="date" required placeholder="Date">
                                             </div>
                                         </div>
                                     </div>
@@ -108,6 +105,7 @@
         });
 
         $(document).on('change','#product_id', function(){
+            $("#colors").find('option').not(':first').remove()
             var product_id = $("#product_id").val();
             $.ajax({
                 headers:{
@@ -120,6 +118,24 @@
                 },
                 success : function(results) {
                     $("#size").val(results.product.size);
+                }
+            });
+            $.ajax({
+                headers:{
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type:"POST",
+                url:"{{ route('get_product_colors') }}",
+                data: {
+                    product_id : product_id
+                },
+                success : function(results) {
+                    let colors = results.colors;
+                    for(var i = 0; i < colors.length; i++)
+                    {
+                        // console.log(colors[i].id);
+                        $('#colors').append('<option value="' + colors[i].id + '">' + colors[i].unit_name+ '</option>');
+                    }
                 }
             });
         });

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddDesignationToSalaryTable extends Migration
+class AddColumnProductIdToTableGodownUnits extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddDesignationToSalaryTable extends Migration
      */
     public function up()
     {
-        Schema::table('salaries', function (Blueprint $table) {
-            $table->string('designation')->nullable();
+        Schema::table('godown_units', function (Blueprint $table) {
+            $table->bigInteger('product_id');
         });
     }
 
@@ -25,8 +25,8 @@ class AddDesignationToSalaryTable extends Migration
      */
     public function down()
     {
-        Schema::table('salaries', function (Blueprint $table) {
-            $table->dropColumn('designation');
+        Schema::table('godown_units', function (Blueprint $table) {
+            $table->dropColumn('product_id');
         });
     }
 }

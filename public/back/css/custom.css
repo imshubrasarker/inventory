@@ -102,3 +102,9 @@
         margin-left: auto;
     }
 }
+.data-table {
+    margin-top: 10px!important;
+}
+.dataTables_filter {
+    margin-bottom: 20px!important;
+}
