@@ -70,7 +70,8 @@ class EmployeeController extends Controller
             'previous_salary' => $request->previous_salary,
             'previous_quantity' => $request->previous_quantity,
             'balance' => $request->salary,
-            'designation' => $request->designation
+            'designation' => $request->designation,
+            'rate' => $request->rate,
         ]);
 
         return redirect()->route('employees.index')->with('success', 'Employee added Successfully !!');
@@ -128,7 +129,8 @@ class EmployeeController extends Controller
             'previous_salary' => $request->previous_salary,
             'previous_quantity' => $request->previous_quantity,
             'balance' => $request->salary,
-            'designation' => $request->designation
+            'designation' => $request->designation,
+            'rate' => $request->rate,
         ]);
         return redirect()->back()->with('success', 'Employee Updated Successfuly !!');
     }

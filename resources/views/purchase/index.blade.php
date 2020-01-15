@@ -36,12 +36,12 @@
                                         <tr>
                                             <th scope="col">SL</th>
                                             <th scope="col">Date</th>
+                                            <th scope="col">Invoice</th>
                                             <th scope="col">Supplier Name</th>
                                             <th scope="col">Type</th>
+                                            <th scope="col">Note</th>
                                             <th scope="col">Quantity</th>
                                             <th scope="col">Amount</th>
-                                            <th scope="col">Note</th>
-                                            <th scope="col">Invoice</th>
                                             <th scope="col">Actions</th>
 
                                         </tr>
@@ -57,18 +57,15 @@
                                         <tr>
                                             <th scope="row">{{ $loop->index + 1 }}</th>
                                             <td> {{ date('d-m-Y', strtotime($purchase->date)) }} </td>
+                                            <td>{{ $purchase->invoice_num }}</td>
                                             <td>{{ $purchase->supplier->name }}</td>
                                             <td>{{ $purchase->category['name'] }}</td>
+                                            <td>{{ $purchase->note }}</td>
                                             <td>{{ $purchase->quantity }}</td>
                                             <td>{{ $purchase->amount }}</td>
-                                            <td>{{ $purchase->note }}</td>
-                                            <td>{{ $purchase->invoice_num }}</td>
 
                                             <td>
                                                <div class="row">
-{{--                                                   <div class="col-sm-4">--}}
-{{--                                                       <a href="{{ route('purchase.show', $purchase->id) }}" type="button" class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i> </a>--}}
-{{--                                                   </div>--}}
                                                    <div class="col-md-4">
                                                        <a href="{{ route('purchase.edit', $purchase->id) }}" type="button" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
                                                    </div>
@@ -81,10 +78,10 @@
                                                </div>
                                             </td>
                                         </tr>
-                                            @endforeach
+                                        @endforeach
                                        <tr>
-                                           <td class="text-right mr-4" colspan="6"><strong style="margin-right: 6%">Total amount:</strong> {{ $total }}</td>
-                                           <td></td>
+                                           <td class="text-right mr-4" colspan="6">Total amount</td>
+                                           <td>{{ $total }}</td>
                                            <td></td>
                                            <td></td>
                                        </tr>

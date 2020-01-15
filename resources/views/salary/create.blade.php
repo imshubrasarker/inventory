@@ -63,7 +63,7 @@ Create New Salary
                                     </div>
                                     <div class="col-md-6">
                                         <label for="name" class="">Rate</label>
-                                        <input type="text" class="form-control" id="rate" name="rate" placeholder="Rate">
+                                        <input type="text" class="form-control" id="rate" name="rate" placeholder="Rate" readonly>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -83,27 +83,14 @@ Create New Salary
                                     </div>
                                     <div class="col-md-6" id="month">
                                         <label for="name" class="">Month</label>
-                                        <select name="month" class="form-control">
-                                            <option value="">Select Month</option>
-                                            <option value="january">January</option>
-                                            <option value="february">February</option>
-                                            <option value="march">March</option>
-                                            <option value="april">April</option>
-                                            <option value="may">May</option>
-                                            <option value="june">June</option>
-                                            <option value="july">July</option>
-                                            <option value="august">August</option>
-                                            <option value="september">September</option>
-                                            <option value="october">October</option>
-                                            <option value="november">November</option>
-                                            <option value="december">December</option>
-                                        </select>
+                                        <input type="month" class="form-control" name="month" id="month">
                                     </div>
                                 </div>
-                                <div class="row" id="working-day">
+                                <div class="row" id="working-day" style="display: none;">
                                     <div class="col-md-6">
                                         <label for="name" class="">Working Day</label>
-                                        <input type="text" class="form-control" id="working day" name="working day">
+                                        <input type="text" class="form-control" id="working_day" name="working_day">
+                                        <input type="hidden" name="daily_salary" id="daily_salary">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -145,18 +132,21 @@ Create New Salary
                         $('#mobile').val(results.employee.mobile);
                         $('#salary_type').val(results.employee.salary_type);
                         $('#designation').val(results.employee.designation);
-                        console.log(results);
                         if (results.employee.salary_type == 'monthly') {
                             $('#hiderow').css('display', 'none');
-                            $('#salary').val(results.employee.balance);
-                            $('#working-day').css('display', 'none');
+                            // $('#salary').val(results.employee.balance);
+                            $('#working-day').css('display', 'block');
                             $('#month').css('display', 'block');
+                            $('#daily_salary').val(results.employee.balance/30);
+                            salary_calculate();
                         }
                         if (results.employee.salary_type == 'production') {
                             $('#hiderow').css('display', 'block');
                             $('#salary').val(0);
-                            $('#working-day').css('display', 'block');
+                            $('#working-day').css('display', 'none');
                             $('#month').css('display', 'none');
+                            $('#rate').val(results.employee.rate);
+                            salary_calculate();
                         }
                     }
                 });
@@ -165,6 +155,18 @@ Create New Salary
                 var qty = $(this).val();
                 var rate = $('#rate').val() ? $('#rate').val() : 0;
                 $('#salary').val(qty * rate);
+            })
+
+            function salary_calculate() {
+                var working_days = $('#working_day').val() ? $('#working_day').val() : 0;
+                console.log('Working day ', working_days);
+                var salary = $('#daily_salary').val() ? $('#daily_salary').val() : 0;
+                console.log("Salary ", salary);
+                $('#salary').val(working_days * salary);
+            }
+
+            $(document).on('keyup', '#working_day', function () {
+                salary_calculate();
             })
 
             $(document).on('keyup', '#rate', function () {

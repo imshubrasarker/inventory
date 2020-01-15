@@ -70,6 +70,7 @@ Categories
                                             <th>Mobile</th>
                                             <th>Salary</th>
                                             <th>Salary Type</th>
+                                            <th>Rate</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -88,6 +89,7 @@ Categories
                                             <td>{{ $item->mobile }}</td>
                                             <td>{{ $item->balance }}</td>
                                             <td>{{ $item->salary_type }}</td>
+                                            <td>{{ $item->rate }}</td>
                                             <td>
                                                 <a href="{{ url('/employees/' . $item->id) }}" title="View Category"><button class="btn btn-info btn-sm"><i class="fa fa-book" aria-hidden="true"></i> Ledger</button></a>
                                                 <a href="{{ url('/employees/' . $item->id . '/edit') }}" title="Edit Category"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>

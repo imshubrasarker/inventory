@@ -25,7 +25,6 @@ Create New Category
                                 </ul>
                             @endif
 
-
                             <form action="{{ route('employees.store') }}" method="post" class="form-group">
                                 @csrf
                                 <div class="row">
@@ -83,6 +82,12 @@ Create New Category
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <div class="col-md-6" id="rate_div" style="display: none">
+                                        <label for="name" class="">Rate</label>
+                                        <input type="text" class="form-control" name="rate" id="rate" placeholder="Rate" value="{{ old('rate') }}">
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-md-6"></div>
                                     <div class="col-md-6">
                                         <button class="text-right btn-primary btn" type="submit">Create</button>
@@ -108,12 +113,13 @@ Create New Category
                 if (type == 'monthly') {
                     $('#salary_div').css('display', 'block');
                     $('#previous_quantity').css('display', 'none');
-
+                    $('#rate_div').css('display', 'none');
                 }
 
                 if (type == 'production') {
                     $('#salary_div').css('display', 'none');
                     $('#previous_quantity').css('display', 'block');
+                    $('#rate_div').css('display', 'block');
                 }
             })
         });

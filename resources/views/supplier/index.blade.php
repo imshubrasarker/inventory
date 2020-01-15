@@ -77,8 +77,8 @@
                                             <th scope="col">#</th>
                                             <th scope="col">Name</th>
                                             <th scope="col">Mobile</th>
-                                            <th scope="col">Balance</th>
                                             <th scope="col">Address</th>
+                                            <th scope="col">Balance</th>
                                             <th scope="col">Note</th>
                                             <th scope="col">Actions</th>
                                         </tr>
@@ -95,8 +95,8 @@
                                             <th scope="row">{{ $loop->index + 1 }}</th>
                                             <td>{{ $supplier->name }}</td>
                                             <td>{{ $supplier->mobile }}</td>
-                                            <td>{{ $supplier->balance }}</td>
                                             <td width="15%">{{ $supplier->address }}</td>
+                                            <td>{{ $supplier->balance }}</td>
                                             <td width="15%">{{ $supplier->note }}</td>
                                             <td>
                                                <div class="row">
@@ -120,7 +120,7 @@
                                         </tr>
                                             @endforeach
                                         <tr>
-                                            <td colspan="3" class="text-right">Total</td>
+                                            <td colspan="4" class="text-right">Total</td>
                                             <td>{{ $total_balance }}</td>
                                             <td></td>
                                             <td></td>
