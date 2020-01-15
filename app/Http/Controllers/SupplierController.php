@@ -28,18 +28,18 @@ class SupplierController extends Controller
         if (!empty($supplier_id) || !empty($supplier_mobile)) {
 
             if($supplier_id){
-                $suppliers = Supplier::where('id', $supplier_id)->paginate(10);
+                $suppliers = Supplier::where('id', $supplier_id)->orderBy('created_at', 'DESC')->paginate(10);
                 $total = $suppliers->sum('balance');
             }
 
             elseif($supplier_mobile){
-                $suppliers = Supplier::where('mobile', $supplier_mobile)->paginate(10);
+                $suppliers = Supplier::where('mobile', $supplier_mobile)->orderBy('created_at', 'DESC')->paginate(10);
                 $total = $suppliers->sum('balance');
             }
 
         }
         else {
-            $suppliers = Supplier::paginate(10);
+            $suppliers = Supplier::orderBy('created_at', 'DESC')->paginate(10);
             $total = Supplier::sum('balance');
         }
         return view('supplier.index', compact('suppliers', 'total', 'sup'));
@@ -118,7 +118,7 @@ class SupplierController extends Controller
         $keyword = $request->key;
         $suppliers = Supplier::where('name','LIKE', "%$keyword%")
             ->orWhere('mobile', 'LIKE', "%$keyword%")
-            ->orWhere('created_at', 'LIKE', "%$keyword%")->paginate(10);
+            ->orWhere('created_at', 'LIKE', "%$keyword%")->orderBy('created_at', 'DESC')->paginate(10);
 
         return view('supplier.index', compact('suppliers'));
 
@@ -127,7 +127,7 @@ class SupplierController extends Controller
     public function printView()
     {
         $company = Company::latest()->first();
-        $suppliers = Supplier::paginate(10);
+        $suppliers = Supplier::orderBy('created_at', 'DESC')->paginate(10);
         $total = Supplier::sum('balance');
         return view('supplier.print', compact('suppliers', 'total', 'company'));
     }
@@ -188,8 +188,8 @@ class SupplierController extends Controller
         $total_payment_amount = $payments->sum('amount');
 //        $supplier = Supplier::with(['payments', 'purchases'])->where('id', $id)->first();
 ////        return $supplier;
-        $purchases = Purchase::where('supplier_id', $id)->get();
-        $payments = Payment::where('supplier_id', $id)->get();
+        $purchases = Purchase::where('supplier_id', $id)->orderBy('created_at', 'DESC')->get();
+        $payments = Payment::where('supplier_id', $id)->orderBy('created_at', 'DESC')->get();
         return view('supplier.leadger', compact('supplier', 'results', 'payments', 'purchases'));
     }
 
@@ -245,8 +245,8 @@ class SupplierController extends Controller
             }
             array_multisort($sort, SORT_ASC, $results);
         }
-        $purchases = Purchase::where('supplier_id', $id)->get();
-        $payments = Payment::where('supplier_id', $id)->get();
+        $purchases = Purchase::where('supplier_id', $id)->orderBy('created_at', 'DESC')->get();
+        $payments = Payment::where('supplier_id', $id)->orderBy('created_at', 'DESC')->get();
         $company = Company::latest()->first();
         return view('supplier.leadger-print', compact('supplier', 'results', 'payments', 'purchases', 'company'));
     }

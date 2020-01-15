@@ -23,7 +23,7 @@ class Godown2Controller extends Controller
     public function index()
     {
         $products = Product::all();
-        $productions = Godown2::groupBy('product_id')->paginate(15);
+        $productions = Godown2::groupBy('product_id')->orderBy('created_at', 'DESC')->paginate(15);
         return view('godown2.index', compact('productions', 'products'));
     }
 
@@ -34,8 +34,8 @@ class Godown2Controller extends Controller
      */
     public function create()
     {
-        $units = GodownUnit::all();
-        $products = Product::all();
+        $units = GodownUnit::orderBy('created_at', 'DESC')->all();
+        $products = Product::orderBy('created_at', 'DESC')->all();
         return view('godown2.create', compact('units', 'products'));
     }
 
@@ -98,7 +98,7 @@ class Godown2Controller extends Controller
      */
     public function show($id)
     {
-        $items = Godown2::where('product_id', $id)->get();
+        $items = Godown2::where('product_id', $id)->orderBy('created_at', 'DESC')->get();
         return view('godown2.show', compact('items'));
     }
 
@@ -110,9 +110,9 @@ class Godown2Controller extends Controller
      */
     public function edit($id)
     {
-        $units = GodownUnit::all();
+        $units = GodownUnit::orderBy('created_at', 'DESC')->get();
         $production = Godown2::findOrFail($id);
-        $products = Product::all();
+        $products = Product::orderBy('created_at', 'DESC')->get();
         return view('godown2.edit', compact('production', 'units','products'));
     }
 
@@ -172,7 +172,7 @@ class Godown2Controller extends Controller
             'size' => 'required|numeric'
         ]);
 
-        $units = GodownUnit::where('product_id', $request->get('product_id'))->get();
+        $units = GodownUnit::where('product_id', $request->get('product_id'))->orderBy('created_at', 'DESC')->get();
         if (count($units ) < 4)
         {
             return redirect()->back()->with('error', 'Add minimum 4 godown units');
@@ -273,29 +273,29 @@ class Godown2Controller extends Controller
         $product_id = $request->product_id;
 
         if ($product_id && $size) {
-            $productions = Godown2::where('product_id', $product_id)->orWhere('size', $size)->paginate(15);
+            $productions = Godown2::where('product_id', $product_id)->orWhere('size', $size)->orderBy('created_at', 'DESC')->paginate(15);
         }
         elseif ($product_id && !$size) {
-            $productions = Godown2::where('product_id', $product_id)->paginate(15);
+            $productions = Godown2::where('product_id', $product_id)->orderBy('created_at', 'DESC')->paginate(15);
         }
 
         elseif (!$product_id && $size){
-            $productions = Godown2::where('size', $size)->paginate(15);
+            $productions = Godown2::where('size', $size)->orderBy('created_at', 'DESC')->paginate(15);
         }
-        $products = Product::all();
+        $products = Product::orderBy('created_at', 'DESC')->get();
 
         return view('godown2.index', compact('productions', 'products'));
     }
 
     public function ledger($id)
     {
-        $items = ProductTransaction::where('godown2s_id', $id)->get();
+        $items = ProductTransaction::where('godown2s_id', $id)->orderBy('created_at', 'DESC')->get();
         return view('godown2.ledger', compact('items', 'id'));
     }
 
     public function ledgerPrint($id)
     {
-        $items = ProductTransaction::where('godown2s_id', $id)->get();
+        $items = ProductTransaction::where('godown2s_id', $id)->orderBy('created_at', 'DESC')->get();
         $company = Company::latest()->first();
         return view('godown2.print-ledger', compact('items', 'company'));
     }
@@ -306,7 +306,7 @@ class Godown2Controller extends Controller
         $to = $request->to;
         $items = '';
         if(!empty($from || $to)) {
-            $items = ProductTransaction::where('godown2s_id', $id)->whereBetween('created_at',[$from,$to])->get();
+            $items = ProductTransaction::where('godown2s_id', $id)->whereBetween('created_at',[$from,$to])->orderBy('created_at', 'DESC')->get();
         }
         return view('godown2.ledger', compact('items', 'id'));
     }

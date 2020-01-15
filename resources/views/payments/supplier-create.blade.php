@@ -12,7 +12,7 @@
             <div class="forms">
                 <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                     <div class="form-title">
-                        <h4>Receive Payment</h4>
+                        <h4>Supplier Payment</h4>
                     </div>
                     <div class="form-body">
                         <div class="card">
@@ -72,9 +72,9 @@
 {{--                                    @if($formMode == 'create')--}}
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <div class="form-group {{ $errors->has('payment_method') ? 'has-error' : ''}}">
-                                                    {!! Form::label('payment_method', 'Payment Method', ['class' => 'control-label']) !!}
-                                                    {!! Form::select('payment_method', (['Advanced'=>'Advanced','Cash'=>'Cash', 'Credit'=>'Credit','Bkash'=>'Bkash','Rocket'=>'Rocket']), null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
+                                                <div class="form-group {{ $errors->has('balance') ? 'has-error' : ''}}">
+                                                    {!! Form::label('balance', 'Balance', ['class' => 'control-label']) !!}
+                                                    {!! Form::number('balance', null, ('' == 'required') ? ['class' => 'form-control', 'readonly' => 'readonly', 'id' => 'balance'] : ['class' => 'form-control form-input-type', 'readonly' => 'readonly', 'id' => 'balance']) !!}
                                                     {!! $errors->first('payment_method', '<p class="help-block">:message</p>') !!}
                                                 </div>
                                             </div>
@@ -142,6 +142,7 @@
                     console.log('data', results);
                     $("#customer_mobile").val(results.supplier.mobile);
                     $("#address").val(results.supplier.address);
+                    $("#balance").val(results.supplier.balance);
                     console.log('data', results);
                 }
             });

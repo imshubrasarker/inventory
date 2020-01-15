@@ -17,12 +17,12 @@ class ExpensesHeadController extends Controller
     {
         if ($request->get('head'))
         {
-            $expenses_heads = ExpensesHead::where('id', $request->get('head'))->get();
+            $expenses_heads = ExpensesHead::where('id', $request->get('head'))->orderBy('created_at', 'DESC')->get();
         }
         else{
-            $expenses_heads = ExpensesHead::paginate(10);
+            $expenses_heads = ExpensesHead::orderBy('created_at', 'DESC')->paginate(10);
         }
-        $heads = ExpensesHead::all();
+        $heads = ExpensesHead::orderBy('created_at', 'DESC')->get();
 
         $total = Expense::sum('amount');
         return view('expenses.index', compact('expenses_heads', 'total', 'heads'));

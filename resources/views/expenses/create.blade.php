@@ -32,7 +32,7 @@
                                    <div class="row mb-2">
                                      <div class="col-md-6 col-sm-12">
                                          <div class="form-group">
-                                             <label class="control-label  mb-2">Expense Type Select <span class="text-danger">*</span></label>
+                                             <label class="control-label  mb-2">Expense To Select <span class="text-danger">*</span></label>
                                              <select class="form-control" name="expenses_heads_id">
                                                  <option value="">Select Expense Head</option>
                                                  <option value="0">Flash</option>

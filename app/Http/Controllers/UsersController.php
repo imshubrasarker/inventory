@@ -12,7 +12,7 @@ class UsersController extends Controller
 {
     public function index()
     {
-    	$users = User::all();
+    	$users = User::orderBy('created_at', 'DESC')->get();
     	$roles = Role::pluck('name','name');
     	return view('users.index',compact('users','roles'));
     }

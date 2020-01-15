@@ -28,21 +28,21 @@ class ProductsController extends Controller
         $perPage = 25;
 
         if (!empty($product_id) && empty($size)) {
-            $products = Product::where('id', $product_id)->paginate(10);
+            $products = Product::where('id', $product_id)->orderBy('created_at', 'DESC')->paginate(10);
         }
         elseif (!empty($product_id) && !empty($size))
         {
-            $products = Product::where('id', $product_id)->where('size', 'like', '%'.$size.'%')->paginate(10);
+            $products = Product::where('id', $product_id)->where('size', 'like', '%'.$size.'%')->orderBy('created_at', 'DESC')->paginate(10);
         }
         elseif (empty($product_id) && !empty($size))
         {
-            $products = Product::where('size', 'like', '%'.$size.'%')->paginate(10);
+            $products = Product::where('size', 'like', '%'.$size.'%')->orderBy('created_at', 'DESC')->paginate(10);
         }
         else {
-            $products = Product::latest()->paginate($perPage);
+            $products = Product::latest()->orderBy('created_at', 'DESC')->paginate($perPage);
         }
         $product = [];
-        $product_data = Product::select('name','size','id')->get();
+        $product_data = Product::select('name','size','id')->orderBy('created_at', 'DESC')->get();
         foreach ($product_data as $row) {
             $product[$row->id] = $row->name.'('.$row->size.')';
         } 

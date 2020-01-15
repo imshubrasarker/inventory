@@ -17,7 +17,7 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        $purchases = Purchase::paginate(15);
+        $purchases = Purchase::orderBy('created_at', 'DESC')->paginate(15);
         $total = Purchase::sum('amount');
         return view('purchase.index', compact('purchases', 'total'));
     }
@@ -29,8 +29,8 @@ class PurchaseController extends Controller
      */
     public function create()
     {
-        $suplliers = Supplier::all();
-        $categories = Category::all();
+        $suplliers = Supplier::orderBy('created_at', 'DESC')->get();
+        $categories = Category::orderBy('created_at', 'DESC')->get();
         return view('purchase.create', compact('suplliers', 'categories'));
     }
 
@@ -88,9 +88,9 @@ class PurchaseController extends Controller
      */
     public function edit($id)
     {
-        $categories = Category::all();
+        $categories = Category::orderBy('created_at', 'DESC')->get();
         $purchase = Purchase::findOrFail($id);
-        $suplliers = Supplier::all();
+        $suplliers = Supplier::orderBy('created_at', 'DESC')->get();
         return view('purchase.edit', compact('purchase', 'suplliers', 'categories'));
     }
 
@@ -144,7 +144,7 @@ class PurchaseController extends Controller
 
     public function godown()
     {
-        $purchases = Purchase::paginate(15);
+        $purchases = Purchase::orderBy('created_at', 'DESC')->paginate(15);
         $total = Purchase::sum('amount');
         return view('godown1.index', compact('purchases', 'total'));
     }
@@ -152,7 +152,7 @@ class PurchaseController extends Controller
     public function printView()
     {
         $company = Company::latest()->first();
-        $purchases = Purchase::all();
+        $purchases = Purchase::orderBy('created_at', 'DESC')->get();
         $total = Purchase::sum('amount');
         return view('purchase.print', compact('purchases', 'total', 'company'));
     }

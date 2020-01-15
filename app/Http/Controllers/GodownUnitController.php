@@ -15,7 +15,7 @@ class GodownUnitController extends Controller
      */
     public function index()
     {
-        $dozens = GodownUnit::all();
+        $dozens = GodownUnit::orderBy('created_at', 'DESC')->get();
         return view('godown1-units.index', compact('dozens'));
     }
 
@@ -26,7 +26,7 @@ class GodownUnitController extends Controller
      */
     public function create()
     {
-        $products = Product::all();
+        $products = Product::orderBy('created_at', 'DESC')->get();
         return view('godown1-units.create', compact('products'));
     }
 
