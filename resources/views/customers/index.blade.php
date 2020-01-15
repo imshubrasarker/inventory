@@ -16,16 +16,7 @@ Customers
         text-decoration: none;
     }
  
-    body {
-        position: relative;
-        margin: 0 auto;
-        width: 32cm;
-        color: #555555;
-        background: #FFFFFF;
-        font-family: Arial, sans-serif;
-        font-size: 12px;
-        font-family: SourceSansPro;
-    }
+
     
     header {
         padding: 10px 0;
@@ -39,7 +30,7 @@ Customers
     }
     
     #logo img {
-        height: 100px;
+        height: 75px;
     }
     
     #company {
@@ -247,15 +238,15 @@ Customers
                                 </div>
                             </div>
                             {!! Form::close() !!}
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-hover">
+                            <div class="table-responsive" style="overflow-x:auto;">
+                                <table style="width: 100%;" class="table table-bordered table-responsive table-hover">
                                     <thead>
                                         <tr>
                                             <th>SL No</th>
                                             <th>Image</th>
-                                            <th>Name</th>
+                                            <th >Name</th>
                                             <th>Mobile No</th>
-                                            <th width="12%">Due Balance</th>
+                                            <th>Due Balance</th>
                                             <th>Address</th>
                                             <th>Note</th>
                                             <th>Actions</th>
@@ -309,12 +300,12 @@ Customers
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="{{ url('/customers/' . $item->id) }}" title="View Customer"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+                                                <a href="{{ url('/customers/' . $item->id) }}" title="View Customer"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> </button></a>
                                                 @hasrole('Admin')
-                                                <a href="{{ url('/customers/' . $item->id . '/edit') }}" title="Edit Customer"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                                                <a href="{{ url('/customers/' . $item->id . '/edit') }}" title="Edit Customer"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> </button></a>
                                                 @endhasrole
                                                 @hasrole('Admin')
-                                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#customerdelete-{{ $item->id }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Delete</button>
+                                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#customerdelete-{{ $item->id }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> </button>
 
                                                 <div id="customerdelete-{{ $item->id }}" class="modal fade" role="dialog">
                                                     <div class="modal-dialog">

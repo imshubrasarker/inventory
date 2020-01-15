@@ -29,7 +29,7 @@ class SalaryController extends Controller
      */
     public function create()
     {
-        $employees = Employee::all();
+        $employees = Employee::orderBy('created_at', 'DESC')->get();
         return view('salary.create', compact('employees'));
     }
 

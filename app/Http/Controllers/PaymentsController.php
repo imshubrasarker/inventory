@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Expense;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -156,16 +157,24 @@ class PaymentsController extends Controller
         $payment->manual_date       = $request->manual_date;
         $payment->mobile_no         = $request->mobile_no;
         $payment->amount            = $request->amount;
-        $payment->payment_method    = $request->payment_method;
         $payment->notebar           = $request->notebar;
         $payment->user_id           = Auth::user()->id;
         $payment->save();
 
-//        if ($request->customer_id) {
-//            return redirect('payments')->with('success', 'Payment added!');
-//        } elseif ($request->supplier_id) {
-//            return view('payments.supplier-index')->with('success', 'Payment added!');
-//        }
+        if ($request->supplier_id)
+        {
+            $supplier = Supplier::find($request->supplier_id);
+            $data = [
+                'expenses_heads_id' => 0,
+                'title' => 'Supplier Payment to '.$supplier->name,
+                'note' => $request->notebar,
+                'amount' => $request->amount,
+            ];
+            Expense::create($data);
+            $supplier->balance = $supplier->balance - $request->amount;
+            $supplier->save();
+
+        }
 
         $route = 'payments';
         if ($request->get('supplier_id'))

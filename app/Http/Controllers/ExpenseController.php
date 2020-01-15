@@ -19,7 +19,7 @@ class ExpenseController extends Controller
     public function index()
     {
         $total = Expense::sum('amount');
-        $expenses = Expense::all();
+        $expenses = Expense::orderBy('created_at', 'DESC')->get();
         return view('expenses.manage-expenses', compact('expenses', 'total'));
     }
 
@@ -98,7 +98,7 @@ class ExpenseController extends Controller
     public function search(Request $request)
     {
         $total = Expense::whereBetween('created_at', [$request->from, $request->to])->sum('amount');
-        $expenses = Expense::whereBetween('created_at', [$request->from, $request->to])->get();
+        $expenses = Expense::whereBetween('created_at', [$request->from, $request->to])->orderBy('created_at', 'DESC')->get();
 
         return view('expenses.manage-expenses', compact('total', 'expenses'));
     }
@@ -106,7 +106,7 @@ class ExpenseController extends Controller
     public function printShow()
     {
         $company = Company::latest()->first();
-        $expenses = Expense::all();
+        $expenses = Expense::orderBy('created_at', 'DESC')->get();
         $total = Expense::sum('amount');
         return view('expenses.print', compact('expenses', 'company', 'total'));
     }

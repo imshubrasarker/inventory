@@ -92,8 +92,8 @@
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
+                                <th scope="col">Date</th>
                                 <th scope="col">Title</th>
-                                <th scope="col">Created</th>
                                 <th scope="col">Total Expenses</th>
                                 <th scope="col">View</th>
                                 <th scope="col">Edit</th>
@@ -104,8 +104,8 @@
                             @foreach($expenses_heads as $head)
                             <tr>
                                 <th scope="row">{{ $loop->index +1 }}</th>
-                                <td>{{ $head->title }}</td>
                                 <td>{{ Carbon\Carbon::parse($head->created_at)->format('d-M-Y ') }}</td>
+                                <td>{{ $head->title }}</td>
                                 <td>{{ $head->expenses->sum('amount') }}</td>
                                 <td>
                                     <a href="{{ route('view-head', $head->id) }}" class="btn btn-info">

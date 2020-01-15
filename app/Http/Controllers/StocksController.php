@@ -122,7 +122,7 @@ class StocksController extends Controller
     public function show($id)
     {
         $stock = Stock::findOrFail($id);
-        $product_carts = ProductCart::where('product_id',$stock->product_id)->get();
+        $product_carts = ProductCart::where('product_id',$stock->product_id)->orderBy('created_at', 'DESC')->get();
         $product = Product::where('id', $stock->product_id)->first();
         return view('stocks.show', compact('stock', 'product_carts', 'product'));
     }
@@ -194,7 +194,7 @@ class StocksController extends Controller
 
     public function getInvoiceInfo($id)
     {
-       $productInvoice =  ProductCart::where('product_id',$id)->get();
+       $productInvoice =  ProductCart::where('product_id',$id)->orderBy('created_at', 'DESC')->get();
        $products = Product::pluck('name','id');
        $stock = Stock::where('product_id',$id)->first();
        // dd($stock);
@@ -203,7 +203,7 @@ class StocksController extends Controller
 
     public function productLedgerView($id)
     {
-        $stockDatas = StockData::where('product_id',$id)->get();
+        $stockDatas = StockData::where('product_id',$id)->orderBy('created_at', 'DESC')->get();
         $invoice_no = StockData::where('product_id',$id)->pluck('invoice_no');
         $product_info = Product::where('id',$id)->first();
         $company = Company::latest()->first();
@@ -215,7 +215,7 @@ class StocksController extends Controller
 
     public function productLedgerViewPrint($id)
     {
-        $stockDatas = StockData::where('product_id',$id)->get();
+        $stockDatas = StockData::where('product_id',$id)->orderBy('created_at', 'DESC')->get();
         $invoice_no = StockData::where('product_id',$id)->pluck('invoice_no');
         $product_info = Product::where('id',$id)->first();
         $company = Company::latest()->first();

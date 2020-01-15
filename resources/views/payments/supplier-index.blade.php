@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    Payments
+    Manage Supplier Payment
 @endsection
 @section('header-script')
     <link rel="stylesheet" type="text/css"
@@ -14,7 +14,7 @@
             <div class="forms">
                 <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                     <div class="form-title">
-                        <h4>Manage Payment</h4>
+                        <h4>Manage Supplier Payment</h4>
                     </div>
                     <div class="form-body">
                         <div class="card">
