@@ -76,6 +76,16 @@
                                             </div>
                                         </div>
                                     @endif
+
+                                    @if ($employee->salary_type === 'production')
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="name" class="">Rate</label>
+                                                <input type="text" class="form-control" name="rate" value="{{ $employee->rate }}" required>
+                                            </div>
+                                        </div>
+                                    @endif
+
                                     <div class="row">
                                         <div class="col-md-6"></div>
                                         <div class="col-md-6">

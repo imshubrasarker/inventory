@@ -79,21 +79,31 @@ Employee {{ $employee->id }}
                                             <th> Emergency Contact </th>
                                             <td> {{ $employee->e_contact }} </td>
                                         </tr>
-                                        <tr>
-                                            <th> Salary </th>
-                                            <td> {{ $employee->balance }} </td>
-                                        </tr>
+                                        @if($employee->salary_type == 'monthly')
+                                            <tr>
+                                                <th> Salary </th>
+                                                <td> {{ $employee->balance }} </td>
+                                            </tr>
+                                        @endif
+                                        @if($employee->salary_type == 'production')
+                                            <tr>
+                                                <th> Rate </th>
+                                                <td> {{ $employee->rate }} </td>
+                                            </tr>
+                                        @endif
                                         <tr>
                                             <th> Mobile </th>
                                             <td> {{ $employee->mobile }} </td>
                                         </tr>
+                                        @if($employee->salary_type == 'monthly')
+                                            <tr>
+                                                <th> Previous Salary </th>
+                                                <td> {{ $employee->previous_salary }} </td>
+                                            </tr>
+                                        @endif
                                         <tr>
-                                            <th> Previous Salary </th>
-                                            <td> {{ $employee->previous_salary }} </td>
-                                        </tr>
-                                        <tr>
-                                            <th> Previous Quantity </th>
-                                            <td> {{ $employee->previous_quantity }} </td>
+                                            <th> Designation </th>
+                                            <td> {{ $employee->designation }} </td>
                                         </tr>
                                         <tr>
                                             <th> Salary Type </th>
@@ -135,35 +145,50 @@ Employee {{ $employee->id }}
                                     <tr>
                                         <th>#</th>
                                         <th>Date</th>
-                                        <th>Description</th>
-                                        <th>Quantity</th>
-                                        <th>Rate</th>
-                                        <th>Amount</th>
+                                        @if($employee->salary_type == 'monthly')
+                                            <th colspan="2">Month Of Salary</th>
+                                        @endif
+                                        <th>Note</th>
+                                        @if($employee->salary_type == 'production')
+                                            <th>Quantity</th>
+                                            <th>Rate</th>
+                                        @endif
+                                        <th>Salary</th>
+                                        <th>Payment Salary</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @php
                                         $total = 0;
                                         $total_qty = 0;
+                                        $toatl_payable = 0;
                                     @endphp
                                     @foreach ($employee->salaries as $item)
                                         @php
-                                            $total = $total + $item->balance;
-                                            $total_qty = $total_qty + $item->qty_desc;
+                                            $total = $total + $item['balance'];
+                                            $total_qty = $total_qty + $item['qty_desc'];
+                                            $toatl_payable = $toatl_payable + $item->employee->balance;
                                         @endphp
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
-                                            <td>{{ date('d-m-Y', strtotime($item->created_at)) }}</td>
-                                            <td>{{ $item->note }}</td>
-                                            <td>{{ $item->qty_desc }}</td>
-                                            <td>{{ $item->rate }}</td>
-                                            <td>{{ $item->balance }}</td>
+                                            <td>{{ date('d-m-Y', strtotime($item['created_at'])) }}</td>
+                                            @if($employee->salary_type == 'monthly')
+                                                <td colspan="2">{{ date('M-Y', strtotime($item['month'])) }}</td>
+                                            @endif
+                                            <td>{{ $item['note'] }}</td>
+                                            @if($employee->salary_type == 'production')
+                                                <td>{{ $item['qty_desc'] }}</td>
+                                                <td>{{ $item->employee->rate }}</td>
+                                            @endif
+                                            <td>{{ $item->employee->balance }}</td>
+                                            <td>{{ $item['balance'] }}</td>
                                         </tr>
                                     @endforeach
                                     <tr>
                                         <td colspan="3" class="text-right">Total</td>
                                         <td>{{ $total_qty }}</td>
                                         <td></td>
+                                        <td>{{ $toatl_payable }}</td>
                                         <td>{{ $total }}</td>
                                     </tr>
                                     </tbody>

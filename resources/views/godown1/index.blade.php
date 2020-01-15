@@ -35,24 +35,22 @@
                                         <thead class="thead-dark">
                                         <tr>
                                             <th scope="col">SL</th>
-                                            <th scope="col">Date</th>
+                                            <th scope="col">Invoice No</th>
                                             <th scope="col">Supplier Name</th>
+                                            <th scope="col">Note</th>
                                             <th scope="col">Quantity</th>
                                             <th scope="col">Amount</th>
-                                            <th scope="col">Note</th>
-                                            <th scope="col">Invoice</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         @foreach($purchases as $purchase)
                                         <tr>
                                             <th scope="row">{{ $loop->index + 1 }}</th>
-                                            <td> {{ date('d-m-Y', strtotime($purchase->date)) }} </td>
+                                            <td>{{ $purchase->invoice_num }}</td>
                                             <td>{{ $purchase->supplier->name }}</td>
+                                            <td>{{ $purchase->note }}</td>
                                             <td>{{ $purchase->quantity }}</td>
                                             <td>{{ $purchase->amount }}</td>
-                                            <td>{{ $purchase->note }}</td>
-                                            <td>{{ $purchase->invoice_num }}</td>
                                         </tr>
                                             @endforeach
                                         </tbody>

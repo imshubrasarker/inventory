@@ -75,7 +75,7 @@
 
 <div class="row" id="registration1">
 
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="form-group {{ $errors->has('product_id[]') ? 'has-error' : ''}}">
             {!! Form::label('product_id[]', 'Product', ['class' => 'control-label']) !!}
             {!! Form::select('product_id[]', $products, null, ('' == 'required') ? ['class' => 'form-control product_id', 'required' => 'required','serial'=>'1', 'placeholder'=>'Select Product'] : ['class' => 'form-control product_id', 'serial'=>'1', 'placeholder'=>'Select Product']) !!}
@@ -100,18 +100,18 @@
     </div>
 
     <div class="col-md-2">
-        <div class="form-group {{ $errors->has('total_price[]') ? 'has-error' : ''}}">
-            {!! Form::label('total_price[]', 'Total Price', ['class' => 'control-label']) !!}
-            {!! Form::text('total_price[]', null, ('' == 'required') ? ['class' => 'form-control product_total_price', 'required' => 'required', 'id'=>'total_price_1', 'readonly'=>'readonly'] : ['class' => 'form-control product_total_price', 'id'=>'total_price_1', 'readonly'=>'readonly']) !!}
-            {!! $errors->first('total_price[]', '<p class="help-block">:message</p>') !!}
-        </div>
-    </div>
-
-    <div class="col-md-1">
         <div class="form-group {{ $errors->has('quantity[]') ? 'has-error' : ''}}">
             {!! Form::label('quantity[]', 'Quantity', ['class' => 'control-label']) !!}
             {!! Form::text('quantity[]', null, ('' == 'required') ? ['class' => 'form-control quantity', 'serial'=>'1', 'required' => 'required', 'id' => 'quantity_1'] : ['class' => 'form-control quantity', 'serial'=>'1', 'id' => 'quantity_1']) !!}
             {!! $errors->first('quantity[]', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="form-group {{ $errors->has('total_price[]') ? 'has-error' : ''}}">
+            {!! Form::label('total_price[]', 'Total Price', ['class' => 'control-label']) !!}
+            {!! Form::text('total_price[]', null, ('' == 'required') ? ['class' => 'form-control product_total_price', 'required' => 'required', 'id'=>'total_price_1', 'readonly'=>'readonly'] : ['class' => 'form-control product_total_price', 'id'=>'total_price_1', 'readonly'=>'readonly']) !!}
+            {!! $errors->first('total_price[]', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -136,24 +136,23 @@
 
 
 <div class="row">
-    <div class="col-md-3">
-        <div class="form-group {{ $errors->has('grand_total_price') ? 'has-error' : ''}}">
-            {!! Form::label('grand_total_price', 'Grand Total Price', ['class' => 'control-label']) !!}
-            {!! Form::text('grand_total_price', null, ('' == 'required') ? ['class' => 'form-control grand_total_price', 'required' => 'required', 'readonly'=>'readonly'] : ['class' => 'form-control grand_total_price', 'readonly'=>'readonly']) !!}
-            {!! $errors->first('grand_total_price', '<p class="help-block">:message</p>') !!}
+    <div class="col-md-2">
+        <div class="form-group {{ $errors->has('total_qty') ? 'has-error' : ''}}">
+            {!! Form::label('total_qty', 'Total Quantity', ['class' => 'control-label']) !!}
+            {!! Form::text('total_qty', null, ('' == 'required') ? ['class' => 'form-control', 'id'=>'total_qty', 'required' => 'required', 'readonly'=>'readonly'] : ['class' => 'form-control', 'readonly'=>'readonly', 'id'=>'total_qty']) !!}
+            {!! $errors->first('total_qty', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
     <div class="col-md-3">
+        <label for="" class="control-label">Discount</label>
+        <input type="text" class="form-control" name="discount" id="discount" value="0">
+    </div>
+    <div class="col-md-2">
         <div class="form-group {{ $errors->has('advanced') ? 'has-error' : ''}}">
             {!! Form::label('advanced', 'Advanced Amount', ['class' => 'control-label']) !!}
             {!! Form::text('advanced', null, ('' == 'required') ? ['class' => 'form-control', 'id'=>'advanced', 'required' => 'required'] : ['class' => 'form-control', 'id'=>'advanced',]) !!}
             {!! $errors->first('advanced', '<p class="help-block">:message</p>') !!}
         </div>
-    </div>
-
-    <div class="col-md-2">
-        <label for="" class="control-label">Discount</label>
-        <input type="text" class="form-control" name="discount" id="discount" value="0">
     </div>
 
     <div class="col-md-2">
@@ -163,11 +162,11 @@
             {!! $errors->first('due_amount', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-    <div class="col-md-2">
-        <div class="form-group {{ $errors->has('total_qty') ? 'has-error' : ''}}">
-            {!! Form::label('total_qty', 'Total Quantity', ['class' => 'control-label']) !!}
-            {!! Form::text('total_qty', null, ('' == 'required') ? ['class' => 'form-control', 'id'=>'total_qty', 'required' => 'required', 'readonly'=>'readonly'] : ['class' => 'form-control', 'readonly'=>'readonly', 'id'=>'total_qty']) !!}
-            {!! $errors->first('total_qty', '<p class="help-block">:message</p>') !!}
+    <div class="col-md-3">
+        <div class="form-group {{ $errors->has('grand_total_price') ? 'has-error' : ''}}">
+            {!! Form::label('grand_total_price', 'Grand Total Price', ['class' => 'control-label']) !!}
+            {!! Form::text('grand_total_price', null, ('' == 'required') ? ['class' => 'form-control grand_total_price', 'required' => 'required', 'readonly'=>'readonly'] : ['class' => 'form-control grand_total_price', 'readonly'=>'readonly']) !!}
+            {!! $errors->first('grand_total_price', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 

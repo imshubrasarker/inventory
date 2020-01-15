@@ -17,7 +17,7 @@
                 <div class="form-title  ">
                     <div class="row">
                         <div class="col-sm-12 ">
-                            <h4>Expenses</h4>
+                            <h4>Manage Expenses</h4>
                         </div>
                     </div>
                 </div>
@@ -64,11 +64,11 @@
                             <thead>
                             <tr style="color: #00a78e">
                                 <th scope="col"><i class="fa fa-list-ol" aria-hidden="true"></i></th>
+                                <th scope="col"><i class="fa fa-calendar" aria-hidden="true"></i> Date</th>
                                 <th scope="col"><i class="fa fa-gg" aria-hidden="true"></i> Expense Head</th>
                                 <th scope="col" width="20%"><i class="fa fa-gg" aria-hidden="true"></i> Title</th>
                                 <th scope="col"><i class="fa fa-comments-o" aria-hidden="true"></i> Note</th>
                                 <th scope="col"><i class="fa fa-money" aria-hidden="true"></i> Amount</th>
-                                <th scope="col"><i class="fa fa-calendar" aria-hidden="true"></i> Date</th>
                                 <th scope="col"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</th>
                                 <th scope="col"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</th>
                             </tr>
@@ -88,10 +88,10 @@
                                     @else
                                     <td>{{ $expense->expenseHead['title'] }}</td>
                                     @endif
+                                    <td>{{ Carbon\Carbon::parse($expense->date)->format('d-M-Y ') }}</td>
                                     <td><a href="{{ route('expenses.show', $expense->id) }}">{{ $expense->title }}</a></td>
                                     <td>{{ $expense->note }}</td>
                                     <td>{{ $expense->amount }}</td>
-                                    <td>{{ Carbon\Carbon::parse($expense->date)->format('d-M-Y ') }}</td>
                                     <td>
                                         <a class="btn btn-primary"
                                            href="{{ route('expenses.edit', $expense->id) }}">
@@ -107,7 +107,7 @@
                                 </tr>
                             @endforeach
                             <tr>
-                                <td colspan="4" class="text-right font-weight-bold"><i class="fa fa-money" aria-hidden="true"></i> Total Amount: </td>
+                                <td colspan="5" class="text-right font-weight-bold"><i class="fa fa-money" aria-hidden="true"></i> Total Amount: </td>
                                 <td>{{ $total_exp }}</td>
                                 <td></td>
                                 <td></td>
