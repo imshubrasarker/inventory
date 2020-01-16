@@ -130,6 +130,9 @@
             var available_quantity = Number($('#available_quantity_' + serial).val());
             var quantity = Number($(this).val());
             var total_amount = sale_price * quantity;
+            console.log("quantity ", quantity);
+            console.log("total_amount ", total_amount);
+            console.log("sale_price ", sale_price);
             $("#total_price_" + serial).val(total_amount);
             if (quantity > available_quantity) {
                 alert('Not Available in Stock.');
@@ -146,7 +149,9 @@
                 sum += Number($(this).val());
             });
 
-            let grand_total = $('.grand_total_price').val();
+            let grand_total = $('.grand_total_price').val() ? $('.grand_total_price').val() : 0;
+            console.log("grand_total ", grand_total);
+            console.log("sum ", sum);
             $('.grand_total_price').val(parseFloat(grand_total) + parseFloat(sum));
             cal_due_amount();
         }
@@ -196,8 +201,9 @@
         });
 
         function cal_due_amount() {
-            var grand_price = $('#grand_total_price').val();
+            var grand_price = $('.grand_total_price').val() ? $('.grand_total_price').val() : 0;
             var advanced = $("#advanced").val();
+            console.log("advanced ", advanced);
             var due = grand_price - advanced;
             $("#due_amount").val(due);
         }
@@ -216,12 +222,15 @@
 
         function cal_transport() {
             var transport = 0;
+            var due_amount = $("#due_amount").val();
+
             var grand_price = $('#grand_total_price').val() ? $('#grand_total_price').val() : 0;
             transport = $(".transport").val();
-            console.log("Transport ", transport);
-            console.log("Grand Price ", grand_price);
+
             var due = parseFloat(grand_price) + parseFloat(transport);
             $('#grand_total_price').val(due);
+
+            $("#due_amount").val(parseFloat(due_amount) + parseFloat(transport));
         }
 
         $(document).on('click', '.removeButton', function () {
