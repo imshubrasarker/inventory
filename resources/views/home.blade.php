@@ -98,6 +98,13 @@ Home
                 <span class="count-name-total">Total Received: {{ $rPaymentTotal }}</span>
             </div>
         </div>
+        <div class="col-md-3">
+            <div class="card-counter success">
+                <i class="fa fa-code-fork"></i>
+                <span class="count-name-total"></span>
+                <span class="count-name-total">Total Invoice Quantity: {{ $total_quantity_invoice  }}</span>
+            </div>
+        </div>
     </div>
 
 <div class="main-page">

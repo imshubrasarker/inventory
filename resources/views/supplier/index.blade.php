@@ -78,8 +78,8 @@
                                             <th scope="col">Name</th>
                                             <th scope="col">Mobile</th>
                                             <th scope="col">Address</th>
-                                            <th scope="col">Balance</th>
                                             <th scope="col">Note</th>
+                                            <th scope="col">Balance</th>
                                             <th scope="col">Actions</th>
                                         </tr>
                                         </thead>
@@ -88,16 +88,22 @@
                                           $total_balance = 0;
                                         @endphp
                                         @foreach($suppliers as $supplier)
-                                            @php
-                                                $total_balance = $total_balance + $supplier->balance;
-                                            @endphp
+{{--                                            @php--}}
+{{--                                                $payments = $supplier->payments;--}}
+{{--                                                $purchases = $supplier->purchases;--}}
+{{--                                                $total_payments = 0;--}}
+{{--                                                $total_purchase = 0;--}}
+{{--                                                $balance = ;--}}
+{{--                                            --}}
+{{--                                            @endphp--}}
                                         <tr>
                                             <th scope="row">{{ $loop->index + 1 }}</th>
                                             <td>{{ $supplier->name }}</td>
                                             <td>{{ $supplier->mobile }}</td>
                                             <td width="15%">{{ $supplier->address }}</td>
-                                            <td>{{ $supplier->balance }}</td>
                                             <td width="15%">{{ $supplier->note }}</td>
+                                            <td>{{$supplier->balance }}</td>
+
                                             <td>
                                                <div class="row">
                                                    <div class="col-md-3 text-center">
