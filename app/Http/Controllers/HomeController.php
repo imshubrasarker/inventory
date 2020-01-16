@@ -117,6 +117,7 @@ class HomeController extends Controller
         $invoices = Invoice::latest()->paginate(10);
         $rPayment = Payment::whereNotNull('supplier_id')->whereDate('created_at', Carbon::today())->sum('amount');
         $rPaymentTotal = Payment::whereNotNull('supplier_id')->sum('amount');
-        return view('home',compact('total_due','rPayment', 'rPaymentTotal', 'today_invoice', 'total_invoice', 'today_customer', 'total_customer', 'today_product', 'total_product', 'today_sale_amount', 'total_sale_amount', 'monthly_sale', 'invoices', 'customers', 'seven_days_sale', 'thirty_days_sale', 'six_months_sale', 'one_year_sale', 'total_stock', 'total_due', 'total_profit', 'total_stock_value', 'total_expenses', 'total_spplier', 'total_expenses_today', 'today_supplier', 'today_purchase', 'total_purchase'));
+        $total_quantity_invoice = Invoice::sum('total_quantity');
+        return view('home',compact('total_due','total_quantity_invoice','rPayment', 'rPaymentTotal', 'today_invoice', 'total_invoice', 'today_customer', 'total_customer', 'today_product', 'total_product', 'today_sale_amount', 'total_sale_amount', 'monthly_sale', 'invoices', 'customers', 'seven_days_sale', 'thirty_days_sale', 'six_months_sale', 'one_year_sale', 'total_stock', 'total_due', 'total_profit', 'total_stock_value', 'total_expenses', 'total_spplier', 'total_expenses_today', 'today_supplier', 'today_purchase', 'total_purchase'));
     }
 }
