@@ -280,12 +280,20 @@
                                                 <td><b>{{ $total_price }}</b></td>
                                             </tr>
                                             <tr>
-                                                <td colspan="6" style="text-align: right;"><b>Discount Amount</b></td>
+                                                <td colspan="6" style="text-align: right;"><b>Commission</b></td>
                                                 <td><b>{{ $total_discount }}</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="6" style="text-align: right;"><b>Discount Amount</b></td>
+                                                <td><b>{{ $invoice_info->discount }}</b></td>
                                             </tr>
                                             <tr>
                                                 <td colspan="6" style="text-align: right;"><b>Advanced Amount</b></td>
                                                 <td><b>{{ $invoice_info->advanced }}</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="6" style="text-align: right;"><b>Transport</b></td>
+                                                <td><b>{{ $invoice_info->transport }}</b></td>
                                             </tr>
 
                                             <tr>

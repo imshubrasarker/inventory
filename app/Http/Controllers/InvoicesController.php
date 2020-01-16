@@ -297,7 +297,7 @@ class InvoicesController extends Controller
         $invoices = Invoice::where('customer_id', $customer_info->id)->get();
 
         $payments = Payment::where('customer_id',$customer_info->id)->latest()->get();
-         $total_payment_amount = $payments->sum('amount');
+        $total_payment_amount = $payments->sum('amount');
 
         $paid_price = $invoices->sum('advanced')+$total_payment_amount;
 
