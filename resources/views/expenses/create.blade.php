@@ -3,6 +3,7 @@
     Create Expense
 @endsection
 @section('header-script')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
 @section('content')
     <div id="page-wrapper">
@@ -33,7 +34,7 @@
                                      <div class="col-md-6 col-sm-12">
                                          <div class="form-group">
                                              <label class="control-label  mb-2">Expense To Select <span class="text-danger">*</span></label>
-                                             <select class="form-control" name="expenses_heads_id">
+                                             <select class="form-control select2" name="expenses_heads_id">
                                                  <option value="">Select Expense Head</option>
                                                  <option value="0">Flash</option>
                                                  @foreach($heads as $head)
@@ -92,7 +93,11 @@
 @endsection
 
 @section('footer-script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script>
 
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
     </script>
 @endsection

@@ -171,8 +171,6 @@ class PaymentsController extends Controller
                 'amount' => $request->amount,
             ];
             Expense::create($data);
-            $supplier->balance = $supplier->balance - $request->amount;
-            $supplier->save();
 
         }
 
