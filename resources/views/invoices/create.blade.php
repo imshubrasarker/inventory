@@ -117,6 +117,7 @@
                     product_id: product_id
                 },
                 success: function (results) {
+                    console.log("Result ", results.product);
                     $("#sale_price_" + serial).val(results.product.final_price);
                     $("#available_quantity_" + serial).val(results.stocks.product_stock);
                 }
@@ -130,10 +131,8 @@
             var available_quantity = Number($('#available_quantity_' + serial).val());
             var quantity = Number($(this).val());
             var total_amount = sale_price * quantity;
-            console.log("quantity ", quantity);
-            console.log("total_amount ", total_amount);
-            console.log("sale_price ", sale_price);
-            $("#total_price_" + serial).val(total_amount);
+
+            $("#total_price_" + serial).val(Math.round(total_amount));
             if (quantity > available_quantity) {
                 alert('Not Available in Stock.');
                 $("#quantity_" + serial).val(0);
@@ -150,16 +149,12 @@
             });
 
             let grand_total = $('.grand_total_price').val() ? $('.grand_total_price').val() : 0;
-            console.log("grand_total ", grand_total);
-            console.log("sum ", sum);
-            $('.grand_total_price').val(parseFloat(grand_total) + parseFloat(sum));
+            $('.grand_total_price').val(Math.round(parseFloat(grand_total) + parseFloat(sum)));
             cal_due_amount();
         }
 
         $('#discount').on('focusout', function () {
-            let due = $('#due_amount').val();
-            let due_up = $(this).val();
-            $('#due_amount').val(due - due_up)
+            cal_due_amount()
         })
 
         var rowCount = 1;
@@ -202,10 +197,10 @@
 
         function cal_due_amount() {
             var grand_price = $('.grand_total_price').val() ? $('.grand_total_price').val() : 0;
-            var advanced = $("#advanced").val();
-            console.log("advanced ", advanced);
-            var due = grand_price - advanced;
-            $("#due_amount").val(due);
+            var advanced = $("#advanced").val() ? $("#advanced").val() : 0;
+            let discount = $('#discount').val() ? $('#discount').val() : 0;
+            var due = grand_price - advanced - discount;
+            $("#due_amount").val(Math.round(due));
         }
 
         function cal_tital_qty() {
@@ -213,7 +208,7 @@
             $(".quantity").each(function () {
                 qsum += Number($(this).val());
             });
-            $('#total_qty').val(qsum);
+            $('#total_qty').val(Math.round(qsum));
         }
 
         $(document).on('focusout', '.transport', function () {
@@ -228,9 +223,9 @@
             transport = $(".transport").val();
 
             var due = parseFloat(grand_price) + parseFloat(transport);
-            $('#grand_total_price').val(due);
+            $('#grand_total_price').val(Math.round(due));
 
-            $("#due_amount").val(parseFloat(due_amount) + parseFloat(transport));
+            $("#due_amount").val(Math.round(parseFloat(due_amount) + parseFloat(transport)));
         }
 
         $(document).on('click', '.removeButton', function () {
