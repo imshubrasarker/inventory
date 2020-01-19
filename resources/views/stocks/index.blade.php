@@ -47,12 +47,12 @@ Stocks
                             <div class="table-responsive">
                                 <table class="table table-bordered">
                                     <thead>
-                                        <tr>
-                                            <th>SL</th>
-                                            <th width="25%">Product</th>
-                                            <th width="15%">Size</th>
-                                            <th>Available Stock</th>
-                                            <th>Actions</th>
+                                    <tr style="color: #00a78e">
+                                        <th><i class="fa fa-list-ol" aria-hidden="true"></i>  Sl</th>
+                                            <th width="25%"><i class="fa fa-product-hunt" aria-hidden="true"></i>  Product</th>
+                                            <th width="15%"><i class="fa fa-tachometer" aria-hidden="true"></i>  Size</th>
+                                            <th><i class="fa fa-stack-exchange" aria-hidden="true"></i>  Available Stock</th>
+                                        <th><i class="fa fa-tasks" aria-hidden="true"></i>  Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
