@@ -135,14 +135,14 @@ class InvoicesController extends Controller
         $invoice->customer_id       = $request->customer_id;
         $invoice->invoice_id        = $request->invoice_no;
         $invoice->manual_date       = $request->manual_date;
-        $invoice->grand_total_price = $request->grand_total_price;
-        $invoice->advanced          = $request->advanced;
-        $invoice->due_amount        = $request->due_amount;
+        $invoice->grand_total_price = round($request->grand_total_price);
+        $invoice->advanced          = round($request->advanced);
+        $invoice->due_amount        = round($request->due_amount);
         $invoice->total_quantity    = $total_quantity;
         $invoice->notebar           = $request->notebar;
         $invoice->user_id           = Auth::user()->id;
-        $invoice->discount          = $request->discount;
-        $invoice->transport         = $request->transport;
+        $invoice->discount          = round($request->discount);
+        $invoice->transport         = round($request->transport);
         $invoice->save();
 
         foreach($request->product_id as $key=>$value){

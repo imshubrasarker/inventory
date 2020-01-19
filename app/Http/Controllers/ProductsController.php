@@ -45,7 +45,7 @@ class ProductsController extends Controller
         $product_data = Product::select('name','size','id')->orderBy('created_at', 'DESC')->get();
         foreach ($product_data as $row) {
             $product[$row->id] = $row->name.'('.$row->size.')';
-        } 
+        }
         return view('products.index', compact('products', 'product'));
     }
 
@@ -75,15 +75,15 @@ class ProductsController extends Controller
             $discount_amount = $request->sale_price*$discount;
             $final_price = $request->sale_price-$discount_amount;
         }else {
-           $final_price = $request->sale_price; 
+           $final_price = $request->sale_price;
         }
-        
+
         $product                    = new Product();
         $product->name              = $request->name;
         $product->size              = $request->size;
         $product->buy_price         = $request->buy_price;
         $product->sale_price        = $request->sale_price;
-        $product->final_price       = $final_price;
+        $product->final_price       = round($final_price);
         $product->unit_id           = $request->unit_id;
         $product->category_id       = $request->category_id;
         $product->discount          = $request->discount;
@@ -135,14 +135,14 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         $product = Product::findOrFail($id);
         if($request->discount != null){
             $discount = $request->discount/100;
             $discount_amount = $request->sale_price*$discount;
             $final_price = $request->sale_price-$discount_amount;
         }else {
-           $final_price = $request->sale_price; 
+           $final_price = $request->sale_price;
         }
 
         $product->name              = $request->name;
@@ -179,7 +179,7 @@ class ProductsController extends Controller
             return redirect('products')->with('error', 'Password Not Matched!');
         }
     }
-    
+
     public function printProductView(Request $request)
     {
         //return $request->query->get('first_id');
