@@ -102,7 +102,7 @@
                                             <td>{{ $supplier->mobile }}</td>
                                             <td width="15%">{{ $supplier->address }}</td>
                                             <td width="15%">{{ $supplier->note }}</td>
-                                            <td>{{$supplier->balance }}</td>
+                                            <td>{{$supplier->balance + $supplier->purchases->sum('amount') - $supplier->payments->sum('amount')}}</td>
 
                                             <td>
                                                <div class="row">

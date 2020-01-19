@@ -185,7 +185,11 @@ Customers
     #notices .notice {
         font-size: 1.2em;
     }
-    
+    .form-body {
+        padding-top: 10px;
+        padding-left: 0;
+        padding-right: 0;
+    }
     footer {
         color: #777777;
         width: 100%;

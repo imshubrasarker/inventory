@@ -22,7 +22,7 @@ class Godown2Controller extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::orderBy('created_at', 'DESC')->get();
         $productions = Godown2::groupBy('product_id')->orderBy('created_at', 'DESC')->paginate(15);
         return view('godown2.index', compact('productions', 'products'));
     }
@@ -34,8 +34,8 @@ class Godown2Controller extends Controller
      */
     public function create()
     {
-        $units = GodownUnit::orderBy('created_at', 'DESC')->all();
-        $products = Product::orderBy('created_at', 'DESC')->all();
+        $units = GodownUnit::orderBy('created_at', 'DESC')->get();
+        $products = Product::orderBy('created_at', 'DESC')->get();
         return view('godown2.create', compact('units', 'products'));
     }
 
