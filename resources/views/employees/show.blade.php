@@ -155,6 +155,9 @@ Employee {{ $employee->id }}
                                         @endif
                                         <th>Salary</th>
                                         <th>Payment Salary</th>
+                                        @if($employee->salary_type == 'monthly')
+                                            <th>Balance</th>
+                                        @endif
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -182,6 +185,9 @@ Employee {{ $employee->id }}
                                             @endif
                                             <td>{{ $item->employee->balance }}</td>
                                             <td>{{ $item['balance'] }}</td>
+                                            @if($employee->salary_type == 'monthly')
+                                                <td>{{ $item->employee->balance - $item['balance'] }}</td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                     <tr>

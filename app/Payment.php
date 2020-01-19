@@ -25,7 +25,7 @@ class Payment extends Model
      *
      * @var array
      */
-    protected $fillable = ['customer_id', 'manual_date', 'mobile_no', 'amount', 'payment_method', 'notebar'];
+    protected $fillable = ['customer_id', 'manual_date', 'mobile_no', 'amount', 'payment_method', 'notebar', 'user_id'];
 
-    
+
 }

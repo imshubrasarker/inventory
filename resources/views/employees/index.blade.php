@@ -66,11 +66,10 @@ Categories
                                         <tr>
                                             <th>#</th>
                                             <th>Name</th>
-                                            <th>Address</th>
+                                            <th>Designation</th>
                                             <th>Mobile</th>
-                                            <th>Salary</th>
-                                            <th>Salary Type</th>
-                                            <th>Rate</th>
+                                            <th>Address</th>
+                                            <th>Balance</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -85,11 +84,10 @@ Categories
                                             @endphp
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->name }}</td>
-                                            <td>{{ $item->address }}</td>
+                                            <td>{{ $item->designation }}</td>
                                             <td>{{ $item->mobile }}</td>
+                                            <td>{{ $item->address }}</td>
                                             <td>{{ $item->balance }}</td>
-                                            <td>{{ $item->salary_type }}</td>
-                                            <td>{{ $item->rate }}</td>
                                             <td>
                                                 <a href="{{ url('/employees/' . $item->id) }}" title="View Category"><button class="btn btn-info btn-sm"><i class="fa fa-book" aria-hidden="true"></i> Ledger</button></a>
                                                 <a href="{{ url('/employees/' . $item->id . '/edit') }}" title="Edit Category"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
@@ -138,9 +136,8 @@ Categories
                                         </tr>
                                     @endforeach
                                     <tr>
-                                        <td colspan="4" class="text-right">Total</td>
+                                        <td colspan="5" class="text-right">Total</td>
                                         <td>{{ $total }}</td>
-                                        <td></td>
                                         <td></td>
                                     </tr>
                                     </tbody>
