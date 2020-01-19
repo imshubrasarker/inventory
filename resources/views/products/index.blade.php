@@ -42,14 +42,14 @@ Products
                             <div class="table-responsive">
                                 <table class="table table-bordered table-hover">
                                     <thead>
-                                        <tr>
-                                            <th>Sl No</th>
-                                            <th>Name</th>
-                                            <th>Size</th>
-                                            <th>Buy Price</th>
-                                            <th>Sale Price</th>
-                                            <th>Discount</th>
-                                            <th>Actions</th>
+                                    <tr style="color: #00a78e">
+                                            <th><i class="fa fa-list-ol" aria-hidden="true"></i>  Sl</th>
+                                            <th><i class="fa fa-certificate" aria-hidden="true"></i>  Name</th>
+                                            <th><i class="fa fa-bars" aria-hidden="true"></i>  Size</th>
+                                            <th><i class="fa fa-money" aria-hidden="true"></i>  Buy Price</th>
+                                            <th><i class="fa fa-money" aria-hidden="true"></i>  Sale Price</th>
+                                            <th><i class="fa fa-money" aria-hidden="true"></i>  Discount</th>
+                                        <th><i class="fa fa-tasks" aria-hidden="true"></i>  Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>

@@ -33,16 +33,16 @@
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered">
                                         <thead class="thead-dark">
-                                        <tr>
-                                            <th scope="col">SL</th>
-                                            <th scope="col">Date</th>
-                                            <th scope="col">Invoice</th>
-                                            <th scope="col">Supplier Name</th>
-                                            <th scope="col">Type</th>
-                                            <th scope="col">Note</th>
-                                            <th scope="col">Quantity</th>
-                                            <th scope="col">Amount</th>
-                                            <th scope="col">Actions</th>
+                                        <tr style="color: #00a78e">
+                                            <th scope="col"><i class="fa fa-list-ol" aria-hidden="true"></i>  SL</th>
+                                            <th scope="col"><i class="fa fa-calendar" aria-hidden="true"></i>  Date</th>
+                                            <th scope="col"><i class="fa fa-file-text" aria-hidden="true"></i>  Invoice</th>
+                                            <th scope="col"><i class="fa fa-truck" aria-hidden="true"></i>  Supplier Name</th>
+                                            <th scope="col"><i class="fa fa-list-alt" aria-hidden="true"></i>  Type</th>
+                                            <th scope="col"><i class="fa fa-sticky-note-o" aria-hidden="true"></i>  Note</th>
+                                            <th scope="col"><i class="fa fa-sort-numeric-asc" aria-hidden="true"></i>  Quantity</th>
+                                            <th scope="col"><i class="fa fa-money" aria-hidden="true"></i>  Amount</th>
+                                            <th scope="col"><i class="fa fa-tasks" aria-hidden="true"></i>  Actions</th>
 
                                         </tr>
                                         </thead>

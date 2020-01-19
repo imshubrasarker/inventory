@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-Categories
+Manage Employees
 @endsection
 @section('header-script')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
@@ -63,14 +63,14 @@ Categories
                             <div class="table-responsive">
                                 <table class="table table-bordered table-hover">
                                     <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Name</th>
-                                            <th>Designation</th>
-                                            <th>Mobile</th>
-                                            <th>Address</th>
-                                            <th>Balance</th>
-                                            <th>Actions</th>
+                                        <tr style="color: #00a78e">
+                                            <th><i class="fa fa-list-ol" aria-hidden="true"></i>  SL</th>
+                                            <th><i class="fa fa-user" aria-hidden="true"></i>  Name</th>
+                                            <th><i class="fa fa-id-card" aria-hidden="true"></i>  Designation</th>
+                                            <th><i class="fa fa-mobile" aria-hidden="true"></i>  Mobile</th>
+                                            <th width="18%"><i class="fa fa-map-marker" aria-hidden="true"></i>  Address</th>
+                                            <th><i class="fa fa-money" aria-hidden="true"></i>  Balance</th>
+                                            <th><i class="fa fa-tasks" aria-hidden="true"></i>  Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>

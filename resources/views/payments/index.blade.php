@@ -68,15 +68,15 @@ Payments
                             <div class="table-responsive">
                                 <table class="table table-bordered table-hover">
                                     <thead>
-                                        <tr>
-                                            <th>Sl</th>
-                                            <th>Customer</th>
-                                            <th>Date</th>
-                                            <th>Mobile No</th>
-                                            <th>Amount</th>
-                                            <th>Note</th>
-                                            <th>Receipt By</th>
-                                            <th>Actions</th>
+                                        <tr style="color: #00a78e">
+                                            <th><i class="fa fa-list-ol" aria-hidden="true"></i>  Sl</th>
+                                            <th><i class="fa fa-certificate" aria-hidden="true"></i>  Customer</th>
+                                            <th><i class="fa fa-calendar" aria-hidden="true"></i>  Date</th>
+                                            <th><i class="fa fa-mobile" aria-hidden="true"></i>  Mobile No</th>
+                                            <th><i class="fa fa-money" aria-hidden="true"></i> Amount</th>
+                                            <th><i class="fa fa-sticky-note-o" aria-hidden="true"></i>  Note</th>
+                                            <th><i class="fa fa-user" aria-hidden="true"></i>  Receipt By</th>
+                                            <th><i class="fa fa-tasks" aria-hidden="true"></i>  Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
