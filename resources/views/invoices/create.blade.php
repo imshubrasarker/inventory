@@ -223,6 +223,7 @@
             transport = $(".transport").val();
 
             var due = parseFloat(grand_price) + parseFloat(transport);
+            
             $('#grand_total_price').val(Math.round(due));
 
             $("#due_amount").val(Math.round(parseFloat(due_amount) + parseFloat(transport)));

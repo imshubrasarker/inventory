@@ -95,10 +95,18 @@
                                                 <input type="number" class="form-control" name="amount" placeholder="Amount">
                                             </div>
                                         </div>
+                                        @php
+                                            $record = App\Invoice::latest()->count();
+                                            if($record == 0){
+                                                $record = 0;
+                                            }
+                                            //increase 1 with last invoice number
+                                            $nextInvoiceNumber = $record+1;
+                                        @endphp
                                         <div class=" col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label mb-2">Invoice Number</label>
-                                                <input type="text" class="form-control" name="invoice" placeholder="Invoice Number">
+                                                <input type="text" class="form-control"  readonly value="{{ str_pad($nextInvoiceNumber,6,"0",STR_PAD_LEFT) }}" name="invoice" placeholder="Invoice Number">
                                             </div>
                                         </div>
                                     </div>

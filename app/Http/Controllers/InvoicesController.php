@@ -168,6 +168,19 @@ class InvoicesController extends Controller
             $stockData->balance     = $after_sale_stock;
             $stockData->save();
         }
+
+        if ($request->get('advanced'))
+        {
+            $data = [
+                'customer_id' => $request->customer_id,
+                'manual_date' => $request->manual_date,
+                'mobile_no' => $request->mobile_no,
+                'amount' => $request->advanced,
+                'notebar' => $request->notebar,
+                'user_id' => Auth::user()->id
+            ];
+            Payment::create($data);
+        }
         return redirect('/invoices-print/'.$request->invoice_no)->with('success', 'Invoice added!');
     }
 

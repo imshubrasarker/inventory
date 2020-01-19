@@ -75,15 +75,15 @@
                                                 @php
                                                     $grand_total_price = $purchases->sum('amount');
                                                     $paid_price = $payments->sum('amount');
-                                                    $due_amount = $grand_total_price - $paid_price;
+                                                    $due_amount = $grand_total_price - $paid_price + $supplier->balance;
                                                 @endphp
                                                 <div class="panel-body balance_info">
                                                     <h4>Total Purchase: {{ $purchases->sum('amount') }}TK</h4>
                                                     <h4>Paid Amount: {{ $paid_price }}TK</h4>
-                                                    @if($supplier->balance >= 0)
-                                                    <h4>Due Amount: {{ $supplier->balance }}TK </h4>
+                                                    @if($due_amount >= 0)
+                                                    <h4>Due Amount: {{ $due_amount }}TK </h4>
                                                         @else
-                                                        <h4>Advanced Amount: {{ $supplier->balance }}TK </h4>
+                                                        <h4>Advanced Amount: {{ $due_amount }}TK </h4>
                                                         @endif
                                                 </div>
                                             </div>
