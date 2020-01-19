@@ -62,7 +62,7 @@ class SalaryController extends Controller
         Expense::create([
             'title' => $salary->employee->name,
             'amount' => $salary->balance,
-            'expenses_heads_id' => $eh->id,
+            'expenses_head_id' => $eh->id,
             'date'=> Carbon::now(),
             'note' => $salary->note,
         ]);
