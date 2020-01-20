@@ -111,7 +111,7 @@
                                             <a>{{ $expense->title }}</a>
                                         </td>
                                         <td>{{ $expense->amount }}</td>
-                                        <td>{{ $expense->expenseHead->title }}</td>
+                                        <td>{{ $expense->expenseHead['title'] }}</td>
                                         <td>{{ $expense->note }}</td>
                                     </tr>
                                 @endforeach

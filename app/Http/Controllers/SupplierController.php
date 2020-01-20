@@ -159,7 +159,7 @@ class SupplierController extends Controller
                 $rows['paidAmount'] = $row->amount;
                 $rows['amount'] = $row->amount;
                 $rows['type'] = 'payments';
-                $rows['note'] = $row->note;
+                $rows['note'] = $row->notebar;
                 $rows['user_id'] = $row->user_id;
                 $results[] = $rows;
             }

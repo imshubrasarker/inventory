@@ -69,7 +69,7 @@ Categories
                                             <th>Designation</th>
                                             <th>Mobile</th>
                                             <th>Address</th>
-                                            <th>Balance</th>
+                                            <th>Balance/Rate</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -87,7 +87,11 @@ Categories
                                             <td>{{ $item->designation }}</td>
                                             <td>{{ $item->mobile }}</td>
                                             <td>{{ $item->address }}</td>
-                                            <td>{{ $item->balance }}</td>
+                                            @if($item->balance)
+                                                <td>TK-{{ $item->balance }}</td>
+                                            @else
+                                                <td>{{ $item->rate }}</td>
+                                            @endif
                                             <td>
                                                 <a href="{{ url('/employees/' . $item->id) }}" title="View Category"><button class="btn btn-info btn-sm"><i class="fa fa-book" aria-hidden="true"></i> Ledger</button></a>
                                                 <a href="{{ url('/employees/' . $item->id . '/edit') }}" title="Edit Category"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>

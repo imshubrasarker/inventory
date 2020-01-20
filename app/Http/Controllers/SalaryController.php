@@ -55,6 +55,7 @@ class SalaryController extends Controller
             'designation' => $request->designation,
             'working_day' => $request->working_day,
             'month' => $request->month,
+            'paid_salary' => $request->paid_salary
 
         ]);
         $eh = ExpensesHead::where('title', 'Salary Purpose')->first();

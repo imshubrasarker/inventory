@@ -88,14 +88,9 @@
                                           $total_balance = 0;
                                         @endphp
                                         @foreach($suppliers as $supplier)
-{{--                                            @php--}}
-{{--                                                $payments = $supplier->payments;--}}
-{{--                                                $purchases = $supplier->purchases;--}}
-{{--                                                $total_payments = 0;--}}
-{{--                                                $total_purchase = 0;--}}
-{{--                                                $balance = ;--}}
-{{--                                            --}}
-{{--                                            @endphp--}}
+                                            @php
+                                                $total_balance = $total_balance + $supplier->balance + $supplier->purchases->sum('amount') - $supplier->payments->sum('amount');
+                                            @endphp
                                         <tr>
                                             <th scope="row">{{ $loop->index + 1 }}</th>
                                             <td>{{ $supplier->name }}</td>
@@ -126,7 +121,7 @@
                                         </tr>
                                             @endforeach
                                         <tr>
-                                            <td colspan="4" class="text-right">Total</td>
+                                            <td colspan="5" class="text-right">Total</td>
                                             <td>{{ $total_balance }}</td>
                                             <td></td>
                                             <td></td>
