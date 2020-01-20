@@ -14,7 +14,8 @@ class Salary extends Model
         'salary_type',
         'note',
         'month',
-        'working_day'
+        'working_day',
+        'paid_salary'
     ];
 
     public function employee()

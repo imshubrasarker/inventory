@@ -93,6 +93,12 @@ Create New Salary
                                         <input type="hidden" name="daily_salary" id="daily_salary">
                                     </div>
                                 </div>
+                                <div class="row" id="paid_dalary" style="display: none;">
+                                    <div class="col-md-6">
+                                        <label for="name" class="">Paid Salary</label>
+                                        <input type="text" class="form-control" id="paid_salary_input" name="paid_salary">
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-md-6"></div>
                                     <div class="col-md-6">
@@ -134,10 +140,10 @@ Create New Salary
                         $('#designation').val(results.employee.designation);
                         if (results.employee.salary_type == 'monthly') {
                             $('#hiderow').css('display', 'none');
-                            // $('#salary').val(results.employee.balance);
                             $('#working-day').css('display', 'block');
                             $('#month').css('display', 'block');
                             $('#daily_salary').val(results.employee.balance/30);
+                            $('#paid_dalary').css('display', 'none');
                             salary_calculate();
                         }
                         if (results.employee.salary_type == 'production') {
@@ -146,6 +152,7 @@ Create New Salary
                             $('#working-day').css('display', 'none');
                             $('#month').css('display', 'none');
                             $('#rate').val(results.employee.rate);
+                            $('#paid_dalary').css('display', 'block');
                             salary_calculate();
                         }
                     }
@@ -159,9 +166,7 @@ Create New Salary
 
             function salary_calculate() {
                 var working_days = $('#working_day').val() ? $('#working_day').val() : 0;
-                console.log('Working day ', working_days);
                 var salary = $('#daily_salary').val() ? $('#daily_salary').val() : 0;
-                console.log("Salary ", salary);
                 $('#salary').val(working_days * salary);
             }
 

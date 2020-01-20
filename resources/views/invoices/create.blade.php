@@ -147,9 +147,8 @@
             $(".product_total_price").each(function () {
                 sum += Number($(this).val());
             });
-
-            let grand_total = $('.grand_total_price').val() ? $('.grand_total_price').val() : 0;
-            $('.grand_total_price').val(Math.round(parseFloat(grand_total) + parseFloat(sum)));
+            var transport = $(".transport").val() ? $(".transport").val() : 0;
+            $('.grand_total_price').val(Math.round(parseFloat(sum) ));
             cal_due_amount();
         }
 
@@ -192,15 +191,16 @@
 
         $(document).on('keyup', '#advanced', function () {
             cal_due_amount();
-            cal_tital_qty();
         });
 
         function cal_due_amount() {
             var grand_price = $('.grand_total_price').val() ? $('.grand_total_price').val() : 0;
             var advanced = $("#advanced").val() ? $("#advanced").val() : 0;
             let discount = $('#discount').val() ? $('#discount').val() : 0;
-            var due = grand_price - advanced - discount;
+            var transport = $(".transport").val() ? $(".transport").val() : 0;
+            var due = grand_price - advanced - discount + parseFloat(transport);
             $("#due_amount").val(Math.round(due));
+            $('.grand_total_price').val(parseFloat(grand_price) + parseFloat(transport))
         }
 
         function cal_tital_qty() {
@@ -212,18 +212,18 @@
         }
 
         $(document).on('focusout', '.transport', function () {
-            cal_transport()
+            cal_due_amount()
         })
 
         function cal_transport() {
             var transport = 0;
-            var due_amount = $("#due_amount").val();
+            var due_amount = $("#due_amount").val() ? $("#due_amount").val() : 0;
 
             var grand_price = $('#grand_total_price').val() ? $('#grand_total_price').val() : 0;
-            transport = $(".transport").val();
+            transport = $(".transport").val() ? $(".transport").val() : 0;
 
             var due = parseFloat(grand_price) + parseFloat(transport);
-            
+
             $('#grand_total_price').val(Math.round(due));
 
             $("#due_amount").val(Math.round(parseFloat(due_amount) + parseFloat(transport)));

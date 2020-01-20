@@ -134,7 +134,6 @@
                                                                 <th>Paid Amount</th>
                                                                 {{--<th>Due Amount</th>--}}
                                                                 <th>Balance</th>
-                                                                <th>Note</th>
                                                                 <th>Receipt By</th>
                                                             </tr>
                                                             </thead>
@@ -183,7 +182,6 @@
                                                                             $gtotal = $pgtotal - $sgtotal;
                                                                         @endphp
                                                                         <td style="width: 12%;">{{$gtotal}}</td>
-                                                                        <td>{{ $item['note'] }}</td>
                                                                         @php
                                                                             $user = App\User::where('id',$item['user_id'])->first();
                                                                         @endphp

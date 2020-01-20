@@ -87,7 +87,7 @@
                                         </table>
                                         <div class="owners_sign text-center" style="margin-top: 80px; margin-bottom: 30px; float: right">
                                             <hr style="border: 1px solid black;"/>
-                                            <h4>Oweners Signature</h4>
+                                            <h4>Owners Signature</h4>
                                         </div>
                                         <div>
                                             <button type="button" class="btn btn-primary print_btn btn-block btn-sm" onclick="printDiv('printcontent');"><i class="fa fa-print"></i> Print</button>

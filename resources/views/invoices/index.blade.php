@@ -111,6 +111,7 @@ Invoices
                                                 @endif
                                             </td>
                                             <td>{{ $item->grand_total_price }}</td>
+                                            <td>{{ $item->notebar }}</td>
                                             <td>
                                                 <a href="{{ url('/invoices/' . $item->id) }}" title="View Invoice"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                                 @if($loop->iteration == 1)
@@ -158,24 +159,13 @@ Invoices
                                                     </div>
                                                 </div>
                                                 @endhasrole
-                                                {{-- {!! Form::open([
-                                                    'method'=>'DELETE',
-                                                    'url' => ['/invoices', $item->id],
-                                                    'style' => 'display:inline'
-                                                ]) !!}
-                                                    {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(
-                                                            'type' => 'submit',
-                                                            'class' => 'btn btn-danger btn-sm',
-                                                            'title' => 'Delete Invoice',
-                                                            'onclick'=>'return confirm("Confirm delete?")'
-                                                    )) !!}
-                                                {!! Form::close() !!} --}}
                                             </td>
                                         </tr>
                                     @endforeach
                                     <tr>
                                         <td colspan="5" style="text-align: right;">Total</td>
                                         <td style="text-align: right;">{{ $invoices->sum('grand_total_price') }}</td>
+                                        <td></td>
                                         <td></td>
                                     </tr>
                                     </tbody>

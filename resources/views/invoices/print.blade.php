@@ -9,6 +9,10 @@
         clear: both;
     }
 
+    .hide_note {
+        display: none;
+    }
+
     a {
         color: #0087C3;
         text-decoration: none;
@@ -269,8 +273,8 @@
                                                 <td style="width: 8%;" class="total" >
                                                     @if(isset($units[$item->unit_id])) {{ $units[$item->unit_id] }} @endif
                                                 </td>
-                                                <td style="width: 8%;">{{ $item->final_price }}</td>
-                                                <td class="total" style="width: 11%;" ><b>{{ $item->final_price*$item->quantity }}</b></td>
+                                                <td style="width: 8%;">{{ $item->sale_price }}</td>
+                                                <td class="total" style="width: 11%;" ><b>{{ $item->sale_price*$item->quantity }}</b></td>
                                             </tr>
                                             @endforeach
                                             <tr>
@@ -279,10 +283,6 @@
                                                 <td></td>
                                                 <td></td>
                                                 <td><b>{{ $total_price }}</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="" style="text-align: right;"><b>Note</b></td>
-                                                <td colspan="6" class="text-center"><b>{{ $invoice_info->notebar }}</b></td>
                                             </tr>
                                             <tr>
                                                 <td colspan="6" style="text-align: right;"><b>Commission</b></td>
@@ -341,7 +341,7 @@
                                         <div class="col-md-6">
                                             <div class="owners_sign">
                                                 <hr style="border: 1px solid black;" />
-                                                <h4>Oweners Signature</h4>
+                                                <h4>Owners Signature</h4>
                                             </div>
                                         </div>
                                     </div>
@@ -571,14 +571,19 @@
     });
 
     function printDiv(divName) {
+        $("#hide_note").css('display', 'none');
         var printContents = document.getElementById(divName).innerHTML;
         var originalContents = document.body.innerHTML;
+
+        $("#hide_note").css('display', 'none');
 
         document.body.innerHTML = printContents;
 
         window.print();
 
         document.body.innerHTML = originalContents;
+
+        $("#hide_note").css('display', 'block');
 
         window.location.href = "{{ url()->current() }}";
     }
