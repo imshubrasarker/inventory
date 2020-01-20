@@ -57,6 +57,27 @@
             {!! $errors->first('discount', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
+
+    <div class="col-md-6">
+        <div class="form-group {{ $errors->has('discount') ? 'has-error' : ''}}">
+           <label class="control-label">Product Status</label>
+            <select class="form-control" required name="active" id="product_id">
+                <option value="">Select Product Active Status</option>
+                <option value="1">Active</option>
+                <option value="0">Inactive</option>
+            </select>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-6 ">
+        <div class="form-group {{ $errors->has('alert_quantity') ? 'has-error' : ''}}">
+            {!! Form::label('alert_quantity', 'Alert Quantity', ['class' => 'control-label']) !!}
+            {!! Form::number('alert_quantity', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
+            {!! $errors->first('alert_quantity', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
     <div class="col-md-6">
         <div class="form-group {{ $errors->has('description') ? 'has-error' : ''}}">
             {!! Form::label('description', 'Note', ['class' => 'control-label']) !!}
@@ -67,16 +88,6 @@
 </div>
 
 
-
-<div class="row">
-    <div class="col-md-6 col-md-offset-3">
-        <div class="form-group {{ $errors->has('alert_quantity') ? 'has-error' : ''}}">
-            {!! Form::label('alert_quantity', 'Alert Quantity', ['class' => 'control-label']) !!}
-            {!! Form::number('alert_quantity', null, ('' == 'required') ? ['class' => 'form-control', 'required' => 'required'] : ['class' => 'form-control']) !!}
-            {!! $errors->first('alert_quantity', '<p class="help-block">:message</p>') !!}
-        </div>
-    </div>
-</div>
 
 
 <div class="row">

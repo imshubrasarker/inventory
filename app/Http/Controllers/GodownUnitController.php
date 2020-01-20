@@ -26,7 +26,7 @@ class GodownUnitController extends Controller
      */
     public function create()
     {
-        $products = Product::orderBy('created_at', 'DESC')->get();
+        $products = Product::where('active',1)->orderBy('created_at', 'DESC')->get();
         return view('godown1-units.create', compact('products'));
     }
 

@@ -46,8 +46,8 @@ class HomeController extends Controller
         $today_customer = Customer::whereDate('created_at',$today)->count();
         $total_customer = Customer::count();
 
-        $today_product = Product::whereDate('created_at',$today)->count();
-        $total_product = Product::count();
+        $today_product = Product::where('active',1)->whereDate('created_at',$today)->count();
+        $total_product = Product::where('active',1)->count();
 
         $total_stock_value = 0;
 
