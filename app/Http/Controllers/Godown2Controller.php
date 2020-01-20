@@ -22,7 +22,7 @@ class Godown2Controller extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('created_at', 'DESC')->get();
+        $products = Product::where('active', 1)->orderBy('created_at', 'DESC')->get();
         $productions = Godown2::groupBy('product_id')->orderBy('created_at', 'DESC')->paginate(15);
         return view('godown2.index', compact('productions', 'products'));
     }
@@ -35,7 +35,7 @@ class Godown2Controller extends Controller
     public function create()
     {
         $units = GodownUnit::orderBy('created_at', 'DESC')->get();
-        $products = Product::orderBy('created_at', 'DESC')->get();
+        $products = Product::where('active', 1)->orderBy('created_at', 'DESC')->get();
         return view('godown2.create', compact('units', 'products'));
     }
 
@@ -112,7 +112,7 @@ class Godown2Controller extends Controller
     {
         $units = GodownUnit::orderBy('created_at', 'DESC')->get();
         $production = Godown2::findOrFail($id);
-        $products = Product::orderBy('created_at', 'DESC')->get();
+        $products = Product::where('active', 1)->orderBy('created_at', 'DESC')->get();
         return view('godown2.edit', compact('production', 'units','products'));
     }
 
@@ -237,7 +237,7 @@ class Godown2Controller extends Controller
 
         $product_id = $request->product_id;
         $stock      = Stock::where('product_id',$product_id)->first();
-        $product    = Product::where('id',$product_id)->first();
+        $product    = Product::where('active', 1)->where('id',$product_id)->first();
         if($stock){
             $after_add_stock            = $stock->product_stock + $request->size;
             $stock->product_stock       = $after_add_stock;
@@ -282,7 +282,7 @@ class Godown2Controller extends Controller
         elseif (!$product_id && $size){
             $productions = Godown2::where('size', $size)->orderBy('created_at', 'DESC')->paginate(15);
         }
-        $products = Product::orderBy('created_at', 'DESC')->get();
+        $products = Product::where('active', 1)->orderBy('created_at', 'DESC')->get();
 
         return view('godown2.index', compact('productions', 'products'));
     }

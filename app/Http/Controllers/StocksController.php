@@ -32,17 +32,17 @@ class StocksController extends Controller
 
         if (!empty($product_id)) {
             //$products->where('id',$product_id)
-            $stocks = Product::join('stocks','products.id','=','stocks.product_id')
+            $stocks = Product::where('active', 1)->join('stocks','products.id','=','stocks.product_id')
             ->select('stocks.*','products.name','products.size','products.sale_price', 'products.alert_quantity')
             ->latest()->groupBy('product_id')->where('products.id',$product_id)->paginate($perPage);
 
         } else {
-            $stocks = Product::join('stocks','products.id','=','stocks.product_id')
+            $stocks = Product::where('active',1)->join('stocks','products.id','=','stocks.product_id')
             ->select('stocks.*','products.name', 'products.size','products.sale_price', 'products.alert_quantity')
             ->latest()->groupBy('product_id')->paginate($perPage);
         }
 
-        $products = Product::join('stocks','products.id','=','stocks.product_id')
+        $products = Product::where('active',1)->join('stocks','products.id','=','stocks.product_id')
             ->select('stocks.*','products.name', 'products.size','products.sale_price', 'products.alert_quantity')->latest()->groupBy('product_id')->get();
         /*
         if (!empty($keyword)) {
@@ -66,7 +66,7 @@ class StocksController extends Controller
     public function create()
     {
         $products = [];
-        $product_data = Product::select('name','size','id')->get();
+        $product_data = Product::where('active',1)->select('name','size','id')->get();
         foreach ($product_data as $row) {
             $products[$row->id] = $row->name.'('.$row->size.')';
         }
@@ -123,7 +123,7 @@ class StocksController extends Controller
     {
         $stock = Stock::findOrFail($id);
         $product_carts = ProductCart::where('product_id',$stock->product_id)->orderBy('created_at', 'DESC')->get();
-        $product = Product::where('id', $stock->product_id)->first();
+        $product = Product::where('active',1)->where('id', $stock->product_id)->first();
         return view('stocks.show', compact('stock', 'product_carts', 'product'));
     }
 
@@ -138,7 +138,7 @@ class StocksController extends Controller
     {
         $stock = Stock::findOrFail($id);
         $products = [];
-        $product_data = Product::select('name','size','id')->get();
+        $product_data = Product::where('active',1)->select('name','size','id')->get();
         foreach ($product_data as $row) {
             $products[$row->id] = $row->name.'('.$row->size.')';
         }
@@ -195,7 +195,7 @@ class StocksController extends Controller
     public function getInvoiceInfo($id)
     {
        $productInvoice =  ProductCart::where('product_id',$id)->orderBy('created_at', 'DESC')->get();
-       $products = Product::pluck('name','id');
+       $products = Product::where('active',1)->pluck('name','id');
        $stock = Stock::where('product_id',$id)->first();
        // dd($stock);
        return view('stocks.invoice-index',compact('productInvoice','id','products','stock'));
@@ -217,7 +217,7 @@ class StocksController extends Controller
     {
         $stockDatas = StockData::where('product_id',$id)->orderBy('created_at', 'DESC')->get();
         $invoice_no = StockData::where('product_id',$id)->pluck('invoice_no');
-        $product_info = Product::where('id',$id)->first();
+        $product_info = Product::where('active',1)->where('id',$id)->first();
         $company = Company::latest()->first();
         $productId = $product_info->id;
         $stock = Stock::where('product_id',$id)->first();
@@ -228,7 +228,7 @@ class StocksController extends Controller
     {
         $perPage = 25;
         $start_serial = 1;
-        $stocks = Product::join('stocks','products.id','=','stocks.product_id')
+        $stocks = Product::where('active',1)->join('stocks','products.id','=','stocks.product_id')
             ->select('stocks.*','products.name','products.size','products.sale_price', 'products.alert_quantity')
             ->latest()->groupBy('product_id')->paginate($perPage);
         $company = Company::latest()->first();

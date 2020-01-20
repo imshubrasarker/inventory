@@ -89,6 +89,7 @@ class ProductsController extends Controller
         $product->discount          = $request->discount;
         $product->description       = $request->description;
         $product->alert_quantity    = $request->alert_quantity;
+        $product->active            = $request->active;
         $product->save();
 
         return redirect('products')->with('success', 'Product added!');
@@ -155,6 +156,7 @@ class ProductsController extends Controller
         $product->discount          = $request->discount;
         $product->description       = $request->description;
         $product->alert_quantity    = $request->alert_quantity;
+        $product->active            =  $request->active;
         $product->save();
 
         return redirect('products')->with('success', 'Product updated!');

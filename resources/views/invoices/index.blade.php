@@ -71,17 +71,16 @@ Invoices
                             <br/>
                             <br/>
                             <div class="table-responsive">
-                                <table class="table">
+                                <table class="table table-striped table-bordered table-hover">
                                     <thead>
-                                        <tr>
-                                            <th>Sl</th>
-                                            <th>Date</th>
-                                            <th>Invoice</th>
-                                            <th>Customer Name</th>
-                                            <th>Address</th>
-                                            <th>Amount</th>
-                                            <th>Note</th>
-                                            <th>Actions</th>
+                                        <tr style="color: #00a78e; ">
+                                            <th> <i class="fa fa-list-ol" aria-hidden="true"></i>  Sl</th>
+                                            <th><i class="fa fa-calendar" aria-hidden="true"></i>  Date</th>
+                                            <th><i class="fa fa-file-text" aria-hidden="true"></i>  Invoice</th>
+                                            <th><i class="fa fa-certificate" aria-hidden="true"></i>  Customer Name</th>
+                                            <th><i class="fa fa-map-o" aria-hidden="true"></i>  Address</th>
+                                            <th><i class="fa fa-money" aria-hidden="true"></i>  Amount</th>
+                                            <th><i class="fa fa-tasks" aria-hidden="true"></i>  Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>

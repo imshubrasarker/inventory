@@ -16,16 +16,19 @@ class Godown3Controller extends Controller
         if (!empty($product_id)) {
             //$products->where('id',$product_id)
             $stocks = Product::join('stocks','products.id','=','stocks.product_id')
+                ->where('active',1)
                 ->select('stocks.*','products.name','products.size','products.sale_price', 'products.alert_quantity')
                 ->latest()->groupBy('product_id')->where('products.id',$product_id)->paginate($perPage);
 
         } else {
             $stocks = Product::join('stocks','products.id','=','stocks.product_id')
+               ->where('active',1)
                 ->select('stocks.*','products.name', 'products.size','products.sale_price', 'products.alert_quantity')
                 ->latest()->groupBy('product_id')->paginate($perPage);
         }
 
         $products = Product::join('stocks','products.id','=','stocks.product_id')
+            ->where('active',1)
             ->select('stocks.*','products.name', 'products.size','products.sale_price', 'products.alert_quantity')->latest()->groupBy('product_id')->get();
         /*
         if (!empty($keyword)) {

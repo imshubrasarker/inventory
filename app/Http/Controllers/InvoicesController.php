@@ -92,7 +92,7 @@ class InvoicesController extends Controller
     {
         $customers = Customer::pluck('name','id');
         $products = [];
-        $product_data = Product::select('name','size','id')->get();
+        $product_data = Product::where('active', 1)->select('name','size','id')->get();
         foreach ($product_data as $row) {
             $products[$row->id] = $row->name.'('.$row->size.')';
         }
@@ -103,7 +103,7 @@ class InvoicesController extends Controller
     {
         $customers = Customer::pluck('name','id');
         $products = [];
-        $product_data = Product::select('name','size','id')->get();
+        $product_data = Product::where('active',1)->select('name','size','id')->get();
         foreach ($product_data as $row) {
             $products[$row->id] = $row->name.'('.$row->size.')';
         }
@@ -240,7 +240,7 @@ class InvoicesController extends Controller
     public function edit($id)
     {
         $invoice = Invoice::findOrFail($id);
-        $products = Product::pluck('name','id');
+        $products = Product::where('active',1)->pluck('name','id');
         $customers = Customer::pluck('name','id');
         return view('invoices.edit', compact('invoice','products','customers'));
     }

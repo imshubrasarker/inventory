@@ -73,14 +73,14 @@
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered">
                                         <thead class="thead-dark">
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Mobile</th>
-                                            <th scope="col">Address</th>
-                                            <th scope="col">Note</th>
-                                            <th scope="col">Balance</th>
-                                            <th scope="col">Actions</th>
+                                        <tr style="color: #00a78e">
+                                            <th><i class="fa fa-list-ol" aria-hidden="true"></i>  Sl</th>
+                                            <th scope="col"><i class="fa fa-certificate" aria-hidden="true"></i>  Name</th>
+                                            <th scope="col"><i class="fa fa-mobile" aria-hidden="true"></i>  Mobile</th>
+                                            <th scope="col"><i class="fa fa-map-marker" aria-hidden="true"></i>  Address</th>
+                                            <th scope="col"><i class="fa fa-sticky-note-o" aria-hidden="true"></i>  Note</th>
+                                            <th scope="col"><i class="fa fa-money" aria-hidden="true"></i>  Balance</th>
+                                            <th><i class="fa fa-tasks" aria-hidden="true"></i>  Actions</th>
                                         </tr>
                                         </thead>
                                         <tbody>
