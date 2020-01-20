@@ -37,7 +37,7 @@ class SearchController extends Controller
     public function getProductDetail(Request $request)
     {
         $product_id = $request->get('product_id');
-        $product = Product::where('id',$product_id)->first();
+        $product = Product::where('active',1)->where('id',$product_id)->first();
         $stocks = Stock::where('product_id',$product_id)->first();
         return response()->json(['product'=>$product,'stocks'=>$stocks]);
     }
