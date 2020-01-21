@@ -139,7 +139,7 @@ class CustomersController extends Controller
         $results = array();
         $customer = Customer::findOrFail($id);
         $invoices = Invoice::where('customer_id',$id)->latest()->get();
-        $payments = Payment::where('customer_id',$id)->latest()->get();
+        $payments = Payment::where('customer_id',$id)->where('flag', 0)->latest()->get();
 
         if($customer){
             $rows['created_at'] = $customer->created_at;

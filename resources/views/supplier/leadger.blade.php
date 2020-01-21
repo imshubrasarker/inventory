@@ -129,6 +129,7 @@
                                                                 <th>SL.</th>
                                                                 <th>Date</th>
                                                                 <th>Invoice</th>
+                                                                <th>Note</th>
                                                                 <th>Quantity</th>
                                                                 <th>Purchase Amount</th>
                                                                 <th>Paid Amount</th>
@@ -161,6 +162,7 @@
                                                                             @if($item['ivno'])
                                                                                 <a href="{{ url('/invoices-print/'.$item['ivno'] ) }}" style="cursor: pointer;"> {{ $item['ivno'] }}</a>
                                                                             @endif </td>
+                                                                        <td>{{ $item['note'] }}</td>
                                                                         <td style="width: 10%;">{{ $item['qty'] }}</td>
                                                                         <td style="width: 14%;">{{ $item['purAmount'] }}</td>
                                                                         <td style="width: 15%;">{{ $item['paidAmount'] }}</td>
@@ -197,13 +199,13 @@
                                                                 @endforeach
                                                             @endif
                                                             <tr>
-                                                                <td colspan="3" class="text-right">Total:</td>
+                                                                <td colspan="4" class="text-right">Total:</td>
                                                                 <td>{{ $qSum }}</td>
                                                                 <td>{{ $purAmount }}</td>
                                                                 <td>{{ $paidAmount }}</td>
                                                                 <td>{{ $gtotal }}</td>
                                                                 <td></td>
-                                                                <td></td>
+
                                                             </tr>
                                                             </tbody>
                                                         </table>
