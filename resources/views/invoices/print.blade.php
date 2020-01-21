@@ -264,7 +264,13 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @php
+                                                $total_with_fine = 0;
+                                            @endphp
                                             @foreach($product_info as $item)
+                                                @php
+                                                    $total_with_fine = $total_with_fine + ($item->final_price*$item->quantity);
+                                                @endphp
                                             <tr>
                                                 <td style="width: 1%;" class="no">{{ $loop->iteration }}</td>
                                                 <td style="width: 40%;" class="unit" >{{ $item->name }}</td>
@@ -282,7 +288,7 @@
                                                 <td>{{ $product_info->sum('quantity') }}</td>
                                                 <td></td>
                                                 <td></td>
-                                                <td><b>{{ $total_price }}</b></td>
+                                                <td><b>{{ $total_with_fine }}</b></td>
                                             </tr>
 {{--                                            <tr>--}}
 {{--                                                <td colspan="6" style="text-align: right;"><b>Commission</b></td>--}}
