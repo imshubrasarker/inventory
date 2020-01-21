@@ -159,6 +159,7 @@ class PaymentsController extends Controller
         $payment->amount            = $request->amount;
         $payment->notebar           = $request->notebar;
         $payment->user_id           = Auth::user()->id;
+        $payment->flag              = 0;
         $payment->save();
 
         if ($request->supplier_id)

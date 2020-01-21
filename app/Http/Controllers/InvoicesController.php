@@ -177,7 +177,8 @@ class InvoicesController extends Controller
                 'mobile_no' => $request->mobile_no,
                 'amount' => $request->advanced,
                 'notebar' => $request->notebar,
-                'user_id' => Auth::user()->id
+                'user_id' => Auth::user()->id,
+                'flag'    => 1
             ];
             Payment::create($data);
         }

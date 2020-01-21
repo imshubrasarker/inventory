@@ -80,6 +80,7 @@ Invoices
                                             <th><i class="fa fa-certificate" aria-hidden="true"></i>  Customer Name</th>
                                             <th><i class="fa fa-map-o" aria-hidden="true"></i>  Address</th>
                                             <th><i class="fa fa-money" aria-hidden="true"></i>  Amount</th>
+                                            <th><i class="fa fa-navicon" aria-hidden="true"></i>  Note</th>
                                             <th><i class="fa fa-tasks" aria-hidden="true"></i>  Actions</th>
                                         </tr>
                                     </thead>

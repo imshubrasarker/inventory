@@ -86,7 +86,7 @@
                                             <th scope="col">#</th>
                                             <th scope="col">Name</th>
                                             <th scope="col">Size</th>
-                                            <th scope="col">Color</th>
+                                            <th scope="col">Colors</th>
                                             <th scope="col">Quantity</th>
                                             <th scope="col">Note</th>
                                             <th scope="col">Date</th>
@@ -99,8 +99,21 @@
                                             <th scope="row">{{ $loop->index + 1 }}</th>
                                             <td>{{ $supplier->products['name'] }}</td>
                                             <td>{{ $supplier->size }}</td>
-                                            <td>{{ $supplier->godownUnits['unit_name'] }}</td>
-                                            <td>{{ $supplier->qty }}</td>
+                                            @php
+                                                $colors = \App\GodownUnit::where('product_id', $supplier->product_id)->get()
+                                            @endphp
+                                            <td>
+                                                @foreach($colors as $color)
+                                                    {{ $color->unit_name }}
+                                                    @if(count($colors) - 1 > $loop->index )
+                                                        ,
+                                                        @else
+                                                        .
+                                                    @endif
+                                                    @endforeach
+
+                                            </td>
+                                            <td>{{ \App\Godown2::where('product_id', $supplier->product_id)->sum('qty') }}</td>
                                             <td>{{ $supplier->note }}</td>
                                             <td>{{ $supplier->date }}</td>
                                             <td>
