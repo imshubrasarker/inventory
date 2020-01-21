@@ -294,7 +294,7 @@ class InvoicesController extends Controller
         $customer_info = Customer::where('id',$invoice_info->customer_id)->first();
         $product_info = ProductCart::join('products','product_carts.product_id','=','products.id')
                         ->where('product_carts.invoice_id',$invoice_no)
-                        ->select('products.name','products.size','products.unit_id', 'products.discount', 'products.sale_price','product_carts.quantity','product_carts.total_price', 'product_carts.invoice_id')
+                        ->select('products.name','products.size','products.unit_id', 'products.discount', 'products.sale_price', 'products.final_price','product_carts.quantity','product_carts.total_price', 'product_carts.invoice_id')
                         ->get();
         $total_discount = 0;
         $total_price = 0;

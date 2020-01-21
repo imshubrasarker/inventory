@@ -147,9 +147,16 @@
             $(".product_total_price").each(function () {
                 sum += Number($(this).val());
             });
-            var transport = $(".transport").val() ? $(".transport").val() : 0;
             $('.grand_total_price').val(Math.round(parseFloat(sum) ));
             cal_due_amount();
+        }
+
+        function total_cal_for_grand() {
+            sum = 0;
+            $(".product_total_price").each(function () {
+                sum += Number($(this).val());
+            });
+            $('.grand_total_price').val(Math.round(parseFloat(sum) ));
         }
 
         $('#discount').on('focusout', function () {
@@ -162,7 +169,7 @@
 
             var cures = <?php echo json_encode($products) ?>;
             rowCount++;
-            var html = '<div class="row" id="registration' + rowCount + '"><div class="col-md-4"><div class="form-group "><label for="product_id[]" class="control-label">Product</label><select class="form-control product_id product_id_' + rowCount + '" serial="' + rowCount + '" id="product_id[]" name="product_id[]"><option value="">Select Product</option><?php foreach($products as $key=>$value){ ?><option value="<?php echo $key; ?>"><?php echo stripslashes($value); ?></option> <?php } ?></select></div></div><div class="col-md-2"><div class="form-group "><label for="sale_price[]" class="control-label">Sale Price</label><input class="form-control" readonly="readonly" id="sale_price_' + rowCount + '" name="sale_price[]" type="text"></div></div><div class="col-md-2"><div class="form-group "><label for="available_quantity[]" class="control-label">Available Quantity</label><input class="form-control" readonly="readonly" id="available_quantity_' + rowCount + '" name="available_quantity[]" type="text"></div></div><div class="col-md-1"><div class="form-group "><label for="quantity[]" class="control-label">Quantity</label><input class="form-control quantity" serial="' + rowCount + '" name="quantity[]" type="text" id="quantity_' + rowCount + '"></div></div><div class="col-md-2"><div class="form-group "><label for="total_price[]" class="control-label">Total Price</label><input class="form-control product_total_price" readonly name="total_price[]" type="text" id="total_price_' + rowCount + '"></div></div><div class="col-md-1"> <br><button type="button"  class="removeButton" serial="' + rowCount + '" style="float:left;" title="' + rowCount + '"> <i class="fa fa-trash btn btn-danger"></i></button></div></div>';
+            var html = '<div class="row" id="registration' + rowCount + '"><div class="col-md-3"><div class="form-group "><label for="product_id[]" class="control-label">Product</label><select class="form-control product_id product_id_' + rowCount + '" serial="' + rowCount + '" id="product_id[]" name="product_id[]"><option value="">Select Product</option><?php foreach($products as $key=>$value){ ?><option value="<?php echo $key; ?>"><?php echo stripslashes($value); ?></option> <?php } ?></select></div></div><div class="col-md-2"><div class="form-group "><label for="sale_price[]" class="control-label">Sale Price</label><input class="form-control" readonly="readonly" id="sale_price_' + rowCount + '" name="sale_price[]" type="text"></div></div><div class="col-md-2"><div class="form-group "><label for="available_quantity[]" class="control-label">Available Quantity</label><input class="form-control" readonly="readonly" id="available_quantity_' + rowCount + '" name="available_quantity[]" type="text"></div></div><div class="col-md-2"><div class="form-group "><label for="quantity[]" class="control-label">Quantity</label><input class="form-control quantity" serial="' + rowCount + '" name="quantity[]" type="text" id="quantity_' + rowCount + '"></div></div><div class="col-md-2"><div class="form-group "><label for="total_price[]" class="control-label">Total Price</label><input class="form-control product_total_price" readonly name="total_price[]" type="text" id="total_price_' + rowCount + '"></div></div><div class="col-md-1"> <br><button type="button"  class="removeButton" serial="' + rowCount + '" style="float:left;" title="' + rowCount + '"> <i class="fa fa-trash btn btn-danger"></i></button></div></div>';
 
             $('#addedRows').append(html);
             $(".product_id_" + rowCount).select2();
@@ -193,12 +200,18 @@
             cal_due_amount();
         });
 
+        $(document).on('focusout', '#transport', function () {
+            cal_due_amount()
+        });
+
         function cal_due_amount() {
+            var due = 0;
+            total_cal_for_grand();
             var grand_price = $('.grand_total_price').val() ? $('.grand_total_price').val() : 0;
             var advanced = $("#advanced").val() ? $("#advanced").val() : 0;
             let discount = $('#discount').val() ? $('#discount').val() : 0;
             var transport = $(".transport").val() ? $(".transport").val() : 0;
-            var due = grand_price - advanced - discount + parseFloat(transport);
+            due = grand_price - advanced - discount + parseFloat(transport);
             $("#due_amount").val(Math.round(due));
             $('.grand_total_price').val(parseFloat(grand_price) + parseFloat(transport))
         }
@@ -210,10 +223,6 @@
             });
             $('#total_qty').val(Math.round(qsum));
         }
-
-        $(document).on('focusout', '.transport', function () {
-            cal_due_amount()
-        })
 
         function cal_transport() {
             var transport = 0;

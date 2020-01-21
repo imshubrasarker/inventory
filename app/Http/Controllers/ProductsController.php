@@ -70,11 +70,11 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->discount != null){
+        if ($request->discount != null) {
             $discount = $request->discount/100;
             $discount_amount = $request->sale_price*$discount;
             $final_price = $request->sale_price-$discount_amount;
-        }else {
+        } else {
            $final_price = $request->sale_price;
         }
 

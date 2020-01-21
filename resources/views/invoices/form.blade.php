@@ -49,7 +49,7 @@
     <div class="col-md-6">
         <div class="form-group {{ $errors->has('transport') ? 'has-error' : ''}}">
             <label for="transport" class="form-label">Transport</label>
-            <input type="text" name="transport" class="form-control transport">
+            <input type="text" name="transport" class="form-control transport" id="transport">
         </div>
     </div>
 </div>
