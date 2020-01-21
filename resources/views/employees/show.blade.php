@@ -174,7 +174,7 @@ Employee {{ $employee->id }}
                                                 $toatl_payable = $toatl_payable + $item->paid_salary;
                                                 $total = $total + $item['balance'];
                                             } else if($employee->salary_type == 'monthly'){
-                                                $balance = $balance + $item->employee->balance - $item->balance;
+                                                $balance = $balance + ($item->balance - $item->employee->balance);
                                                 $toatl_payable = $toatl_payable + $item->balance;
                                                 $total = $total + $item->employee->balance;
                                             }
