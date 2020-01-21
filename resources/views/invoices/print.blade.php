@@ -273,8 +273,8 @@
                                                 <td style="width: 8%;" class="total" >
                                                     @if(isset($units[$item->unit_id])) {{ $units[$item->unit_id] }} @endif
                                                 </td>
-                                                <td style="width: 8%;">{{ $item->sale_price }}</td>
-                                                <td class="total" style="width: 11%;" ><b>{{ $item->sale_price*$item->quantity }}</b></td>
+                                                <td style="width: 8%;">{{ $item->final_price }}</td>
+                                                <td class="total" style="width: 11%;" ><b>{{ $item->final_price*$item->quantity }}</b></td>
                                             </tr>
                                             @endforeach
                                             <tr>
@@ -284,10 +284,10 @@
                                                 <td></td>
                                                 <td><b>{{ $total_price }}</b></td>
                                             </tr>
-                                            <tr>
-                                                <td colspan="6" style="text-align: right;"><b>Commission</b></td>
-                                                <td><b>{{ $total_discount }}</b></td>
-                                            </tr>
+{{--                                            <tr>--}}
+{{--                                                <td colspan="6" style="text-align: right;"><b>Commission</b></td>--}}
+{{--                                                <td><b>{{ $total_discount }}</b></td>--}}
+{{--                                            </tr>--}}
                                             <tr>
                                                 <td colspan="6" style="text-align: right;"><b>Discount Amount</b></td>
                                                 <td><b>{{ $invoice_info->discount }}</b></td>

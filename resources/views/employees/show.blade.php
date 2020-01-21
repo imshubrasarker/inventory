@@ -147,6 +147,8 @@ Employee {{ $employee->id }}
                                         <th>Date</th>
                                         @if($employee->salary_type == 'monthly')
                                             <th colspan="2">Month Of Salary</th>
+                                        @else
+                                            <th>Rate</th>
                                         @endif
                                         <th>Note</th>
                                         @if($employee->salary_type == 'production')
@@ -166,14 +168,15 @@ Employee {{ $employee->id }}
                                     @endphp
                                     @foreach ($employee->salaries as $item)
                                         @php
-                                            $total = $total + $item['balance'];
                                             $total_qty = $total_qty + $item['qty_desc'];
                                             if ($employee->salary_type == 'production') {
                                                 $balance = $balance + $item->paid_salary - $item->balance;
                                                 $toatl_payable = $toatl_payable + $item->paid_salary;
+                                                $total = $total + $item['balance'];
                                             } else if($employee->salary_type == 'monthly'){
                                                 $balance = $balance + $item->employee->balance - $item->balance;
                                                 $toatl_payable = $toatl_payable + $item->balance;
+                                                $total = $total + $item->employee->balance;
                                             }
                                         @endphp
                                         <tr>
@@ -182,6 +185,8 @@ Employee {{ $employee->id }}
 
                                             @if($employee->salary_type == 'monthly')
                                                 <td colspan="2">{{ date('M-Y', strtotime($item['month'])) }}</td>
+                                            @else
+                                                <td>{{ $item['rate'] }}</td>
                                             @endif
 
                                             <td>{{ $item['note'] }}</td>
@@ -191,25 +196,29 @@ Employee {{ $employee->id }}
                                             @endif
 
                                             @if($employee->salary_type == 'production')
-                                                <td>{{ $item->paid_salary }}</td>
+                                                <td>{{ round($item->paid_salary) }}</td>
                                             @elseif($employee->salary_type == 'monthly')
-                                                <td>{{ $item->balance }}</td>
+                                                <td>{{ round($item->balance) }}</td>
                                             @endif
 
                                             @if($employee->salary_type == 'production')
-                                                <td>{{ $item['balance'] }}</td>
+                                                <td>{{ round($item['balance']) }}</td>
                                             @elseif($employee->salary_type == 'monthly')
                                                 <td>{{ $item->employee->balance }}</td>
                                             @endif
-                                            <td>{{ $balance }}</td>
+                                            <td>{{ round($balance) }}</td>
                                         </tr>
                                     @endforeach
                                     <tr>
-                                        <td colspan="3" class="text-right">Total</td>
-                                        <td>{{ $total_qty }}</td>
-                                        <td>{{ $toatl_payable }}</td>
-                                        <td>{{ $total }}</td>
-                                        <td>{{ $balance }}</td>
+                                        @if($employee->salary_type == 'production')
+                                            <td colspan="4" class="text-right">Total</td>
+                                            <td>{{ $total_qty }}</td>
+                                        @else
+                                            <td colspan="5" class="text-right">Total</td>
+                                        @endif
+                                        <td>{{ round($toatl_payable) }}</td>
+                                        <td>{{ round($total) }}</td>
+                                        <td>{{ round($balance) }}</td>
                                     </tr>
                                     </tbody>
                                 </table>
